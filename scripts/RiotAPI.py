@@ -77,6 +77,7 @@ class RiotAPI(object):
     ]
 
     def __init__(self, api_key, region=REGIONS['global']):
+        region = region.lower()
         self.api_key = api_key
         if region in RiotAPI.REGIONS:
             self.region = RiotAPI.REGIONS[region]
@@ -86,7 +87,7 @@ class RiotAPI(object):
             raise NameError("Error with region name.")
 
 
-    def _requests(self, api_type, api_url, params={}):
+    def _requests(self, api_type, api_url, params, retries, retry_wait_seconds, retry_timeout_seconds):
         args = {"api_key": self.api_key}
         args.update(params.items())
         if api_type == "lol-status":
@@ -106,18 +107,25 @@ class RiotAPI(object):
             )
 
         got_response = False
+        current_time = 0
         while not got_response:
             response = requests.get(full_req, params=args)
-            if response.status_code == 429 or response.status_code == 503:
-                print "retrying in 30 seconds"
-                time.sleep(30)
+            if retries:
+                if response.status_code == 429 or response.status_code >= 500:
+                    if current_time >= retry_timeout_seconds:
+                        raise Exception("call to {} timed out".format(full_req))
+                    print "Error: {}, retrying in {} seconds".format(response.status_code, retry_wait_seconds)
+                    time.sleep(retry_wait_seconds)
+                    current_time += retry_wait_seconds
+                else:
+                    got_response = True
             else:
-                got_response = True
+                break
         response.raise_for_status()
         return response.json()
 
 
-    def call(self, request):
+    def call(self, request, retries=False, retry_wait_seconds=10, retry_timeout_seconds=1800):
         api_type = request.api[0]
         api_url = RiotAPI.URL
         for i in request.api:
@@ -137,7 +145,6 @@ class RiotAPI(object):
             if i in args:
                 del args[i]
         try:
-            return self._requests(api_type, api_url.lower(), args)
+            return self._requests(api_type, api_url.lower(), args, retries, retry_wait_seconds, retry_timeout_seconds)
         except:
             raise
-
