@@ -6,14 +6,17 @@ import sys
 API_KEY = apiKey.API_KEY
 
 INPUT_PATH_BASE = "AP_ITEM_DATASET/{patch}/{queueType}/{region}.json"
-OUTPUT_PATH_BASE = "MATCH_DATA/{patch}/{queueType}/{region}/{fileindex}.json"
+OUTPUT_PATH_BASE = "MATCH_DATA/{patch}/{queueType}/{region}/{filepatch}-{filequeue}-{fileregion}-{fileindex}.json"
 
 REGIONS = ["NA"]
-
 PATCHES = ["5.11", "5.14"]
-QUEUETYPES = ["NORMAL_5X5", "RANKED_SOLO"]
+QUEUETYPES = {
+    "NORMAL_5X5":"normal",
+    "RANKED_SOLO":"ranked"
+    }
 
 MATCHES_PER_FILE = 10
+
 
 def main():
 
@@ -54,7 +57,7 @@ def main():
                             sys.exit(1)
                         combined_resp["sequence{}".format(sequence)] = resp
 
-                    output_path = OUTPUT_PATH_BASE.format(patch=patch, queueType=queueType, region=region, fileindex=fileindex)
+                    output_path = OUTPUT_PATH_BASE.format(patch=patch, queueType=queueType, region=region, filepatch=patch.replace(".", ""), filequeue=QUEUETYPES[queueType], fileregion=region.lower(), fileindex=fileindex)
                     print "dumping to {}".format(output_path)
 
                     with open(output_path, 'w') as fp:

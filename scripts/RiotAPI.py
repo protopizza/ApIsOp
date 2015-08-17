@@ -67,7 +67,16 @@ class RiotAPI(object):
 
     REGIONS = {
         "global":"global",
-        "north_america":"na"
+        "brazil":"br",
+        "europe_nordic_and_east":"eune",
+        "europe_west":"euw",
+        "korea":"kr",
+        "latin_america_north":"lan",
+        "latin_america_south":"las",
+        "north_america":"na",
+        "oceania":"oce",
+        "turkey":"tr",
+        "russia":"ru"
     }
 
 
