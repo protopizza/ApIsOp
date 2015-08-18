@@ -4,69 +4,68 @@
     <meta charset="UTF-8">
     <title>AP is OP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="styles/main.css">
     <link rel="stylesheet" type="text/css" href="styles/semantic.css">
     <link rel="stylesheet" type="text/css" href="styles/font-awesome/css/font-awesome.css">
 </head>
 <body>
-    <div class="ui centered grid" id="navbar">
+<div class="ui centered grid" id="navbar">
+    <div class="center aligned column">
+        <div class="ui inverted segment">
+            <div class="ui inverted compact menu">
+                <a class="item" href="#">about</a>
+                <a class="item" href="//github.com/protopizza/ApIsOp">github</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ui center aligned text container">
+    <h5 class="ui header">Our goal is to provide visualizations of various statistics related to the changes in Ability Power Items, such as time-specific average item choices, win rate, champion association, and to index this by queue type and rank.</h5>
+
+    <h4 class="ui horizontal divider header">
+        <i class="fa fa-heart"></i>AP is OP
+    </h4>
+
+    <div class="ui two column middle aligned very relaxed stackable grid" style="position:relative">
         <div class="center aligned column">
-            <div class="ui inverted segment">
-                <div class="ui inverted compact menu">
-                    <a class="item" href="#">about</a>
-                    <a class="item" href="//github.com/protopizza/ApIsOp">github</a>
+            <div id="champselect-A" class="ui fluid multiple search normal selection dropdown champselect">
+                <input type="hidden" name="champion">
+                <i class="dropdown icon"></i>
+                <div class="default text">Select 5 Champions</div>
+                <div class="menu">
+                    <div class="item" data-value="af"><i class="af flag"></i>Afghanistan</div>
+                    <div class="item" data-value="ax"><i class="ax flag"></i>Aland Islands</div>
+                    <div class="item" data-value="al"><i class="al flag"></i>Albania</div>
+                    <div class="item" data-value="dz"><i class="dz flag"></i>Algeria</div>
+                    <div class="item" data-value="as"><i class="as flag"></i>American Samoa</div>
+                </div>
+            </div>
+        </div>
+        <div class="ui vertical divider">&</div>
+        <div class="center aligned column">
+            <div id="champselect-B" class="ui fluid multiple search normal selection dropdown champselect">
+                <input type="hidden" name="champion">
+                <i class="dropdown icon"></i>
+                <div class="default text">Select 5 Champions</div>
+                <div class="menu">
+                    <div class="item" data-value="af"><i class="af flag"></i>Afghanistan</div>
+                    <div class="item" data-value="ax"><i class="ax flag"></i>Aland Islands</div>
+                    <div class="item" data-value="al"><i class="al flag"></i>Albania</div>
+                    <div class="item" data-value="dz"><i class="dz flag"></i>Algeria</div>
+                    <div class="item" data-value="as"><i class="as flag"></i>American Samoa</div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<div class="footer">
+    <p style="text-align:center"><span class="fa fa-heart"></span> AP is OP</p>
+</div>
 
-    <div class="ui center aligned text container">
-        <h5 class="ui header">Our goal is to provide visualizations of various statistics related to the changes in Ability Power Items, such as time-specific average item choices, win rate, champion association, and to index this by queue type and rank.</h5>
-
-        <h4 class="ui horizontal divider header">
-            <i class="fa fa-heart"></i>AP is OP
-        </h4>
-
-        <div class="ui two column middle aligned very relaxed stackable grid" style="position:relative">
-            <div class="center aligned column">
-                <div class="ui fluid multiple search normal selection dropdown">
-                    <input type="hidden" name="champion">
-                    <i class="dropdown icon"></i>
-                    <div class="default text">Select 5 Champions</div>
-                    <div class="menu">
-                        <div class="item" data-value="af"><i class="af flag"></i>Afghanistan</div>
-                        <div class="item" data-value="ax"><i class="ax flag"></i>Aland Islands</div>
-                        <div class="item" data-value="al"><i class="al flag"></i>Albania</div>
-                        <div class="item" data-value="dz"><i class="dz flag"></i>Algeria</div>
-                        <div class="item" data-value="as"><i class="as flag"></i>American Samoa</div>
-                    </div>
-                </div>
-            </div>
-            <div class="ui vertical divider">&</div>
-            <div class="center aligned column">
-                <div class="ui fluid multiple search normal selection dropdown">
-                    <input type="hidden" name="champion">
-                    <i class="dropdown icon"></i>
-                    <div class="default text">Select 5 Champions</div>
-                    <div class="menu">
-                        <div class="item" data-value="af"><i class="af flag"></i>Afghanistan</div>
-                        <div class="item" data-value="ax"><i class="ax flag"></i>Aland Islands</div>
-                        <div class="item" data-value="al"><i class="al flag"></i>Albania</div>
-                        <div class="item" data-value="dz"><i class="dz flag"></i>Algeria</div>
-                        <div class="item" data-value="as"><i class="as flag"></i>American Samoa</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer">
-        <p style="text-align:center"><span class="fa fa-heart"></span> AP is OP</p>
-    </div>
-
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/semantic-ui/dist/semantic.js"></script>
-    <script src="js/main.js"></script>
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/semantic-ui/dist/semantic.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
