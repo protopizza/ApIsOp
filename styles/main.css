@@ -1,0 +1,12 @@
+#navbar {
+    margin-bottom: 10px;
+}
+.footer {
+    margin-top: 50px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 19px;
+    border-top: 1px solid #e5e5e5;
+    color: #777;
+    text-align: center; 
+}
