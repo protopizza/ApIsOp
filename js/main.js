@@ -4,7 +4,7 @@ $('.ui.dropdown').dropdown({
     maxSelections: 5
 });
 
-$.getJSON('champions.json', function(data){
+$.getJSON('data/static/champions.json', function(data){
     $.each(data.data, function(key, val){
         champs.push(val.name);
     })
