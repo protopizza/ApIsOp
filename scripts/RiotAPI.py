@@ -85,7 +85,11 @@ class RiotAPI(object):
         "RANKED_TEAM_5x5"
     ]
 
+    RETRY_WAIT_SECONDS = 12
+    RETRY_TIMEOUT_SECONDS = 1800
+
     def __init__(self, api_key, region=REGIONS['global']):
+        self.REQUEST_QUEUE = []
         region = region.lower()
         self.api_key = api_key
         if region in RiotAPI.REGIONS:
@@ -96,7 +100,7 @@ class RiotAPI(object):
             raise NameError("Error with region name.")
 
 
-    def _requests(self, api_type, api_url, params, retries, retry_wait_seconds, retry_timeout_seconds):
+    def _requests(self, api_type, api_url, params, retries):
         args = {"api_key": self.api_key}
         args.update(params.items())
         if api_type == "lol-status":
@@ -121,11 +125,11 @@ class RiotAPI(object):
             response = requests.get(full_req, params=args)
             if retries:
                 if response.status_code == 429 or response.status_code >= 500:
-                    if current_time >= retry_timeout_seconds:
+                    if current_time >= RETRY_TIMEOUT_SECONDS:
                         raise Exception("call to {} timed out".format(full_req))
-                    print "Error: {}, retrying in {} seconds".format(response.status_code, retry_wait_seconds)
-                    time.sleep(retry_wait_seconds)
-                    current_time += retry_wait_seconds
+                    print "Error: {}, retrying in {} seconds".format(response.status_code, RETRY_WAIT_SECONDS)
+                    time.sleep(RETRY_WAIT_SECONDS)
+                    current_time += RETRY_WAIT_SECONDS
                 else:
                     got_response = True
             else:
@@ -134,7 +138,7 @@ class RiotAPI(object):
         return response.json()
 
 
-    def call(self, request, retries=False, retry_wait_seconds=10, retry_timeout_seconds=1800):
+    def call(self, request, retries=True):
         api_type = request.api[0]
         api_url = RiotAPI.URL
         for i in request.api:
@@ -154,6 +158,6 @@ class RiotAPI(object):
             if i in args:
                 del args[i]
         try:
-            return self._requests(api_type, api_url.lower(), args, retries, retry_wait_seconds, retry_timeout_seconds)
+            return self._requests(api_type, api_url.lower(), args, retries)
         except:
             raise

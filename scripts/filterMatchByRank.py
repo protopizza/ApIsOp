@@ -10,7 +10,7 @@ API_KEY = apiKey.API_KEY
 INPUT_PATH_BASE = "MATCH_DATA/{patch}/RANKED_SOLO/{region}/{filepatch}-ranked-{fileregion}-{fileindex}.json"
 OUTPUT_PATH_BASE = "MATCH_DATA/{patch}/RANKED_SOLO/{region}/{league}/{filepatch}-ranked-{fileregion}-{filetier}-{fileindex}.json"
 
-REGIONS = ["BR", "EUNE", "EUW", "KR", "LAN", "LAS", "NA", "OCE", "RU", "TR"]
+REGIONS = ["NA"] #["BR", "EUNE", "EUW", "KR", "LAN", "LAS", "NA", "OCE", "RU", "TR"]
 PATCHES = ["5.11", "5.14"]
 
 # can tweak these values for testing 1000/10/10 is correct
@@ -38,8 +38,24 @@ MATCHES = {
     "DIAMOND": {
         "index": 0,
         "data": {}
+    },
+    "MASTER": {
+        "index": 0,
+        "data": {}
+    },
+    "CHALLENGER": {
+        "index": 0,
+        "data": {}
     }
 }
+
+
+def printMatches():
+    '''
+        testing purposes
+    '''
+    for match_tier in MATCHES:
+        print "{} index:{} len:{}".format(match_tier, MATCHES[match_tier]["index"], len(MATCHES[match_tier]["data"]))
 
 
 def dumpMatchFile(tier, patch, region):
@@ -61,6 +77,7 @@ def addMatch(match, tier, patch, region):
         when the match count for a given tier reaches 11, we'll dump the 10 previous matches of that tier into the next filename possible, then add in the new match to the dict
         since matches won't be dumped to file until they reach 11, we'll use flushFinalMatches to flush out everything leftover at the end of each patch section
     '''
+    # printMatches()
     if len(MATCHES[tier]["data"]) >= 10:
         dumpMatchFile(tier, patch, region)
         MATCHES[tier]["data"] = {}
@@ -126,17 +143,15 @@ def convertRankToRawPoints(tier="", division=""):
 
 def convertRawPointsToRank(points=0):
     '''
-        since there isn't that much data above diamond, we'll just return master and challenger matches as DIAMOND and refer to it as DIAMOND+
-
         not necessarily accurate but we'll count UNRANKED matches as BRONZE. I haven't seen any unranked matches and if there are any, there
         are very few of them
     '''
     if points == 0:
         return "BRONZE"
-    # elif points == 26:
-    #     return "MASTER"
-    # elif points == 27:
-    #     return "CHALLENGER"
+    elif points == 26:
+        return "MASTER"
+    elif points == 27:
+        return "CHALLENGER"
 
     tier_points = (points - 1)/ 5
     if tier_points == 0:
@@ -181,7 +196,7 @@ def main():
                         league_req_ids = {"summonerIds":current_ids}
                         req = Request(league_req_api, league_req_ids)
                         try:
-                            resp = api.call(req, True)
+                            resp = api.call(req)
                             '''
                                 NOTE: a 404 indicates that the player is UNRANKED. However when requesting with 10 summonerIDs at once, they just don't return any response for that ID
                             '''
@@ -210,7 +225,6 @@ def main():
                         rounded_avg = int(math.ceil(float(avg) / float(PLAYERS_PER_MATCH)))
 
                         addMatch(match_data[sequence_field], convertRawPointsToRank(rounded_avg), patch, region)
-                        break
 
             flushFinalMatches(patch, region)
 

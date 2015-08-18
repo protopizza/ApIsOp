@@ -8,7 +8,7 @@ API_KEY = apiKey.API_KEY
 INPUT_PATH_BASE = "AP_ITEM_DATASET/{patch}/{queueType}/{region}.json"
 OUTPUT_PATH_BASE = "MATCH_DATA/{patch}/{queueType}/{region}/{filepatch}-{filequeue}-{fileregion}-{fileindex}.json"
 
-REGIONS = ["NA"]
+REGIONS = ["NA"] #["BR", "EUNE", "EUW", "KR", "LAN", "LAS", "NA", "OCE", "RU", "TR"]
 PATCHES = ["5.11", "5.14"]
 QUEUETYPES = {
     "NORMAL_5X5":"normal",
@@ -51,7 +51,7 @@ def main():
                         req = Request(match_req_api, match_req_ids)
 
                         try:
-                            resp = api_client.call(req, True)
+                            resp = api_client.call(req)
                         except Exception as e:
                             print e
                             sys.exit(1)
