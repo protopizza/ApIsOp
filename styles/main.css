@@ -1,6 +1,24 @@
 #navbar {
     margin-bottom: 10px;
 }
+#champselect-A.ui.multiple.dropdown > .label,
+#champselect-B.ui.multiple.dropdown > .label {
+    line-height: 2em;
+    text-align: center;
+    width: inherit;
+}
+
+#champselect-A > .ui.label > img,
+#champselect-B > .ui.label > img{
+    float: left;
+}
+
+#champselect-A > .ui.label > i.delete.icon,
+#champselect-A > .ui.label > i.delete.icon{
+    float: right;
+    line-height: 2em;
+}
+
 .footer {
     margin-top: 50px;
     padding-left: 15px;
