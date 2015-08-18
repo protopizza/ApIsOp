@@ -85,11 +85,11 @@ class RiotAPI(object):
         "RANKED_TEAM_5x5"
     ]
 
-    RETRY_WAIT_SECONDS = 12
+    RETRY_WAIT_SECONDS = 10
     RETRY_TIMEOUT_SECONDS = 1800
 
+
     def __init__(self, api_key, region=REGIONS['global']):
-        self.REQUEST_QUEUE = []
         region = region.lower()
         self.api_key = api_key
         if region in RiotAPI.REGIONS:
@@ -125,11 +125,11 @@ class RiotAPI(object):
             response = requests.get(full_req, params=args)
             if retries:
                 if response.status_code == 429 or response.status_code >= 500:
-                    if current_time >= RETRY_TIMEOUT_SECONDS:
+                    if current_time >= RiotAPI.RETRY_TIMEOUT_SECONDS:
                         raise Exception("call to {} timed out".format(full_req))
-                    print "Error: {}, retrying in {} seconds".format(response.status_code, RETRY_WAIT_SECONDS)
-                    time.sleep(RETRY_WAIT_SECONDS)
-                    current_time += RETRY_WAIT_SECONDS
+                    print "Error: {}, retrying in {} seconds".format(response.status_code, RiotAPI.RETRY_WAIT_SECONDS)
+                    time.sleep(RiotAPI.RETRY_WAIT_SECONDS)
+                    current_time += RiotAPI.RETRY_WAIT_SECONDS
                 else:
                     got_response = True
             else:
