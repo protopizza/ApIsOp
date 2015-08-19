@@ -28,6 +28,10 @@
     line-height: 2em;
 }
 
+.ui.list > .item > img.image + .content{
+    text-align: left;
+}
+
 #fight{
     margin-top: 3em;
 }
