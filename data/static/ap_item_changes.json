@@ -1,0 +1,82 @@
+{
+  "1026": {
+    "name": "Blasting Wand",
+    "id": "1026",
+    "change": "Cost -10g"
+  },
+  "1058": {
+    "name": "Needlessly Large Rod",
+    "id": "1058",
+    "change": "Cost -350g, AP -20"
+  },
+  "3003": {
+    "name": "Archangel's Staff",
+    "id": "3003",
+    "change": "Cost +300g, AP +20, recipe changed"
+  },
+  "3027": {
+    "name": "Rod of Ages",
+    "id": "3027",
+    "change": "Cost -100g, HP -100, mana -50, mana Growth 2x, AP Growth 2x"
+  },
+  "3048": {
+    "name": "Seraph's Embrace",
+    "id": "3048",
+    "change": "AP +20"
+  },
+  "3089": {
+    "name": "Rabadon's Deathcap",
+    "id": "3089",
+    "change": "Cost +200g, AP Bonus +5%, recipe improved"
+  },
+  "3115": {
+    "name": "Nashor's Tooth",
+    "id": "3115",
+    "change": "Cost +80g, AS -10%, AP +20"
+  },
+  "3116": {
+    "name": "Rylai's Crystal Scepter",
+    "id": "<3116></3116>",
+    "change": "Cost +100g, recipe changed, slowing effects buffed"
+  },
+  "3135": {
+    "name": "Void Staff",
+    "id": "3135",
+    "change": "Cost +205g, AP +10"
+  },
+  "3136": {
+    "name": "Haunting Guise",
+    "id": "3136",
+    "change": "Cost +20g"
+  },
+  "3151": {
+    "name": "Liandry's Torment",
+    "id": "3151",
+    "change": "Cost +100g, AP +30, recipe improved"
+  },
+  "3152": {
+    "name": "Will of the Ancients",
+    "id": "3152",
+    "change": "Spell vamp changed to new passive"
+  },
+  "3157": {
+    "name": "Zhonya's Hourglass",
+    "id": "3157",
+    "change": "Cost -300g, AP -20"
+  },
+  "3165": {
+    "name": "Morellonomicon",
+    "id": "3165",
+    "change": "Recipe improved"
+  },
+  "3174": {
+    "name": "Athene's Unholy Grail",
+    "id": "3174",
+    "change": "Recipe improved"
+  },
+  "3285": {
+    "name": "Luden's Echo",
+    "id": "3285",
+    "change": "Cost -300g, AP -20, MS +3%"
+  }
+}
