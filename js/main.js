@@ -1,4 +1,5 @@
 var champs = [];
+var champsFull = {};
 
 $('.ui.dropdown').dropdown({
     maxSelections: 5
@@ -6,6 +7,7 @@ $('.ui.dropdown').dropdown({
 
 $.getJSON('data/static/champions.json', function(data){
     var champsObj = data.data;
+    champsFull = champsObj;
     // console.log(champsObj);
     $.each(data.data, function(key, val){
         champs.push(key);
@@ -25,9 +27,9 @@ $("#fight").click(function() {
     if(checkFive()){
         for(var i = 0; i < champsA.length; i++){
             $('.sideA:eq(' + i + ')').find('img').attr('src', 'assets/' + champsA[i] + '.png');
-            $('.sideA:eq(' + i + ')').find('.content').text(champsA[i]);
+            $('.sideA:eq(' + i + ')').find('.content').text(champsFull[champsA[i]].name);
             $('.sideB:eq(' + i + ')').find('img').attr('src', 'assets/' + champsB[i] + '.png');
-            $('.sideB:eq(' + i + ')').find('.content').text(champsB[i]);
+            $('.sideB:eq(' + i + ')').find('.content').text(champsFull[champsB[i]].name);
         }
 
         $('#result').show();
@@ -65,7 +67,7 @@ function downloadItems(){
     $.getJSON('data/static/items511.json', function(data){
         var itemsObj = data.data;
         $.each(data.data, function(key, val){
-            
+
         })
     })
 }
