@@ -31,14 +31,12 @@ Sample json champion output data:
             "averageKda": 6,
             "averageDamageDealt": 14000,
             "mostCommonItems": {
-              "item0": {
-                "itemId": 123,
+              "123": {
                 "isApItem": "yes",
                 "buyPercentage": 80,
                 "averageTimeBought": "15:00"
               },
-              "item1": {
-                "itemId": 456,
+              "456": {
                 "isApItem": "no",
                 "buyPercentage": 65,
                 "averageTimeBought": "25:00"
@@ -88,24 +86,8 @@ STATIC_DATA_ITEMS = {
     "5.11":"data/static/items511.json",
     "5.14":"data/static/items514.json"
 }
+STATIC_AP_ITEM_CHANGES = "data/static/ap_item_changes.json"
 
-CHAMPION_DATA = {}
-
-'''
-    I need to consider if we will have "hidden" fields that won't make it into the final output, for example it might be slightly
-    more accurate to keep track of matches won and continuously recalculate winRate, or continuously recalculate winRate via previous winRate and matchesCounter
-
-    however the change in accuracy is probably negligible and having edge cases like that isn't ideal
-'''
-CHAMPION_DATA_FIELDS = [
-    "winRate",
-    "matchesCounted",
-    "averageCsPerMin",
-    "averageGoldPerMin",
-    "averageKda",
-    "averageDamageDealt",
-    "mostCommonItems"
-]
 
 REGIONS = ["NA"] #["BR", "EUNE", "EUW", "KR", "LAN", "LAS", "NA", "OCE", "RU", "TR"]
 PATCHES = ["5.11", "5.14"]
@@ -118,14 +100,34 @@ RANKED_TIERS = {
         "NO_RANK"
     ],
     "RANKED_SOLO":[
-        "BRONZE", "SILVER", "GOLD", "PLATINUM", "DIAMOND+" #this order is important
+        "BRONZE", "SILVER", "GOLD", "PLATINUM", "DIAMOND+"
     ]
 }
 
 DIAMOND_PLUS = ["DIAMOND", "MASTER", "CHALLENGER"]
+MAX_MATCHES_PER_FILE = 10
+PLAYERS_PER_MATCH = 10
+POSSIBLE_ITEM_SLOTS = 6 #exclude trinket
+COMMON_ITEMS_TO_KEEP = 6
 
 MIDPOINT_FILES = []
+CHAMPION_ID_TABLE = {}
+CHAMPION_DATA = {}
 
+CHANGED_AP_ITEMS = {}
+
+
+def buildChampionIdTable():
+    global CHAMPION_ID_TABLE
+    with open(STATIC_DATA_CHAMPIONS, 'r') as fp:
+        static_champion_data = json.load(fp)
+
+        for champion in static_champion_data["data"]:
+            champId = static_champion_data["data"][champion]["id"]
+            CHAMPION_ID_TABLE[champId] = champion
+    global CHANGED_AP_ITEMS
+    with open(STATIC_AP_ITEM_CHANGES, 'r') as fp:
+        CHANGED_AP_ITEMS = json.load(fp)
 
 
 def constructChampionDict():
@@ -136,13 +138,173 @@ def constructChampionDict():
 
         for champion in static_champion_data["data"]:
             CHAMPION_DATA[champion] = {}
+
             CHAMPION_DATA[champion]["matchesCounted"] = 0
+            CHAMPION_DATA[champion]["winRate"] = 0
+            CHAMPION_DATA[champion]["matchesWon"] = 0
+            CHAMPION_DATA[champion]["averageCsAt10"] = 0
+            CHAMPION_DATA[champion]["averageCsPerMin"] = 0
+            CHAMPION_DATA[champion]["averageGoldPerMin"] = 0
+            CHAMPION_DATA[champion]["averageKda"] = 0
+            CHAMPION_DATA[champion]["averageTotalDamageDealt"] = 0
+            CHAMPION_DATA[champion]["averageTotalDamageDealtToChampions"] = 0
+            CHAMPION_DATA[champion]["averageMagicDamageDealt"] = 0
+            CHAMPION_DATA[champion]["averageMagicDamageDealtToChampions"] = 0
             CHAMPION_DATA[champion]["mostCommonItems"] = {}
+
+
+def calculateNewAverage(old_value, new_value, original_match_count):
+    return (old_value * original_match_count + new_value) / (original_match_count + 1)
+
+
+def genericMetricUpdate(championKey, metric, new_value, original_match_count):
+    global CHAMPION_DATA
+    old_value = CHAMPION_DATA[championKey][metric]
+    CHAMPION_DATA[championKey][metric] = calculateNewAverage(old_value, new_value, original_match_count)
+
+
+def checkSpecialItemCases(item):
+    '''
+        some items aren't bought, they are automatically converted to from a different item, so we'll replace with the old item id
+
+        seraph's embrace -> archangel's staff
+
+        muramana -> manamune
+
+        i could build a structure to look these up but since they're hardcoded anyway i'll just put in the values
+    '''
+    if item == 3040:
+        item = 3003
+    elif item == 3042:
+        item = 3004
+    return item
+
+
+def findTimeBought(match_timeline, participant, item):
+    item = checkSpecialItemCases(item)
+    for frame in match_timeline["frames"]:
+        if "events" not in frame:
+            continue
+        for event in frame["events"]:
+            if event["eventType"] != "ITEM_PURCHASED" or event["itemId"] != item or event["participantId"] != participant:
+                continue
+            else:
+                return event["timestamp"]
+
 
 
 def parseMatchesData(matches_data, destination_tier):
     global CHAMPION_DATA
-    pass
+
+    try:
+        for sequence in range(MAX_MATCHES_PER_FILE):
+            # print "====="
+            match = matches_data["sequence{}".format(sequence)]
+            match_length = match["matchDuration"]
+            match_length_minutes = float(match_length) / 60
+            match_timeline = match["timeline"]
+
+            for participant in match["participants"]:
+                participantId = participant["participantId"]
+                championKey = CHAMPION_ID_TABLE[participant["championId"]]
+                stats = participant["stats"]
+                timeline = participant["timeline"]
+
+
+                metric = "matchesCounted"
+                original_matches_counted = CHAMPION_DATA[championKey][metric]
+                CHAMPION_DATA[championKey][metric] = original_matches_counted + 1
+
+
+                if stats["winner"]:
+                    CHAMPION_DATA[championKey]["matchesWon"] += 1
+                CHAMPION_DATA[championKey]["winRate"] = "{:0.2f}".format(float(CHAMPION_DATA[championKey]["matchesWon"]) / float(CHAMPION_DATA[championKey]["matchesCounted"]) * 100)
+
+
+
+                metric = "averageCsAt10"
+                new_value = timeline["creepsPerMinDeltas"]["zeroToTen"]
+                genericMetricUpdate(championKey, metric, new_value, original_matches_counted)
+
+
+                metric = "averageCsPerMin"
+                raw = stats["minionsKilled"] + stats["neutralMinionsKilled"]
+                new_value = float(raw)/float(match_length_minutes)
+                genericMetricUpdate(championKey, metric, new_value, original_matches_counted)
+
+
+                metric = "averageGoldPerMin"
+                raw = stats["goldEarned"]
+                new_value = float(raw)/float(match_length_minutes)
+                genericMetricUpdate(championKey, metric, new_value, original_matches_counted)
+
+
+                metric = "averageKda"
+                deaths = stats["deaths"]
+                if deaths == 0:
+                    deaths = 1
+                new_value = (float(stats["kills"]) + float(stats["assists"])) / float(deaths)
+                genericMetricUpdate(championKey, metric, new_value, original_matches_counted)
+
+
+                metric = "averageTotalDamageDealt"
+                new_value = stats["totalDamageDealt"]
+                genericMetricUpdate(championKey, metric, new_value, original_matches_counted)
+
+
+                metric = "averageTotalDamageDealtToChampions"
+                new_value = stats["totalDamageDealtToChampions"]
+                genericMetricUpdate(championKey, metric, new_value, original_matches_counted)
+
+
+                metric = "averageMagicDamageDealt"
+                new_value = stats["magicDamageDealt"]
+                genericMetricUpdate(championKey, metric, new_value, original_matches_counted)
+
+
+                metric = "averageMagicDamageDealtToChampions"
+                new_value = stats["magicDamageDealtToChampions"]
+                genericMetricUpdate(championKey, metric, new_value, original_matches_counted)
+
+
+
+                metric = "mostCommonItems"
+                for index in range(POSSIBLE_ITEM_SLOTS):
+                    item = stats["item{}".format(index)]
+                    if item == 0:
+                        continue
+
+                    '''
+                        Sometimes the purchasing of an item doesn't show up in the event history (excluding Muramana/Seraph's).
+                        I'm not sure what causes this -- possibly buying the item right as the match is ending (due to killing nexus or surrender)
+                        To work around this, I'll set the time bought to the match duration... alternatively we could just discard it
+                    '''
+                    time_bought = findTimeBought(match_timeline, participantId, item)
+                    if time_bought == None:
+                        # print "{} {} skipped, match {}, {}".format(participantId, item, match["matchId"], index)
+                        # continue
+                        time_bought = match_length * 1000 #milliseconds
+
+
+                    if item in CHAMPION_DATA[championKey][metric]:
+                        CHAMPION_DATA[championKey][metric][item]["buyCount"] += 1
+                    else:
+                        CHAMPION_DATA[championKey][metric][item] = {}
+                        CHAMPION_DATA[championKey][metric][item]["id"] = item
+                        CHAMPION_DATA[championKey][metric][item]["buyCount"] = 1
+                        CHAMPION_DATA[championKey][metric][item]["averageTimeBought"] = 0
+                        if str(item) in CHANGED_AP_ITEMS:
+                            CHAMPION_DATA[championKey][metric][item]["isApItem"] = "yes"
+                        else:
+                            CHAMPION_DATA[championKey][metric][item]["isApItem"] = "no"
+
+                    CHAMPION_DATA[championKey][metric][item]["buyPercentage"] = float(CHAMPION_DATA[championKey][metric][item]["buyCount"]) / float(CHAMPION_DATA[championKey]["matchesCounted"]) * 100
+
+                    original_average_time_bought = CHAMPION_DATA[championKey][metric][item]["averageTimeBought"]
+                    CHAMPION_DATA[championKey][metric][item]["averageTimeBought"] = calculateNewAverage(original_average_time_bought, time_bought, original_matches_counted)
+                # print championKey, CHAMPION_DATA[championKey]
+    except:
+        print "no more matches left in this file"
 
 
 def readFilesByType(region, patch, queueType, tier):
@@ -173,6 +335,18 @@ def flushAllData(region, patch, queueType, destination_tier):
             MIDPOINT_FILES.append(output_file)
 
 
+def filterOnlyMostCommonItems(json_data):
+    common_items = []
+    data = {}
+    for item in json_data["mostCommonItems"]:
+        common_items.append(json_data["mostCommonItems"][item])
+    common_items.sort(key=lambda x: x["buyPercentage"], reverse=True)
+    for index in range(min(len(common_items), COMMON_ITEMS_TO_KEEP)):
+        data[common_items[index]["id"]] = common_items[index]
+    json_data["mostCommonItems"] = data
+    return json_data
+
+
 def pasteMidpointFilesTogether():
     for championKey in CHAMPION_DATA:
         championData = {}
@@ -191,8 +365,9 @@ def pasteMidpointFilesTogether():
                         try:
                             with open(input_file, 'r') as fp:
                                 json_data = json.load(fp)
-                                championData[championKey][region][patch][queueType][tier] = json_data[championKey]
-                        except:
+                                json_data = filterOnlyMostCommonItems(json_data)
+                                championData[championKey][region][patch][queueType][tier] = json_data
+                        except IOError:
                             print "no data for {} in {}/{}/{}/{}".format(championKey, tier, queueType, patch, region)
 
         output_file = OUTPUT_PATH_BASE.format(championKey=championKey)
@@ -209,13 +384,9 @@ def cleanupMidpointFiles():
 
 def main():
 
-    for region in REGIONS:
-        try:
-            api = RiotAPI(API_KEY, region=region)
-        except NameError as e:
-            print e
-            sys.exit(1)
+    buildChampionIdTable()
 
+    for region in REGIONS:
         for patch in PATCHES:
             for queueType in QUEUETYPES:
                 for tier in RANKED_TIERS[queueType]:
@@ -226,9 +397,6 @@ def main():
                     else:
                         readFilesByType(region, patch, queueType, tier)
                     flushAllData(region, patch, queueType, tier)
-                    break
-                break
-            break
 
 
     pasteMidpointFilesTogether()
