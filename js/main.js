@@ -1,6 +1,7 @@
 var champs = [];
 var champsFull = {};
 
+$('.ui.accordion').accordion();
 $('.ui.dropdown').dropdown({
     maxSelections: 5
 });
@@ -36,6 +37,7 @@ $("#fight").click(function() {
         $('html,body').animate({
             scrollTop: $("#result").offset().top
         }, 'slow');
+
 
         // grab json data here
     }
