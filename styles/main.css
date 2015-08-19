@@ -1,6 +1,13 @@
 #navbar {
     margin-bottom: 10px;
 }
+#navbar * .ui.inverted.segment{
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 1001;
+}
 #champselect-A.ui.multiple.dropdown > .label,
 #champselect-B.ui.multiple.dropdown > .label {
     line-height: 2em;
@@ -14,7 +21,9 @@
 }
 
 #champselect-A > .ui.label > i.delete.icon,
-#champselect-A > .ui.label > i.delete.icon{
+#champselect-A > .ui.label > i.delete.icon,
+#champselect-B > .ui.label > i.delete.icon,
+#champselect-B > .ui.label > i.delete.icon{
     float: right;
     line-height: 2em;
 }

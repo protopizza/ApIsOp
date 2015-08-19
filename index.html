@@ -20,8 +20,9 @@
         </div>
     </div>
 </div>
+<div style="height:70px;clear:both;"></div>
 
-<div class="ui center aligned text container">
+<div class="ui center aligned text container" id="search">
     <h5 class="ui header">Our goal is to provide visualizations of various statistics related to the changes in Ability Power Items, such as time-specific average item choices, win rate, champion association, and to index this by queue type and rank.</h5>
 
     <h4 class="ui horizontal divider header">
@@ -31,7 +32,7 @@
     <div class="ui two column middle aligned very relaxed stackable grid" style="position:relative">
         <div class="center aligned column">
             <div id="champselect-A" class="ui fluid multiple search normal selection dropdown champselect">
-                <input type="hidden" name="champion">
+                <input type="hidden" name="championA">
                 <i class="dropdown icon"></i>
                 <div class="default text">Select 5 Champions</div>
                 <div class="menu">
@@ -42,7 +43,7 @@
         <div class="ui vertical divider">vs</div>
         <div class="center aligned column">
             <div id="champselect-B" class="ui fluid multiple search normal selection dropdown champselect">
-                <input type="hidden" name="champion">
+                <input type="hidden" name="championB">
                 <i class="dropdown icon"></i>
                 <div class="default text">Select 5 Champions</div>
                 <div class="menu">
@@ -53,6 +54,126 @@
     </div>
 
     <div id="fight" class="ui primary button">fight!</div>
+</div>
+<div style="clear:both;height:50px;"></div>
+<div class="ui center aligned fluid container" id="result" style="display:none">
+    <div class="ui two column middle aligned relaxed grid" id="champgrid">
+        <div class="row">
+            <div class="column">
+                <div class="ui raised segment">
+                    <h4 class="ui header sideA">
+                        <img src="assets/Caitlyn.png">
+                        <div class="content">Caitlyn
+                            <div class="sub header">ADC</div>
+                        </div>
+                    </h4>
+                </div>
+            </div>
+            <div class="ui vertical divider">vs</div>
+            <div class="column">
+                <div class="ui raised segment">
+                    <h4 class="ui header sideB">
+                        <img src="assets/Caitlyn.png">
+                        <div class="content">Caitlyn
+                            <div class="sub header">ADC</div>
+                        </div>
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <div class="ui raised segment">
+                    <h4 class="ui header sideA">
+                        <img src="assets/Caitlyn.png">
+                        <div class="content">Caitlyn
+                            <div class="sub header">ADC</div>
+                        </div>
+                    </h4>
+                </div>
+            </div>
+            <div class="ui vertical divider">vs</div>
+            <div class="column">
+                <div class="ui raised segment">
+                    <h4 class="ui header sideB">
+                        <img src="assets/Caitlyn.png">
+                        <div class="content">Caitlyn
+                            <div class="sub header">ADC</div>
+                        </div>
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <div class="ui raised segment">
+                    <h4 class="ui header sideA">
+                        <img src="assets/Caitlyn.png">
+                        <div class="content">Caitlyn
+                            <div class="sub header">ADC</div>
+                        </div>
+                    </h4>
+                </div>
+            </div>
+            <div class="ui vertical divider">vs</div>
+            <div class="column">
+                <div class="ui raised segment">
+                    <h4 class="ui header sideB">
+                        <img src="assets/Caitlyn.png">
+                        <div class="content">Caitlyn
+                            <div class="sub header">ADC</div>
+                        </div>
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <div class="ui raised segment">
+                    <h4 class="ui header sideA">
+                        <img src="assets/Caitlyn.png">
+                        <div class="content">Caitlyn
+                            <div class="sub header">ADC</div>
+                        </div>
+                    </h4>
+                </div>
+            </div>
+            <div class="ui vertical divider">vs</div>
+            <div class="column">
+                <div class="ui raised segment">
+                    <h4 class="ui header sideB">
+                        <img src="assets/Caitlyn.png">
+                        <div class="content">Caitlyn
+                            <div class="sub header">ADC</div>
+                        </div>
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <div class="ui raised segment">
+                    <h4 class="ui header sideA">
+                        <img src="assets/Caitlyn.png">
+                        <div class="content">Caitlyn
+                            <div class="sub header">ADC</div>
+                        </div>
+                    </h4>
+                </div>
+            </div>
+            <div class="ui vertical divider">vs</div>
+            <div class="column">
+                <div class="ui raised segment">
+                    <h4 class="ui header sideB">
+                        <img src="assets/Caitlyn.png">
+                        <div class="content">Caitlyn
+                            <div class="sub header">ADC</div>
+                        </div>
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="footer">
     <p style="text-align:center"><span class="fa fa-heart"></span> AP is OP</p>
