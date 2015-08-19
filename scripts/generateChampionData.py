@@ -48,9 +48,7 @@ Sample json champion output data:
           "SILVER": {},
           "GOLD": {},
           "PLATINUM": {},
-          "DIAMOND": {},
-          "MASTER": {},
-          "CHALLENGER": {}
+          "DIAMOND+": {}
         }
       },
       "5.14": {
@@ -60,9 +58,7 @@ Sample json champion output data:
           "SILVER": {},
           "GOLD": {},
           "PLATINUM": {},
-          "DIAMOND": {},
-          "MASTER": {},
-          "CHALLENGER": {}
+          "DIAMOND+": {}
         }
       }
     }
@@ -84,8 +80,8 @@ API_KEY = apiKey.API_KEY
 
 NORMAL_INPUT_PATH_BASE = "MATCH_DATA/{patch}/NORMAL_5X5/{region}/{filepatch}-normal-{fileregion}-{fileindex}.json"
 RANKED_INPUT_PATH_BASE = "MATCH_DATA/{patch}/RANKED_SOLO/{region}/{tier}/{filepatch}-ranked-{fileregion}-{filetier}-{fileindex}.json"
-MIDPOINT_FILE_BASE = "data/champion/{championId}-{region}-{patch}-{queueType}-{rank}.json"
-OUTPUT_PATH_BASE = "data/champion/{championName}.json"
+MIDPOINT_FILE_BASE = "data/champion/{championKey}-{region}-{patch}-{queueType}-{rank}.json"
+OUTPUT_PATH_BASE = "data/champion/{championKey}.json"
 
 STATIC_DATA_CHAMPIONS = "data/static/champions.json"
 STATIC_DATA_ITEMS = {
@@ -118,40 +114,97 @@ QUEUETYPES = {
     "RANKED_SOLO":"ranked"
     }
 RANKED_TIERS = {
-    "NORMAL_5X5":{
+    "NORMAL_5X5":[
         "NO_RANK"
-    },
-    "RANKED_SOLO":{
-        "BRONZE", "SILVER", "GOLD", "PLATINUM", "DIAMOND", "MASTER", "CHALLENGER"
-    }
+    ],
+    "RANKED_SOLO":[
+        "BRONZE", "SILVER", "GOLD", "PLATINUM", "DIAMOND+" #this order is important
+    ]
 }
+
+DIAMOND_PLUS = ["DIAMOND", "MASTER", "CHALLENGER"]
+
+MIDPOINT_FILES = []
+
 
 
 def constructChampionDict():
-    global CHAMPION_DATA = {}
+    global CHAMPION_DATA
+    CHAMPION_DATA = {}
     with open(STATIC_DATA_CHAMPIONS, 'r') as fp:
         static_champion_data = json.load(fp)
 
         for champion in static_champion_data["data"]:
-            CHAMPION_DATA[champion["id"]] = {}
-            CHAMPION_DATA[champion["id"]]["matchesCounted"] = 0
-            CHAMPION_DATA[champion["id"]]["mostCommonItems"] = {}
+            CHAMPION_DATA[champion] = {}
+            CHAMPION_DATA[champion]["matchesCounted"] = 0
+            CHAMPION_DATA[champion]["mostCommonItems"] = {}
 
 
-def flushAllData(region, patch, queueType, tier):
-    for championId in CHAMPION_DATA:
-        output_file = MIDPOINT_FILE_BASE.format(championId=championId, patch=patch, queueType=queueType, rank=tier)
-        with open(output_file, "w") as fp:
-            json.dump(fp, CHAMPION_DATA[championId])
+def parseMatchesData(matches_data, destination_tier):
+    global CHAMPION_DATA
+    pass
+
+
+def readFilesByType(region, patch, queueType, tier):
+    fileindex = 0
+    try:
+        while (True):
+            BASE_PATH = ""
+            if QUEUETYPES[queueType] == "ranked":
+                BASE_PATH = RANKED_INPUT_PATH_BASE.format(patch=patch, region=region, filepatch=patch.replace(".", ""), tier=tier, fileregion=region, filetier=tier.lower(), fileindex=fileindex)
+            else:
+                BASE_PATH = NORMAL_INPUT_PATH_BASE.format(patch=patch, region=region, filepatch=patch.replace(".", ""), fileregion=region, fileindex=fileindex)
+            print "reading from {}...".format(BASE_PATH)
+            with open(BASE_PATH, 'r') as fp:
+                matches_data = json.load(fp)
+                parseMatchesData(matches_data, tier)
+            fileindex += 1
+    except IOError:
+        print "done reading tier:{} in queueType:{} in patch:{} in region:{}".format(tier, queueType, patch, region)
+
+
+def flushAllData(region, patch, queueType, destination_tier):
+    global MIDPOINT_FILES
+    for championKey in CHAMPION_DATA:
+        output_file = MIDPOINT_FILE_BASE.format(championKey=championKey, region=region, patch=patch, queueType=queueType, rank=destination_tier)
+        print "dumping to {}".format(output_file)
+        with open(output_file, 'w') as fp:
+            json.dump(CHAMPION_DATA[championKey], fp)
+            MIDPOINT_FILES.append(output_file)
 
 
 def pasteMidpointFilesTogether():
-    for championId in CHAMPION_DATA:
-        print championId
+    for championKey in CHAMPION_DATA:
+        championData = {}
+        championData[championKey] = {}
+        for region in REGIONS:
+            championData[championKey][region] = {}
+            for patch in PATCHES:
+                championData[championKey][region][patch] = {}
+                for queueType in QUEUETYPES:
+                    championData[championKey][region][patch][queueType] = {}
+                    for tier in RANKED_TIERS[queueType]:
+                        championData[championKey][region][patch][queueType][tier] = {}
+                        input_file = MIDPOINT_FILE_BASE.format(championKey=championKey, region=region, patch=patch, queueType=queueType, rank=tier)
+                        # print "reading from midpoint file:{}...".format(input_file)
+
+                        try:
+                            with open(input_file, 'r') as fp:
+                                json_data = json.load(fp)
+                                championData[championKey][region][patch][queueType][tier] = json_data[championKey]
+                        except:
+                            print "no data for {} in {}/{}/{}/{}".format(championKey, tier, queueType, patch, region)
+
+        output_file = OUTPUT_PATH_BASE.format(championKey=championKey)
+        with open(output_file, 'w') as fp:
+            json.dump(championData, fp)
 
 
-def parseMatchesData(matches_data):
-    pass
+def cleanupMidpointFiles():
+    for f in MIDPOINT_FILES:
+        print "cleaning up {}...".format(f)
+        os.remove(f)
+    print "done cleaning"
 
 
 def main():
@@ -167,24 +220,19 @@ def main():
             for queueType in QUEUETYPES:
                 for tier in RANKED_TIERS[queueType]:
                     constructChampionDict()
-                    fileindex = 0
-                    try:
-                        while (True):
-                            BASE_PATH = ""
-                            if QUEUETYPES[queueType] = "ranked":
-                                BASE_PATH = RANKED_INPUT_PATH_BASE.format(patch=patch, region=region, filepatch=patch.remove(".", ""), fileregion=region, fileindex=fileindex)
-                            else:
-                                BASE_PATH = NORMAL_INPUT_PATH_BASE.format(patch=patch, region=region, filepatch=patch.remove(".", ""), tier=tier, fileregion=region, filetier=tier.lower(), fileindex=fileindex)
-                            print "reading from {}...".format(BASE_PATH)
-                            with open(BASE_PATH, 'r') as fp:
-                                matches_data = json.load(fp)
-                                parseMatchesData(matches_data)
-                            fileindex += 1
-                    except IOError:
-                        print "done reading tier:{} in queueType:{} in patch:{} in region:{}".format(tier, queueType, patch, region)
+                    if tier == "DIAMOND+":
+                        for destination_tier in DIAMOND_PLUS:
+                            readFilesByType(region, patch, queueType, destination_tier)
+                    else:
+                        readFilesByType(region, patch, queueType, tier)
                     flushAllData(region, patch, queueType, tier)
+                    break
+                break
+            break
+
 
     pasteMidpointFilesTogether()
+    cleanupMidpointFiles()
     print "done"
     sys.exit(0)
 
