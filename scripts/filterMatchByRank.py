@@ -1,3 +1,10 @@
+'''
+    Used after downloading matches, this filters out all the matches into specific tiers for ranked queueType matches
+    To do this we read all the downloaded files and stores matches by a calculated rank (average of rank across all 10 players) into a dictionary
+    which we periodically flush
+'''
+
+
 from RiotAPI import RiotAPI, Request
 import apiKey
 import json

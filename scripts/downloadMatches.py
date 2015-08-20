@@ -1,3 +1,7 @@
+'''
+    Here we get the json response of all matches in the dataset and write them to their own unique filename
+'''
+
 from RiotAPI import Request, RiotAPI
 import apiKey
 import json
