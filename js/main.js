@@ -38,7 +38,6 @@ $("#fight").click(function() {
             scrollTop: $("#result").offset().top
         }, 'slow');
 
-
         // grab json data here
     }
 });
@@ -63,13 +62,4 @@ function checkFive(){
     champsA = dropdownA;
     champsB = dropdownB;
     return true;
-}
-
-function downloadItems(){
-    $.getJSON('data/static/items511.json', function(data){
-        var itemsObj = data.data;
-        $.each(data.data, function(key, val){
-
-        })
-    })
 }
