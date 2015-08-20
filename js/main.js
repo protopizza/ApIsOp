@@ -18,7 +18,7 @@ $.getJSON('data/static/champions.json', function(data){
     // console.log(champs);
     for( var i in champs ){
         $(".dropdown .menu").append(
-            '<div class="item" data-value="' + champs[i] + '"><img class="ui avatar image" src="assets/' + champs[i] + '.png">' + champsObj[champs[i]].name + '</div>');
+            '<div class="item" data-value="' + champs[i] + '"><img class="ui avatar image" src="assets/champs/' + champs[i] + '.png">' + champsObj[champs[i]].name + '</div>');
     }
 })
 
@@ -27,9 +27,9 @@ $('#champselect-B').dropdown('refresh');
 $("#fight").click(function() {
     if(checkFive()){
         for(var i = 0; i < champsA.length; i++){
-            $('.sideA:eq(' + i + ')').find('img').attr('src', 'assets/' + champsA[i] + '.png');
+            $('.sideA:eq(' + i + ')').find('img').attr('src', 'assets/champs/' + champsA[i] + '.png');
             $('.sideA:eq(' + i + ')').find('.content').text(champsFull[champsA[i]].name);
-            $('.sideB:eq(' + i + ')').find('img').attr('src', 'assets/' + champsB[i] + '.png');
+            $('.sideB:eq(' + i + ')').find('img').attr('src', 'assets/champs/' + champsB[i] + '.png');
             $('.sideB:eq(' + i + ')').find('.content').text(champsFull[champsB[i]].name);
         }
 
