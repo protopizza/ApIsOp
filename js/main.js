@@ -1,49 +1,62 @@
-var champs = [];
-var champsFull = {};
+initChamps();
+initUI();
 
-$('.ui.accordion').accordion();
-$('.ui.dropdown').dropdown({
-    maxSelections: 5
-});
+function initChamps(){
+    $.getJSON('data/static/champions.json', function(data){
+        var champsObj = data.data;
+        champsFull = champsObj;
+        // console.log(champsObj);
+        $.each(data.data, function(key, val){
+            champs.push(key);
+        })
 
-$.getJSON('data/static/champions.json', function(data){
-    var champsObj = data.data;
-    champsFull = champsObj;
-    // console.log(champsObj);
-    $.each(data.data, function(key, val){
-        champs.push(key);
-    })
-
-    champs.sort();
-    // console.log(champs);
-    for( var i in champs ){
-        $(".dropdown .menu").append(
-            '<div class="item" data-value="' + champs[i] + '"><img class="ui avatar image" src="assets/champs/' + champs[i] + '.png">' + champsObj[champs[i]].name + '</div>');
-    }
-})
-
-$('#champselect-A').dropdown('refresh');
-$('#champselect-B').dropdown('refresh');
-$("#fight").click(function() {
-    if(checkFive()){
-        for(var i = 0; i < champsA.length; i++){
-            $('.sideA:eq(' + i + ')').find('img').attr('src', 'assets/champs/' + champsA[i] + '.png');
-            $('.sideA:eq(' + i + ')').find('.content').text(champsFull[champsA[i]].name);
-            $('.sideB:eq(' + i + ')').find('img').attr('src', 'assets/champs/' + champsB[i] + '.png');
-            $('.sideB:eq(' + i + ')').find('.content').text(champsFull[champsB[i]].name);
+        champs.sort();
+        // console.log(champs);
+        for( var i in champs ){
+            $(".dropdown .menu").append(
+                '<div class="item" data-value="' + champs[i] + '"><img class="ui avatar image" src="assets/champs/' + champs[i] + '.png">' + champsObj[champs[i]].name + '</div>');
         }
+    })
+}
 
-        $('#result').show();
-        $('html,body').animate({
-            scrollTop: $("#result").offset().top
-        }, 'slow');
+function initUI(){
+    $('.ui.accordion').accordion();
+    $('.ui.dropdown').dropdown({
+        maxSelections: 5
+    });
+    
+    $("#fight").click(function() {
+        if(checkFive()){
+            getPatchData(champsA, champsB);
+            for(var i = 0; i < selections.length; i++){
+                fillChampDetails();
+            }
+            for(var i = 0; i < champsA.length; i++){
+                $('.sideA:eq(' + i + ')').find('img').attr('src', 'assets/champs/' + champsA[i] + '.png');
+                $('.sideA:eq(' + i + ')').find('.content').text(champsFull[champsA[i]].name);
+                $('.sideB:eq(' + i + ')').find('img').attr('src', 'assets/champs/' + champsB[i] + '.png');
+                $('.sideB:eq(' + i + ')').find('.content').text(champsFull[champsB[i]].name);
+            }
 
-        // grab json data here
-    }
-});
+            $('#result').show();
+            $('html,body').animate({
+                scrollTop: $("#result").offset().top
+            }, 'slow');
 
-var champsA = [];
-var champsB = [];
+            $('.filter-buttons > img').click(function(){
+                var id = $(this).attr('id');
+                $('#'+id).addClass('select-filter');
+                $('.filter-buttons > img').not('#'+id).removeClass('select-filter');
+            })
+            $('.patch-select > button').click(function(){
+                var id = $(this).attr('id');
+                $('#'+id).addClass('positive active');
+                $('.patch-select > button').not('#'+id).removeClass('positive active');
+            })
+        }
+    });
+}
+
 function checkFive(){
     var dropdownA = $('#champselect-A').dropdown('get value');
     var dropdownB = $('#champselect-B').dropdown('get value');
@@ -62,4 +75,8 @@ function checkFive(){
     champsA = dropdownA;
     champsB = dropdownB;
     return true;
+}
+
+function fillChampDetails(){
+
 }

@@ -35,9 +35,7 @@
           <input type="hidden" name="championA">
           <i class="dropdown icon"></i>
           <div class="default text">Select 5 Champions</div>
-          <div class="menu">
-            <!-- <div class="item" data-value="as"><i class="as flag"></i>American Samoa</div> -->
-          </div>
+          <div class="menu"></div>
         </div>
       </div>
       <div class="ui vertical divider">vs</div>
@@ -46,25 +44,44 @@
           <input type="hidden" name="championB">
           <i class="dropdown icon"></i>
           <div class="default text">Select 5 Champions</div>
-          <div class="menu">
-            <!-- <div class="item" data-value="as"><i class="as flag"></i>American Samoa</div> -->
-          </div>
+          <div class="menu"></div>
         </div>
       </div>
     </div>
 
     <div id="fight" class="ui primary button">fight!</div>
   </div>
-  <div style="clear:both;height:50px;"></div>
   <div class="ui center aligned fluid container" id="result" style="display:none">
+    <div style="clear:both;height:50px;"></div>
+    <h3 class="ui horizontal divider header">
+      <i class="fa fa-bar-chart"></i> Details
+    </h3>
+    <div class="ui center aligned text container" id="filter">
+      <div class="ui raised segment">
+        <div class="ui top attached inverted black label">Filter Results</div>
+        <div class="ui images filter-buttons">
+          <img class="ui image select-filter" id="unranked" src="assets/rank/provisional.png">
+          <img class="ui image" id="bronze" src="assets/rank/bronze.png">
+          <img class="ui image" id="silver" src="assets/rank/silver.png">
+          <img class="ui image" id="gold" src="assets/rank/gold.png">
+          <img class="ui image" id="platinum" src="assets/rank/platinum.png">
+          <img class="ui image" id="diamond" src="assets/rank/diamond.png">
+        </div>
+        <div class="patch-select">
+          <button class="ui left attached tiny positive active button" id="511">5.11</button>
+          <button class="right attached ui tiny button" id="514">5.14</button>
+        </div>
+      </div>
+    </div>
+    <div style="clear:both;height:20px;"></div>
     <div class="ui two column middle aligned grid" id="champgrid">
       <div class="row">
         <div class="column">
-          <div class="ui raised red segment">
+          <div class="ui  red segment">
             <div class="ui accordion">
               <div class="title active">
                 <h4 class="ui header sideA">
-                  <img src="assets/Caitlyn.png">
+                  <img src="assets/champs/Caitlyn.png">
                   <div class="content">Caitlyn
                     <div class="sub header">ADC</div>
                   </div>
@@ -72,142 +89,69 @@
                 </h4>
               </div>
               <div class="content active">
-                <div class="compiled-stats">
-                  <div class="ui two column middle aligned divided grid" id="patches">
-                    <div class="row">
-                      <div class="column" id="patch511">
-                        <div class="ui block header patch-header">Patch 5.11</div>
-                        <div class="ui small horizontal divided list summary-stats">
-                          <div class="item win-rate">
-                            <div class="ui mini blue statistic">
-                              <div class="value">50.94%</div>
-                              <div class="label">Win rate</div>
-                            </div>
-                          </div>
-                          <div class="item kda">
-                            <div class="ui mini violet statistic">
-                              <div class="value">8.00</div>
-                              <div class="label">KDA</div>
-                            </div>
-                          </div>
-                          <div class="item gold-min">
-                            <div class="ui mini orange statistic">
-                              <div class="value">5.01</div>
-                              <div class="label">Average <br/> Gold/Min</div>
-                            </div>
-                          </div>
-                          <div class="item tot-dmg">
-                            <div class="ui mini teal statistic">
-                              <div class="value">17,042</div>
-                              <div class="label">Total dmg <br/> to champs</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="ui small list top-items">
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                        </div>
+                <div class="compiled-stats patch-block">
+                  <div class="ui block header patch-header">Patch 5.11 <img class="ui mini image" src="assets/rank/diamond.png"></div>
+                  <div class="ui small horizontal divided list summary-stats">
+                    <div class="item win-rate">
+                      <div class="ui mini blue statistic">
+                        <div class="value">50.94%</div>
+                        <div class="label">Win rate</div>
                       </div>
-                      <div class="column" id="patch514">
-                        <div class="ui block header patch-header">Patch 5.14</div>
-                        <div class="ui small horizontal divided list summary-stats">
-                          <div class="item win-rate">
-                            <div class="ui mini blue statistic">
-                              <div class="value">50.94%</div>
-                              <div class="label">Win rate</div>
-                            </div>
-                          </div>
-                          <div class="item kda">
-                            <div class="ui mini violet statistic">
-                              <div class="value">8.00</div>
-                              <div class="label">KDA</div>
-                            </div>
-                          </div>
-                          <div class="item gold-min">
-                            <div class="ui mini orange statistic">
-                              <div class="value">5.01</div>
-                              <div class="label">Average <br/> Gold/Min</div>
-                            </div>
-                          </div>
-                          <div class="item tot-dmg">
-                            <div class="ui mini teal statistic">
-                              <div class="value">17,042</div>
-                              <div class="label">Total dmg <br/> to champs</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="ui small list top-items">
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                        </div>
+                    </div>
+                    <div class="item kda">
+                      <div class="ui mini violet statistic">
+                        <div class="value">8.00</div>
+                        <div class="label">KDA</div>
+                      </div>
+                    </div>
+                    <div class="item gold-min">
+                      <div class="ui mini orange statistic">
+                        <div class="value">5.01</div>
+                        <div class="label">Average <br/> Gold/Min</div>
+                      </div>
+                    </div>
+                    <div class="item tot-dmg">
+                      <div class="ui mini teal statistic">
+                        <div class="value">17,042</div>
+                        <div class="label">Total dmg <br/> to champs</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ui small list top-items">
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
                       </div>
                     </div>
                   </div>
@@ -217,11 +161,11 @@
           </div>
         </div>
         <div class="column">
-          <div class="ui raised blue segment">
+          <div class="ui  blue segment">
             <div class="ui accordion">
               <div class="title active">
                 <h4 class="ui header sideB">
-                  <img src="assets/Caitlyn.png">
+                  <img src="assets/champs/Caitlyn.png">
                   <div class="content">Caitlyn
                     <div class="sub header">ADC</div>
                   </div>
@@ -229,142 +173,69 @@
                 </h4>
               </div>
               <div class="content active">
-                <div class="compiled-stats">
-                  <div class="ui two column middle aligned divided grid">
-                    <div class="row">
-                      <div class="column" id="patch511">
-                        <div class="ui block header patch-header">Patch 5.11</div>
-                        <div class="ui small horizontal divided list summary-stats">
-                          <div class="item win-rate">
-                            <div class="ui mini blue statistic">
-                              <div class="value">50.94%</div>
-                              <div class="label">Win rate</div>
-                            </div>
-                          </div>
-                          <div class="item kda">
-                            <div class="ui mini violet statistic">
-                              <div class="value">8.00</div>
-                              <div class="label">KDA</div>
-                            </div>
-                          </div>
-                          <div class="item gold-min">
-                            <div class="ui mini orange statistic">
-                              <div class="value">5.01</div>
-                              <div class="label">Average <br/> Gold/Min</div>
-                            </div>
-                          </div>
-                          <div class="item tot-dmg">
-                            <div class="ui mini teal statistic">
-                              <div class="value">17,042</div>
-                              <div class="label">Total dmg <br/> to champs</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="ui small list top-items">
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                        </div>
+                <div class="compiled-stats patch-block">
+                  <div class="ui block header patch-header">Patch 5.11 <img class="ui mini image" src="assets/rank/diamond.png"></div>
+                  <div class="ui small horizontal divided list summary-stats">
+                    <div class="item win-rate">
+                      <div class="ui mini blue statistic">
+                        <div class="value">50.94%</div>
+                        <div class="label">Win rate</div>
                       </div>
-                      <div class="column" id="patch514">
-                        <div class="ui block header patch-header">Patch 5.14</div>
-                        <div class="ui small horizontal divided list summary-stats">
-                          <div class="item win-rate">
-                            <div class="ui mini blue statistic">
-                              <div class="value">50.94%</div>
-                              <div class="label">Win rate</div>
-                            </div>
-                          </div>
-                          <div class="item kda">
-                            <div class="ui mini violet statistic">
-                              <div class="value">8.00</div>
-                              <div class="label">KDA</div>
-                            </div>
-                          </div>
-                          <div class="item gold-min">
-                            <div class="ui mini orange statistic">
-                              <div class="value">5.01</div>
-                              <div class="label">Average <br/> Gold/Min</div>
-                            </div>
-                          </div>
-                          <div class="item tot-dmg">
-                            <div class="ui mini teal statistic">
-                              <div class="value">17,042</div>
-                              <div class="label">Total dmg <br/> to champs</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="ui small list top-items">
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                        </div>
+                    </div>
+                    <div class="item kda">
+                      <div class="ui mini violet statistic">
+                        <div class="value">8.00</div>
+                        <div class="label">KDA</div>
+                      </div>
+                    </div>
+                    <div class="item gold-min">
+                      <div class="ui mini orange statistic">
+                        <div class="value">5.01</div>
+                        <div class="label">Average <br/> Gold/Min</div>
+                      </div>
+                    </div>
+                    <div class="item tot-dmg">
+                      <div class="ui mini teal statistic">
+                        <div class="value">17,042</div>
+                        <div class="label">Total dmg <br/> to champs</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ui small list top-items">
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
                       </div>
                     </div>
                   </div>
@@ -376,11 +247,11 @@
       </div>
       <div class="row">
         <div class="column">
-          <div class="ui raised red segment">
+          <div class="ui  red segment">
             <div class="ui accordion">
               <div class="title">
                 <h4 class="ui header sideA">
-                  <img src="assets/Caitlyn.png">
+                  <img src="assets/champs/Caitlyn.png">
                   <div class="content">Caitlyn
                     <div class="sub header">ADC</div>
                   </div>
@@ -388,142 +259,69 @@
                 </h4>
               </div>
               <div class="content">
-                <div class="compiled-stats">
-                  <div class="ui two column middle aligned divided grid">
-                    <div class="row">
-                      <div class="column" id="patch511">
-                        <div class="ui block header patch-header">Patch 5.11</div>
-                        <div class="ui small horizontal divided list summary-stats">
-                          <div class="item win-rate">
-                            <div class="ui mini blue statistic">
-                              <div class="value">50.94%</div>
-                              <div class="label">Win rate</div>
-                            </div>
-                          </div>
-                          <div class="item kda">
-                            <div class="ui mini violet statistic">
-                              <div class="value">8.00</div>
-                              <div class="label">KDA</div>
-                            </div>
-                          </div>
-                          <div class="item gold-min">
-                            <div class="ui mini orange statistic">
-                              <div class="value">5.01</div>
-                              <div class="label">Average <br/> Gold/Min</div>
-                            </div>
-                          </div>
-                          <div class="item tot-dmg">
-                            <div class="ui mini teal statistic">
-                              <div class="value">17,042</div>
-                              <div class="label">Total dmg <br/> to champs</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="ui small list top-items">
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                        </div>
+                <div class="compiled-stats patch-block">
+                  <div class="ui block header patch-header">Patch 5.11 <img class="ui mini image" src="assets/rank/diamond.png"></div>
+                  <div class="ui small horizontal divided list summary-stats">
+                    <div class="item win-rate">
+                      <div class="ui mini blue statistic">
+                        <div class="value">50.94%</div>
+                        <div class="label">Win rate</div>
                       </div>
-                      <div class="column" id="patch514">
-                        <div class="ui block header patch-header">Patch 5.14</div>
-                        <div class="ui small horizontal divided list summary-stats">
-                          <div class="item win-rate">
-                            <div class="ui mini blue statistic">
-                              <div class="value">50.94%</div>
-                              <div class="label">Win rate</div>
-                            </div>
-                          </div>
-                          <div class="item kda">
-                            <div class="ui mini violet statistic">
-                              <div class="value">8.00</div>
-                              <div class="label">KDA</div>
-                            </div>
-                          </div>
-                          <div class="item gold-min">
-                            <div class="ui mini orange statistic">
-                              <div class="value">5.01</div>
-                              <div class="label">Average <br/> Gold/Min</div>
-                            </div>
-                          </div>
-                          <div class="item tot-dmg">
-                            <div class="ui mini teal statistic">
-                              <div class="value">17,042</div>
-                              <div class="label">Total dmg <br/> to champs</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="ui small list top-items">
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                        </div>
+                    </div>
+                    <div class="item kda">
+                      <div class="ui mini violet statistic">
+                        <div class="value">8.00</div>
+                        <div class="label">KDA</div>
+                      </div>
+                    </div>
+                    <div class="item gold-min">
+                      <div class="ui mini orange statistic">
+                        <div class="value">5.01</div>
+                        <div class="label">Average <br/> Gold/Min</div>
+                      </div>
+                    </div>
+                    <div class="item tot-dmg">
+                      <div class="ui mini teal statistic">
+                        <div class="value">17,042</div>
+                        <div class="label">Total dmg <br/> to champs</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ui small list top-items">
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
                       </div>
                     </div>
                   </div>
@@ -533,11 +331,11 @@
           </div>
         </div>
         <div class="column">
-          <div class="ui raised blue segment">
+          <div class="ui  blue segment">
             <div class="ui accordion">
               <div class="title">
                 <h4 class="ui header sideB">
-                  <img src="assets/Caitlyn.png">
+                  <img src="assets/champs/Caitlyn.png">
                   <div class="content">Caitlyn
                     <div class="sub header">ADC</div>
                   </div>
@@ -545,142 +343,69 @@
                 </h4>
               </div>
               <div class="content">
-                <div class="compiled-stats">
-                  <div class="ui two column middle aligned divided grid">
-                    <div class="row">
-                      <div class="column" id="patch511">
-                        <div class="ui block header patch-header">Patch 5.11</div>
-                        <div class="ui small horizontal divided list summary-stats">
-                          <div class="item win-rate">
-                            <div class="ui mini blue statistic">
-                              <div class="value">50.94%</div>
-                              <div class="label">Win rate</div>
-                            </div>
-                          </div>
-                          <div class="item kda">
-                            <div class="ui mini violet statistic">
-                              <div class="value">8.00</div>
-                              <div class="label">KDA</div>
-                            </div>
-                          </div>
-                          <div class="item gold-min">
-                            <div class="ui mini orange statistic">
-                              <div class="value">5.01</div>
-                              <div class="label">Average <br/> Gold/Min</div>
-                            </div>
-                          </div>
-                          <div class="item tot-dmg">
-                            <div class="ui mini teal statistic">
-                              <div class="value">17,042</div>
-                              <div class="label">Total dmg <br/> to champs</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="ui small list top-items">
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                        </div>
+                <div class="compiled-stats patch-block">
+                  <div class="ui block header patch-header">Patch 5.11 <img class="ui mini image" src="assets/rank/diamond.png"></div>
+                  <div class="ui small horizontal divided list summary-stats">
+                    <div class="item win-rate">
+                      <div class="ui mini blue statistic">
+                        <div class="value">50.94%</div>
+                        <div class="label">Win rate</div>
                       </div>
-                      <div class="column" id="patch514">
-                        <div class="ui block header patch-header">Patch 5.14</div>
-                        <div class="ui small horizontal divided list summary-stats">
-                          <div class="item win-rate">
-                            <div class="ui mini blue statistic">
-                              <div class="value">50.94%</div>
-                              <div class="label">Win rate</div>
-                            </div>
-                          </div>
-                          <div class="item kda">
-                            <div class="ui mini violet statistic">
-                              <div class="value">8.00</div>
-                              <div class="label">KDA</div>
-                            </div>
-                          </div>
-                          <div class="item gold-min">
-                            <div class="ui mini orange statistic">
-                              <div class="value">5.01</div>
-                              <div class="label">Average <br/> Gold/Min</div>
-                            </div>
-                          </div>
-                          <div class="item tot-dmg">
-                            <div class="ui mini teal statistic">
-                              <div class="value">17,042</div>
-                              <div class="label">Total dmg <br/> to champs</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="ui small list top-items">
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                        </div>
+                    </div>
+                    <div class="item kda">
+                      <div class="ui mini violet statistic">
+                        <div class="value">8.00</div>
+                        <div class="label">KDA</div>
+                      </div>
+                    </div>
+                    <div class="item gold-min">
+                      <div class="ui mini orange statistic">
+                        <div class="value">5.01</div>
+                        <div class="label">Average <br/> Gold/Min</div>
+                      </div>
+                    </div>
+                    <div class="item tot-dmg">
+                      <div class="ui mini teal statistic">
+                        <div class="value">17,042</div>
+                        <div class="label">Total dmg <br/> to champs</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ui small list top-items">
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
                       </div>
                     </div>
                   </div>
@@ -692,11 +417,11 @@
       </div>
       <div class="row">
         <div class="column">
-          <div class="ui raised red segment">
+          <div class="ui  red segment">
             <div class="ui accordion">
               <div class="title">
                 <h4 class="ui header sideA">
-                  <img src="assets/Caitlyn.png">
+                  <img src="assets/champs/Caitlyn.png">
                   <div class="content">Caitlyn
                     <div class="sub header">ADC</div>
                   </div>
@@ -704,142 +429,69 @@
                 </h4>
               </div>
               <div class="content">
-                <div class="compiled-stats">
-                  <div class="ui two column middle aligned divided grid">
-                    <div class="row">
-                      <div class="column" id="patch511">
-                        <div class="ui block header patch-header">Patch 5.11</div>
-                        <div class="ui small horizontal divided list summary-stats">
-                          <div class="item win-rate">
-                            <div class="ui mini blue statistic">
-                              <div class="value">50.94%</div>
-                              <div class="label">Win rate</div>
-                            </div>
-                          </div>
-                          <div class="item kda">
-                            <div class="ui mini violet statistic">
-                              <div class="value">8.00</div>
-                              <div class="label">KDA</div>
-                            </div>
-                          </div>
-                          <div class="item gold-min">
-                            <div class="ui mini orange statistic">
-                              <div class="value">5.01</div>
-                              <div class="label">Average <br/> Gold/Min</div>
-                            </div>
-                          </div>
-                          <div class="item tot-dmg">
-                            <div class="ui mini teal statistic">
-                              <div class="value">17,042</div>
-                              <div class="label">Total dmg <br/> to champs</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="ui small list top-items">
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                        </div>
+                <div class="compiled-stats patch-block">
+                  <div class="ui block header patch-header">Patch 5.11 <img class="ui mini image" src="assets/rank/diamond.png"></div>
+                  <div class="ui small horizontal divided list summary-stats">
+                    <div class="item win-rate">
+                      <div class="ui mini blue statistic">
+                        <div class="value">50.94%</div>
+                        <div class="label">Win rate</div>
                       </div>
-                      <div class="column" id="patch514">
-                        <div class="ui block header patch-header">Patch 5.14</div>
-                        <div class="ui small horizontal divided list summary-stats">
-                          <div class="item win-rate">
-                            <div class="ui mini blue statistic">
-                              <div class="value">50.94%</div>
-                              <div class="label">Win rate</div>
-                            </div>
-                          </div>
-                          <div class="item kda">
-                            <div class="ui mini violet statistic">
-                              <div class="value">8.00</div>
-                              <div class="label">KDA</div>
-                            </div>
-                          </div>
-                          <div class="item gold-min">
-                            <div class="ui mini orange statistic">
-                              <div class="value">5.01</div>
-                              <div class="label">Average <br/> Gold/Min</div>
-                            </div>
-                          </div>
-                          <div class="item tot-dmg">
-                            <div class="ui mini teal statistic">
-                              <div class="value">17,042</div>
-                              <div class="label">Total dmg <br/> to champs</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="ui small list top-items">
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                        </div>
+                    </div>
+                    <div class="item kda">
+                      <div class="ui mini violet statistic">
+                        <div class="value">8.00</div>
+                        <div class="label">KDA</div>
+                      </div>
+                    </div>
+                    <div class="item gold-min">
+                      <div class="ui mini orange statistic">
+                        <div class="value">5.01</div>
+                        <div class="label">Average <br/> Gold/Min</div>
+                      </div>
+                    </div>
+                    <div class="item tot-dmg">
+                      <div class="ui mini teal statistic">
+                        <div class="value">17,042</div>
+                        <div class="label">Total dmg <br/> to champs</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ui small list top-items">
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
                       </div>
                     </div>
                   </div>
@@ -849,11 +501,11 @@
           </div>
         </div>
         <div class="column">
-          <div class="ui raised blue segment">
+          <div class="ui  blue segment">
             <div class="ui accordion">
               <div class="title">
                 <h4 class="ui header sideB">
-                  <img src="assets/Caitlyn.png">
+                  <img src="assets/champs/Caitlyn.png">
                   <div class="content">Caitlyn
                     <div class="sub header">ADC</div>
                   </div>
@@ -861,142 +513,69 @@
                 </h4>
               </div>
               <div class="content">
-                <div class="compiled-stats">
-                  <div class="ui two column middle aligned divided grid">
-                    <div class="row">
-                      <div class="column" id="patch511">
-                        <div class="ui block header patch-header">Patch 5.11</div>
-                        <div class="ui small horizontal divided list summary-stats">
-                          <div class="item win-rate">
-                            <div class="ui mini blue statistic">
-                              <div class="value">50.94%</div>
-                              <div class="label">Win rate</div>
-                            </div>
-                          </div>
-                          <div class="item kda">
-                            <div class="ui mini violet statistic">
-                              <div class="value">8.00</div>
-                              <div class="label">KDA</div>
-                            </div>
-                          </div>
-                          <div class="item gold-min">
-                            <div class="ui mini orange statistic">
-                              <div class="value">5.01</div>
-                              <div class="label">Average <br/> Gold/Min</div>
-                            </div>
-                          </div>
-                          <div class="item tot-dmg">
-                            <div class="ui mini teal statistic">
-                              <div class="value">17,042</div>
-                              <div class="label">Total dmg <br/> to champs</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="ui small list top-items">
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                        </div>
+                <div class="compiled-stats patch-block">
+                  <div class="ui block header patch-header">Patch 5.11 <img class="ui mini image" src="assets/rank/diamond.png"></div>
+                  <div class="ui small horizontal divided list summary-stats">
+                    <div class="item win-rate">
+                      <div class="ui mini blue statistic">
+                        <div class="value">50.94%</div>
+                        <div class="label">Win rate</div>
                       </div>
-                      <div class="column" id="patch514">
-                        <div class="ui block header patch-header">Patch 5.14</div>
-                        <div class="ui small horizontal divided list summary-stats">
-                          <div class="item win-rate">
-                            <div class="ui mini blue statistic">
-                              <div class="value">50.94%</div>
-                              <div class="label">Win rate</div>
-                            </div>
-                          </div>
-                          <div class="item kda">
-                            <div class="ui mini violet statistic">
-                              <div class="value">8.00</div>
-                              <div class="label">KDA</div>
-                            </div>
-                          </div>
-                          <div class="item gold-min">
-                            <div class="ui mini orange statistic">
-                              <div class="value">5.01</div>
-                              <div class="label">Average <br/> Gold/Min</div>
-                            </div>
-                          </div>
-                          <div class="item tot-dmg">
-                            <div class="ui mini teal statistic">
-                              <div class="value">17,042</div>
-                              <div class="label">Total dmg <br/> to champs</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="ui small list top-items">
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                        </div>
+                    </div>
+                    <div class="item kda">
+                      <div class="ui mini violet statistic">
+                        <div class="value">8.00</div>
+                        <div class="label">KDA</div>
+                      </div>
+                    </div>
+                    <div class="item gold-min">
+                      <div class="ui mini orange statistic">
+                        <div class="value">5.01</div>
+                        <div class="label">Average <br/> Gold/Min</div>
+                      </div>
+                    </div>
+                    <div class="item tot-dmg">
+                      <div class="ui mini teal statistic">
+                        <div class="value">17,042</div>
+                        <div class="label">Total dmg <br/> to champs</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ui small list top-items">
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
                       </div>
                     </div>
                   </div>
@@ -1008,11 +587,11 @@
       </div>
       <div class="row">
         <div class="column">
-          <div class="ui raised red segment">
+          <div class="ui  red segment">
             <div class="ui accordion">
               <div class="title">
                 <h4 class="ui header sideA">
-                  <img src="assets/Caitlyn.png">
+                  <img src="assets/champs/Caitlyn.png">
                   <div class="content">Caitlyn
                     <div class="sub header">ADC</div>
                   </div>
@@ -1020,142 +599,69 @@
                 </h4>
               </div>
               <div class="content">
-                <div class="compiled-stats">
-                  <div class="ui two column middle aligned divided grid">
-                    <div class="row">
-                      <div class="column" id="patch511">
-                        <div class="ui block header patch-header">Patch 5.11</div>
-                        <div class="ui small horizontal divided list summary-stats">
-                          <div class="item win-rate">
-                            <div class="ui mini blue statistic">
-                              <div class="value">50.94%</div>
-                              <div class="label">Win rate</div>
-                            </div>
-                          </div>
-                          <div class="item kda">
-                            <div class="ui mini violet statistic">
-                              <div class="value">8.00</div>
-                              <div class="label">KDA</div>
-                            </div>
-                          </div>
-                          <div class="item gold-min">
-                            <div class="ui mini orange statistic">
-                              <div class="value">5.01</div>
-                              <div class="label">Average <br/> Gold/Min</div>
-                            </div>
-                          </div>
-                          <div class="item tot-dmg">
-                            <div class="ui mini teal statistic">
-                              <div class="value">17,042</div>
-                              <div class="label">Total dmg <br/> to champs</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="ui small list top-items">
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                        </div>
+                <div class="compiled-stats patch-block">
+                  <div class="ui block header patch-header">Patch 5.11 <img class="ui mini image" src="assets/rank/diamond.png"></div>
+                  <div class="ui small horizontal divided list summary-stats">
+                    <div class="item win-rate">
+                      <div class="ui mini blue statistic">
+                        <div class="value">50.94%</div>
+                        <div class="label">Win rate</div>
                       </div>
-                      <div class="column" id="patch514">
-                        <div class="ui block header patch-header">Patch 5.14</div>
-                        <div class="ui small horizontal divided list summary-stats">
-                          <div class="item win-rate">
-                            <div class="ui mini blue statistic">
-                              <div class="value">50.94%</div>
-                              <div class="label">Win rate</div>
-                            </div>
-                          </div>
-                          <div class="item kda">
-                            <div class="ui mini violet statistic">
-                              <div class="value">8.00</div>
-                              <div class="label">KDA</div>
-                            </div>
-                          </div>
-                          <div class="item gold-min">
-                            <div class="ui mini orange statistic">
-                              <div class="value">5.01</div>
-                              <div class="label">Average <br/> Gold/Min</div>
-                            </div>
-                          </div>
-                          <div class="item tot-dmg">
-                            <div class="ui mini teal statistic">
-                              <div class="value">17,042</div>
-                              <div class="label">Total dmg <br/> to champs</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="ui small list top-items">
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                        </div>
+                    </div>
+                    <div class="item kda">
+                      <div class="ui mini violet statistic">
+                        <div class="value">8.00</div>
+                        <div class="label">KDA</div>
+                      </div>
+                    </div>
+                    <div class="item gold-min">
+                      <div class="ui mini orange statistic">
+                        <div class="value">5.01</div>
+                        <div class="label">Average <br/> Gold/Min</div>
+                      </div>
+                    </div>
+                    <div class="item tot-dmg">
+                      <div class="ui mini teal statistic">
+                        <div class="value">17,042</div>
+                        <div class="label">Total dmg <br/> to champs</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ui small list top-items">
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
                       </div>
                     </div>
                   </div>
@@ -1165,11 +671,11 @@
           </div>
         </div>
         <div class="column">
-          <div class="ui raised blue segment">
+          <div class="ui  blue segment">
             <div class="ui accordion">
               <div class="title">
                 <h4 class="ui header sideB">
-                  <img src="assets/Caitlyn.png">
+                  <img src="assets/champs/Caitlyn.png">
                   <div class="content">Caitlyn
                     <div class="sub header">ADC</div>
                   </div>
@@ -1177,142 +683,69 @@
                 </h4>
               </div>
               <div class="content">
-                <div class="compiled-stats">
-                  <div class="ui two column middle aligned divided grid">
-                    <div class="row">
-                      <div class="column" id="patch511">
-                        <div class="ui block header patch-header">Patch 5.11</div>
-                        <div class="ui small horizontal divided list summary-stats">
-                          <div class="item win-rate">
-                            <div class="ui mini blue statistic">
-                              <div class="value">50.94%</div>
-                              <div class="label">Win rate</div>
-                            </div>
-                          </div>
-                          <div class="item kda">
-                            <div class="ui mini violet statistic">
-                              <div class="value">8.00</div>
-                              <div class="label">KDA</div>
-                            </div>
-                          </div>
-                          <div class="item gold-min">
-                            <div class="ui mini orange statistic">
-                              <div class="value">5.01</div>
-                              <div class="label">Average <br/> Gold/Min</div>
-                            </div>
-                          </div>
-                          <div class="item tot-dmg">
-                            <div class="ui mini teal statistic">
-                              <div class="value">17,042</div>
-                              <div class="label">Total dmg <br/> to champs</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="ui small list top-items">
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                        </div>
+                <div class="compiled-stats patch-block">
+                  <div class="ui block header patch-header">Patch 5.11 <img class="ui mini image" src="assets/rank/diamond.png"></div>
+                  <div class="ui small horizontal divided list summary-stats">
+                    <div class="item win-rate">
+                      <div class="ui mini blue statistic">
+                        <div class="value">50.94%</div>
+                        <div class="label">Win rate</div>
                       </div>
-                      <div class="column" id="patch514">
-                        <div class="ui block header patch-header">Patch 5.14</div>
-                        <div class="ui small horizontal divided list summary-stats">
-                          <div class="item win-rate">
-                            <div class="ui mini blue statistic">
-                              <div class="value">50.94%</div>
-                              <div class="label">Win rate</div>
-                            </div>
-                          </div>
-                          <div class="item kda">
-                            <div class="ui mini violet statistic">
-                              <div class="value">8.00</div>
-                              <div class="label">KDA</div>
-                            </div>
-                          </div>
-                          <div class="item gold-min">
-                            <div class="ui mini orange statistic">
-                              <div class="value">5.01</div>
-                              <div class="label">Average <br/> Gold/Min</div>
-                            </div>
-                          </div>
-                          <div class="item tot-dmg">
-                            <div class="ui mini teal statistic">
-                              <div class="value">17,042</div>
-                              <div class="label">Total dmg <br/> to champs</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="ui small list top-items">
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                        </div>
+                    </div>
+                    <div class="item kda">
+                      <div class="ui mini violet statistic">
+                        <div class="value">8.00</div>
+                        <div class="label">KDA</div>
+                      </div>
+                    </div>
+                    <div class="item gold-min">
+                      <div class="ui mini orange statistic">
+                        <div class="value">5.01</div>
+                        <div class="label">Average <br/> Gold/Min</div>
+                      </div>
+                    </div>
+                    <div class="item tot-dmg">
+                      <div class="ui mini teal statistic">
+                        <div class="value">17,042</div>
+                        <div class="label">Total dmg <br/> to champs</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ui small list top-items">
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
                       </div>
                     </div>
                   </div>
@@ -1324,11 +757,11 @@
       </div>
       <div class="row">
         <div class="column">
-          <div class="ui raised red segment">
+          <div class="ui  red segment">
             <div class="ui accordion">
               <div class="title">
                 <h4 class="ui header sideA">
-                  <img src="assets/Caitlyn.png">
+                  <img src="assets/champs/Caitlyn.png">
                   <div class="content">Caitlyn
                     <div class="sub header">ADC</div>
                   </div>
@@ -1336,142 +769,69 @@
                 </h4>
               </div>
               <div class="content">
-                <div class="compiled-stats">
-                  <div class="ui two column middle aligned divided grid">
-                    <div class="row">
-                      <div class="column" id="patch511">
-                        <div class="ui block header patch-header">Patch 5.11</div>
-                        <div class="ui small horizontal divided list summary-stats">
-                          <div class="item win-rate">
-                            <div class="ui mini blue statistic">
-                              <div class="value">50.94%</div>
-                              <div class="label">Win rate</div>
-                            </div>
-                          </div>
-                          <div class="item kda">
-                            <div class="ui mini violet statistic">
-                              <div class="value">8.00</div>
-                              <div class="label">KDA</div>
-                            </div>
-                          </div>
-                          <div class="item gold-min">
-                            <div class="ui mini orange statistic">
-                              <div class="value">5.01</div>
-                              <div class="label">Average <br/> Gold/Min</div>
-                            </div>
-                          </div>
-                          <div class="item tot-dmg">
-                            <div class="ui mini teal statistic">
-                              <div class="value">17,042</div>
-                              <div class="label">Total dmg <br/> to champs</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="ui small list top-items">
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                        </div>
+                <div class="compiled-stats patch-block">
+                  <div class="ui block header patch-header">Patch 5.11 <img class="ui mini image" src="assets/rank/diamond.png"></div>
+                  <div class="ui small horizontal divided list summary-stats">
+                    <div class="item win-rate">
+                      <div class="ui mini blue statistic">
+                        <div class="value">50.94%</div>
+                        <div class="label">Win rate</div>
                       </div>
-                      <div class="column" id="patch514">
-                        <div class="ui block header patch-header">Patch 5.14</div>
-                        <div class="ui small horizontal divided list summary-stats">
-                          <div class="item win-rate">
-                            <div class="ui mini blue statistic">
-                              <div class="value">50.94%</div>
-                              <div class="label">Win rate</div>
-                            </div>
-                          </div>
-                          <div class="item kda">
-                            <div class="ui mini violet statistic">
-                              <div class="value">8.00</div>
-                              <div class="label">KDA</div>
-                            </div>
-                          </div>
-                          <div class="item gold-min">
-                            <div class="ui mini orange statistic">
-                              <div class="value">5.01</div>
-                              <div class="label">Average <br/> Gold/Min</div>
-                            </div>
-                          </div>
-                          <div class="item tot-dmg">
-                            <div class="ui mini teal statistic">
-                              <div class="value">17,042</div>
-                              <div class="label">Total dmg <br/> to champs</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="ui small list top-items">
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                        </div>
+                    </div>
+                    <div class="item kda">
+                      <div class="ui mini violet statistic">
+                        <div class="value">8.00</div>
+                        <div class="label">KDA</div>
+                      </div>
+                    </div>
+                    <div class="item gold-min">
+                      <div class="ui mini orange statistic">
+                        <div class="value">5.01</div>
+                        <div class="label">Average <br/> Gold/Min</div>
+                      </div>
+                    </div>
+                    <div class="item tot-dmg">
+                      <div class="ui mini teal statistic">
+                        <div class="value">17,042</div>
+                        <div class="label">Total dmg <br/> to champs</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ui small list top-items">
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
                       </div>
                     </div>
                   </div>
@@ -1481,11 +841,11 @@
           </div>
         </div>
         <div class="column">
-          <div class="ui raised blue segment">
+          <div class="ui  blue segment">
             <div class="ui accordion">
               <div class="title">
                 <h4 class="ui header sideB">
-                  <img src="assets/Caitlyn.png">
+                  <img src="assets/champs/Caitlyn.png">
                   <div class="content">Caitlyn
                     <div class="sub header">ADC</div>
                   </div>
@@ -1493,142 +853,69 @@
                 </h4>
               </div>
               <div class="content">
-                <div class="compiled-stats">
-                  <div class="ui two column middle aligned divided grid">
-                    <div class="row">
-                      <div class="column" id="patch511">
-                        <div class="ui block header patch-header">Patch 5.11</div>
-                        <div class="ui small horizontal divided list summary-stats">
-                          <div class="item win-rate">
-                            <div class="ui mini blue statistic">
-                              <div class="value">50.94%</div>
-                              <div class="label">Win rate</div>
-                            </div>
-                          </div>
-                          <div class="item kda">
-                            <div class="ui mini violet statistic">
-                              <div class="value">8.00</div>
-                              <div class="label">KDA</div>
-                            </div>
-                          </div>
-                          <div class="item gold-min">
-                            <div class="ui mini orange statistic">
-                              <div class="value">5.01</div>
-                              <div class="label">Average <br/> Gold/Min</div>
-                            </div>
-                          </div>
-                          <div class="item tot-dmg">
-                            <div class="ui mini teal statistic">
-                              <div class="value">17,042</div>
-                              <div class="label">Total dmg <br/> to champs</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="ui small list top-items">
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                        </div>
+                <div class="compiled-stats patch-block">
+                  <div class="ui block header patch-header">Patch 5.11 <img class="ui mini image" src="assets/rank/diamond.png"></div>
+                  <div class="ui small horizontal divided list summary-stats">
+                    <div class="item win-rate">
+                      <div class="ui mini blue statistic">
+                        <div class="value">50.94%</div>
+                        <div class="label">Win rate</div>
                       </div>
-                      <div class="column" id="patch514">
-                        <div class="ui block header patch-header">Patch 5.14</div>
-                        <div class="ui small horizontal divided list summary-stats">
-                          <div class="item win-rate">
-                            <div class="ui mini blue statistic">
-                              <div class="value">50.94%</div>
-                              <div class="label">Win rate</div>
-                            </div>
-                          </div>
-                          <div class="item kda">
-                            <div class="ui mini violet statistic">
-                              <div class="value">8.00</div>
-                              <div class="label">KDA</div>
-                            </div>
-                          </div>
-                          <div class="item gold-min">
-                            <div class="ui mini orange statistic">
-                              <div class="value">5.01</div>
-                              <div class="label">Average <br/> Gold/Min</div>
-                            </div>
-                          </div>
-                          <div class="item tot-dmg">
-                            <div class="ui mini teal statistic">
-                              <div class="value">17,042</div>
-                              <div class="label">Total dmg <br/> to champs</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="ui small list top-items">
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                          <div class="item">
-                            <img class="ui mini image" src="assets/items/3070.jpg">
-                            <div class="content">Tear of Goddess
-                              <div class="description">Average purchase time: some minutes</div>
-                            </div>
-                          </div>
-                        </div>
+                    </div>
+                    <div class="item kda">
+                      <div class="ui mini violet statistic">
+                        <div class="value">8.00</div>
+                        <div class="label">KDA</div>
+                      </div>
+                    </div>
+                    <div class="item gold-min">
+                      <div class="ui mini orange statistic">
+                        <div class="value">5.01</div>
+                        <div class="label">Average <br/> Gold/Min</div>
+                      </div>
+                    </div>
+                    <div class="item tot-dmg">
+                      <div class="ui mini teal statistic">
+                        <div class="value">17,042</div>
+                        <div class="label">Total dmg <br/> to champs</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ui small list top-items">
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui mini image" src="assets/items/3070.jpg">
+                      <div class="content">Tear of Goddess
+                        <div class="description">Average purchase time: some minutes</div>
                       </div>
                     </div>
                   </div>
@@ -1646,6 +933,8 @@
 
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/semantic-ui/dist/semantic.js"></script>
+  <script src="js/globals.js"></script>
+  <script src="js/patchdetail.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

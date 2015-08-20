@@ -34,6 +34,23 @@
 .ui.statistic > .value ~ .label{
     line-height: 1em;
 }
+.ui.filter-buttons.images .image, .ui.filter-buttons.images img{
+    width: 50px;
+    height: auto;
+    font-size: 0.71428571em;
+    border: 1px solid rgba(0,0,0,0.3);
+    border-radius: 20%;
+    padding: 5px;
+}
+
+.patch-select{
+    margin-top:10px;
+}
+
+.ui.filter-buttons.images .select-filter.image{
+    background-color: rgba(0,210,210,0.2);
+    box-shadow: 0 0 5px #0DAA92;
+}
 
 #patch511{
     margin-right: 5px;
@@ -42,6 +59,7 @@
     padding: 10px;
     width: 49%;
 }
+
 .patch-header{
     margin: 0;
     line-height: 1em;
