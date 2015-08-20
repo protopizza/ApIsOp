@@ -294,9 +294,9 @@ def parseMatchesData(matches_data, destination_tier):
                         CHAMPION_DATA[championKey][metric][item]["buyCount"] = 1
                         CHAMPION_DATA[championKey][metric][item]["averageTimeBought"] = 0
                         if str(item) in CHANGED_AP_ITEMS:
-                            CHAMPION_DATA[championKey][metric][item]["isApItem"] = "yes"
+                            CHAMPION_DATA[championKey][metric][item]["isApItem"] = True
                         else:
-                            CHAMPION_DATA[championKey][metric][item]["isApItem"] = "no"
+                            CHAMPION_DATA[championKey][metric][item]["isApItem"] = False
 
                     CHAMPION_DATA[championKey][metric][item]["buyPercentage"] = float(CHAMPION_DATA[championKey][metric][item]["buyCount"]) / float(CHAMPION_DATA[championKey]["matchesCounted"]) * 100
 
@@ -350,15 +350,14 @@ def filterOnlyMostCommonItems(json_data):
 def pasteMidpointFilesTogether():
     for championKey in CHAMPION_DATA:
         championData = {}
-        championData[championKey] = {}
         for region in REGIONS:
-            championData[championKey][region] = {}
+            championData[region] = {}
             for patch in PATCHES:
-                championData[championKey][region][patch] = {}
+                championData[region][patch] = {}
                 for queueType in QUEUETYPES:
-                    championData[championKey][region][patch][queueType] = {}
+                    championData[region][patch][queueType] = {}
                     for tier in RANKED_TIERS[queueType]:
-                        championData[championKey][region][patch][queueType][tier] = {}
+                        championData[region][patch][queueType][tier] = {}
                         input_file = MIDPOINT_FILE_BASE.format(championKey=championKey, region=region, patch=patch, queueType=queueType, rank=tier)
                         # print "reading from midpoint file:{}...".format(input_file)
 
@@ -366,7 +365,7 @@ def pasteMidpointFilesTogether():
                             with open(input_file, 'r') as fp:
                                 json_data = json.load(fp)
                                 json_data = filterOnlyMostCommonItems(json_data)
-                                championData[championKey][region][patch][queueType][tier] = json_data
+                                championData[region][patch][queueType][tier] = json_data
                         except IOError:
                             print "no data for {} in {}/{}/{}/{}".format(championKey, tier, queueType, patch, region)
 
