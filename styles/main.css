@@ -31,6 +31,21 @@
 .ui.list > .item > img.image + .content{
     text-align: left;
 }
+.ui.statistic > .value ~ .label{
+    line-height: 1em;
+}
+
+#patch511{
+    margin-right: 5px;
+}
+#patch511, #patch514{
+    padding: 10px;
+    width: 49%;
+}
+.patch-header{
+    margin: 0;
+    line-height: 1em;
+}
 
 #fight{
     margin-top: 3em;
