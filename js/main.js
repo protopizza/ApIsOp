@@ -20,7 +20,6 @@ function initChamps(){
 }
 
 function initUI(){
-    $('.ui.accordion').accordion();
     $('.ui.dropdown').dropdown({
         maxSelections: 5
     });
@@ -28,31 +27,35 @@ function initUI(){
     $("#fight").click(function() {
         if(checkFive()){
             getPatchData(champsA, champsB);
-            for(var i = 0; i < selections.length; i++){
-                fillChampDetails();
-            }
-            for(var i = 0; i < champsA.length; i++){
-                $('.sideA:eq(' + i + ')').find('img').attr('src', 'assets/champs/' + champsA[i] + '.png');
-                $('.sideA:eq(' + i + ')').find('.content').text(champsFull[champsA[i]].name);
-                $('.sideB:eq(' + i + ')').find('img').attr('src', 'assets/champs/' + champsB[i] + '.png');
-                $('.sideB:eq(' + i + ')').find('.content').text(champsFull[champsB[i]].name);
-            }
+            fillChampDetails();
+            addFilterHandlers();
 
+            for(var i = 0; i < MAX_CHAMPS_PER_TEAM; i++){
+                var champDOM_a = $('#champion-template').clone();
+                    champDOM_a.appendTo('.sideA').removeAttr('id').data('key', champsA[i]);
+                    champDOM_a.find('.champ-name').text(champsFull[champsA[i]].name);
+                    champDOM_a.find('.champ-img').attr('src', 'assets/champs/' + champsA[i] + '.png');
+                    champDOM_a.show();
+
+                var champDOM_b = $('#champion-template').clone();
+                    champDOM_b.appendTo('.sideB').removeAttr('id').data('key', champsB[i]);
+                    champDOM_b.find('.champ-name').text(champsFull[champsB[i]].name);
+                    champDOM_b.find('.champ-img').attr('src', 'assets/champs/' + champsB[i] + '.png');
+                    champDOM_b.show();
+
+                if( i == 0 ){
+                    champDOM_a.find('.champ-tab').addClass('active');
+                    champDOM_b.find('.champ-tab').addClass('active');
+                }
+            }
+            
+            $('.ui.accordion').accordion();
+
+            $('#champion-template').remove();
             $('#result').show();
             $('html,body').animate({
                 scrollTop: $("#result").offset().top
             }, 'slow');
-
-            $('.filter-buttons > img').click(function(){
-                var id = $(this).attr('id');
-                $('#'+id).addClass('select-filter');
-                $('.filter-buttons > img').not('#'+id).removeClass('select-filter');
-            })
-            $('.patch-select > button').click(function(){
-                var id = $(this).attr('id');
-                $('#'+id).addClass('positive active');
-                $('.patch-select > button').not('#'+id).removeClass('positive active');
-            })
         }
     });
 }
@@ -77,6 +80,17 @@ function checkFive(){
     return true;
 }
 
-function fillChampDetails(){
-
+function addFilterHandlers(){
+    $('.patch-select > button').click(function(){
+        var id = $(this).attr('id');
+        $('#'+id).addClass('positive active');
+        $('.patch-select > button').not('#'+id).removeClass('positive active');
+        // refreshDetail('patch', id);
+    })
+    $('.filter-buttons > img').click(function(){
+        var id = $(this).attr('id');
+        $('#'+id).addClass('select-filter');
+        $('.filter-buttons > img').not('#'+id).removeClass('select-filter');
+        // refreshDetail('rank', id);
+    })
 }

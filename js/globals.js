@@ -1,3 +1,4 @@
+var MAX_CHAMPS_PER_TEAM = 5;
 var champs = [];
 var champsFull = {};
 var champsA = [];
@@ -6,13 +7,15 @@ var selections = [];
 
 var Champion = function(key){
 	this.key = key;
-	this.patchId = null;
+	this.patchId = 511;
 	this.patch511 = {};
 	this.patch514 = {};
+	this.defaultObj = {};
 };
 Champion.prototype.setUnranked = function(unrankedA, unrankedB){
 	this.patch511.unranked = unrankedA;
 	this.patch514.unranked = unrankedB;
+	this.defaultObj = unrankedA;
 }
 Champion.prototype.setRanked = function(rankedA, rankedB){
 	this.patch511.ranked = rankedA;
