@@ -192,6 +192,89 @@ def findTimeBought(match_timeline, participant, item):
                 return event["timestamp"]
 
 
+def itemFilter(item):
+    ITEM_TABLE = {
+        "3003": "3040", #archangel's -> seraph's
+        "3004": "3042", #manamune -> muramana
+        "1054": "0", #doran's shield
+        "1055": "0", #doran's blade
+        "1056": "0", #doran's ring
+        "3254": "3006", #berserker's greaves - alacrity
+        "1301": "3006", #berserker's greaves - alacrity
+        "3274": "3117", #boots of mobility - alacrity
+        "1326": "3117", #boots of mobility - alacrity
+        "3284": "3009", #boots of swiftness - alacrity
+        "1306": "3009", #boots of swiftness - alacrity
+        "3279": "3158", #ionian boots of ludicity - alacrity
+        "1331": "3158", #ionian boots of ludicity - alacrity
+        "3269": "3111", #mercury's treads - alacrity
+        "1321": "3111", #mercury's treads - alacrity
+        "3264": "3047", #ninja tabi - alacrity
+        "1316": "3047", #ninja tabi - alacrity
+        "3259": "3020", #sorcerer's shoes - alacrity
+        "1311": "3020", #sorcerer's shoes - alacrity
+        "3251": "3006", #berserker's greaves - captain
+        "1302": "3006", #berserker's greaves - captain
+        "3271": "3117", #boots of mobility - captain
+        "1327": "3117", #boots of mobility - captain
+        "3281": "3009", #boots of swiftness - captain
+        "1307": "3009", #boots of swiftness - captain
+        "3276": "3158", #ionian boots of ludicity - captain
+        "1332": "3158", #ionian boots of ludicity - captain
+        "3266": "3111", #mercury's treads - captain
+        "1322": "3111", #mercury's treads - captain
+        "3261": "3047", #ninja tabi - captain
+        "1317": "3047", #ninja tabi - captain
+        "3256": "3020", #sorcerer's shoes - captain
+        "1312": "3020", #sorcerer's shoes - captain
+        "3253": "3006", #berserker's greaves - distortion
+        "1303": "3006", #berserker's greaves - distortion
+        "3273": "3117", #boots of mobility - distortion
+        "1328": "3117", #boots of mobility - distortion
+        "3283": "3009", #boots of swiftness - distortion
+        "1308": "3009", #boots of swiftness - distortion
+        "3278": "3158", #ionian boots of ludicity - distortion
+        "1333": "3158", #ionian boots of ludicity - distortion
+        "3268": "3111", #mercury's treads - distortion
+        "1323": "3111", #mercury's treads - distortion
+        "3263": "3047", #ninja tabi - distortion
+        "1318": "3047", #ninja tabi - distortion
+        "3258": "3020", #sorcerer's shoes - distortion
+        "1313": "3020", #sorcerer's shoes - distortion
+        "3252": "3006", #berserker's greaves - furor
+        "1300": "3006", #berserker's greaves - furor
+        "3272": "3117", #boots of mobility - furor
+        "1325": "3117", #boots of mobility - furor
+        "3282": "3009", #boots of swiftness - furor
+        "1305": "3009", #boots of swiftness - furor
+        "3277": "3158", #ionian boots of ludicity - furor
+        "1330": "3158", #ionian boots of ludicity - furor
+        "3267": "3111", #mercury's treads - furor
+        "1320": "3111", #mercury's treads - furor
+        "3262": "3047", #ninja tabi - furor
+        "1315": "3047", #ninja tabi - furor
+        "3255": "3020", #sorcerer's shoes - furor
+        "1314": "3020", #sorcerer's shoes - furor
+        "3250": "3006", #berserker's greaves - homeguard
+        "1304": "3006", #berserker's greaves - homeguard
+        "3270": "3117", #boots of mobility - homeguard
+        "1329": "3117", #boots of mobility - homeguard
+        "3280": "3009", #boots of swiftness - homeguard
+        "1309": "3009", #boots of swiftness - homeguard
+        "3275": "3158", #ionian boots of ludicity - homeguard
+        "1334": "3158", #ionian boots of ludicity - homeguard
+        "3265": "3111", #mercury's treads - homeguard
+        "1324": "3111", #mercury's treads - homeguard
+        "3260": "3047", #ninja tabi - homeguard
+        "1319": "3047", #ninja tabi - homeguard
+        "3255": "3020", #sorcerer's shoes - homeguard
+        "1314": "3020" #sorcerer's shoes - homeguard
+    }
+
+    if item in ITEM_TABLE:
+        return ITEM_TABLE[item]
+    return item
+
 
 def parseMatchesData(matches_data, destination_tier):
     global CHAMPION_DATA
@@ -271,6 +354,9 @@ def parseMatchesData(matches_data, destination_tier):
                 metric = "mostCommonItems"
                 for index in range(POSSIBLE_ITEM_SLOTS):
                     item = stats["item{}".format(index)]
+
+                    item = itemFilter(item)
+
                     if item == 0:
                         continue
 
@@ -279,6 +365,7 @@ def parseMatchesData(matches_data, destination_tier):
                         I'm not sure what causes this -- possibly buying the item right as the match is ending (due to killing nexus or surrender)
                         To work around this, I'll set the time bought to the match duration... alternatively we could just discard it
                     '''
+
                     time_bought = findTimeBought(match_timeline, participantId, item)
                     if time_bought == None:
                         # print "{} {} skipped, match {}, {}".format(participantId, item, match["matchId"], index)
@@ -399,7 +486,7 @@ def main():
 
 
     pasteMidpointFilesTogether()
-    cleanupMidpointFiles()
+    # cleanupMidpointFiles()
     print "done"
     sys.exit(0)
 
