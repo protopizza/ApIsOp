@@ -22,7 +22,10 @@ function initChamps(){
 
 function initItems(){
     $.getJSON('data/static/items511.json', function(data){
-        items = data.data;
+        items511 = data.data;
+    })
+    $.getJSON('data/static/items514.json', function(data){
+        items514 = data.data;
     })
 }
 
@@ -33,9 +36,9 @@ function initUI(){
     
     $("#fight").click(function() {
         if(checkFive()){
+            addFilterHandlers();
             getPatchData(champsA, champsB);
             addChampDOM();
-            addFilterHandlers();
 
             $('.ui.accordion').accordion();
 
@@ -68,17 +71,21 @@ function checkFive(){
     return true;
 }
 
+var currentPatch = 511;
+var currentRank = 'unranked';
 function addFilterHandlers(){
     $('.patch-select > button').click(function(){
         var id = $(this).attr('id');
         $('#'+id).addClass('positive active');
         $('.patch-select > button').not('#'+id).removeClass('positive active');
-        // refreshDetail('patch', id);
+        currentPatch = id;
+        fillChampDetails(null, currentPatch, currentRank);
     })
     $('.filter-buttons > img').click(function(){
         var id = $(this).attr('id');
         $('#'+id).addClass('select-filter');
         $('.filter-buttons > img').not('#'+id).removeClass('select-filter');
-        // refreshDetail('rank', id);
+        currentRank = id;
+        fillChampDetails(null, currentPatch, currentRank);
     })
 }

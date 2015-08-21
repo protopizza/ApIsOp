@@ -20,9 +20,8 @@ function getPatchData(a, b){
                 selections.push(champ);
             }).then(function(data){
                 if( i == (c.length-1) ){
-                    // addChampDOM();
                     setTimeout(function(){
-                        fillChampDetails(selections);
+                        fillChampDetails(selections, 511, 'unranked');
                     },300);
                 }
             })
@@ -30,20 +29,79 @@ function getPatchData(a, b){
     }
 }
 
-function fillChampDetails(selections){
+function fillChampDetails(sel, patch, rank){
     for(var i = 0; i < selections.length; i++){
+        var dat = selections[i].defaultObj;
+        var currItems = null;
+        console.log(selections[i]);
+        if(patch == 511){
+            if( rank == 'unranked' ){
+                dat = selections[i].patch511.unranked;
+            }else{
+                var rankKey = '';
+                switch(rank){
+                    case 'bronze':
+                        rankKey = 'BRONZE';
+                        break;
+                    case 'silver':
+                        rankKey = 'SILVER';
+                        break;
+                    case 'gold':
+                        rankKey = 'GOLD';
+                        break;
+                    case 'platinum':
+                        rankKey = 'PLATINUM';
+                        break;
+                    case 'diamond':
+                        rankKey = 'DIAMOND+';
+                        break;
+                    default:
+                        break;
+                }
+                dat = selections[i].patch511.ranked[rankKey];
+            }
+            currItems = items511;
+        }
+        if(patch == 514){
+            if( rank == 'unranked' ){
+                dat = selections[i].patch514.unranked;
+            }else{
+                var rankKey = '';
+                switch(rank){
+                    case 'bronze':
+                        rankKey = 'BRONZE';
+                        break;
+                    case 'silver':
+                        rankKey = 'SILVER';
+                        break;
+                    case 'gold':
+                        rankKey = 'GOLD';
+                        break;
+                    case 'platinum':
+                        rankKey = 'PLATINUM';
+                        break;
+                    case 'diamond':
+                        rankKey = 'DIAMOND+';
+                        break;
+                    default:
+                        break;
+                }
+                dat = selections[i].patch514.ranked[rankKey];
+            }
+            currItems = items514;
+        }
+
         // win rate, kda, avg gold/min, total dmg to champs
         var champKey = selections[i].key;
-            console.log(selections[i]);
-        var winRate = selections[i].defaultObj.winRate;
-        var kda = selections[i].defaultObj.averageKda;
+        var winRate = dat.winRate;
+        var kda = dat.averageKda;
             kda = parseFloat(kda).toFixed(2);
-        var goldAvg = selections[i].defaultObj.averageGoldPerMin;
+        var goldAvg = dat.averageGoldPerMin;
             goldAvg = parseFloat(goldAvg).toFixed(2);
-        var dmg = selections[i].defaultObj.averageTotalDamageDealtToChampions;
+        var dmg = dat.averageTotalDamageDealtToChampions;
             dmg = parseInt(dmg);
             dmg = addCommas(dmg);
-        var commonItems = selections[i].defaultObj.mostCommonItems;
+        var commonItems = dat.mostCommonItems;
         var $dom = null;
         if($('.sideA').find('.'+champKey).length){
             $dom = $('.sideA').find('.'+champKey).find('.summary-stats');
@@ -57,12 +115,12 @@ function fillChampDetails(selections){
                 var time = commonItems[key].averageTimeBought;
                     time = 'approx. ' + parseInt(moment.duration(time, "milliseconds").as('minutes')) + ' minutes';
                 var $items = $('.sideA').find('.'+champKey).find('.top-items');
-                    var item = items[id];
+                    var item = currItems[id];
                     var ext = '.jpg';
                     if( $.inArray(item.id, pngItems) !== -1 ){
                         ext = '.png';
                     }
-                    $items.find('.item:eq('+count+')').find('img').attr('src', 'assets/items/511/' + item.id + ext);
+                    $items.find('.item:eq('+count+')').find('img').attr('src', 'assets/items/'+ patch + '/' + item.id + ext);
                     $items.find('.item:eq('+count+')').find('.item-name').text(item.name);
                     $items.find('.item:eq('+count+')').find('.item-time').text(time);
                 count++;
@@ -80,12 +138,12 @@ function fillChampDetails(selections){
                 var time = commonItems[key].averageTimeBought;
                     time = 'approx. ' + parseInt(moment.duration(time, "milliseconds").as('minutes')) + ' minutes';
                 var $items = $('.sideB').find('.'+champKey).find('.top-items');
-                    var item = items[id];
+                    var item = currItems[id];
                     var ext = '.jpg';
                     if( $.inArray(item.id, pngItems) !== -1 ){
                         ext = '.png';
                     }
-                    $items.find('.item:eq('+count+')').find('img').attr('src', 'assets/items/511/' + item.id + ext);
+                    $items.find('.item:eq('+count+')').find('img').attr('src', 'assets/items/'+ patch + '/' + item.id + ext);
                     $items.find('.item:eq('+count+')').find('.item-name').text(item.name);
                     $items.find('.item:eq('+count+')').find('.item-time').text(time);
                 count++;

@@ -3,12 +3,12 @@ var champs = [];
 var champsFull = {};
 var champsA = [];
 var champsB = [];
-var items = [];
+var items511 = [];
+var items514 = [];
 var pngItems = [3250, 3255, 3265, 3270, 3274, 3275, 3280];
 
 var Champion = function(key){
 	this.key = key;
-	this.patchId = 511;
 	this.patch511 = {};
 	this.patch514 = {};
 	this.defaultObj = {};
@@ -24,11 +24,9 @@ Champion.prototype.setRanked = function(rankedA, rankedB){
 }
 Champion.prototype.getPatch = function(patch){
 	if( patch == 511 ){
-		this.patchId = 511;
 		return this.patch511;
 	}
 	if( patch == 514 ){
-		this.patchId = 514;
 		return this.patch514;
 	}
 }
