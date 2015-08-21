@@ -179,6 +179,11 @@ def checkSpecialItemCases(item):
         item = 3004
     return item
 
+def filterTearItems(common_items):
+    if 3070 in common_items:
+        if 3040 in common_items or 3003 in common_items or 3042 in common_items or 3004 in common_items:
+            common_items.remove(3070)
+    return common_items
 
 def findTimeBought(match_timeline, participant, item):
     item = checkSpecialItemCases(item)
@@ -428,6 +433,7 @@ def filterOnlyMostCommonItems(json_data):
     for item in json_data["mostCommonItems"]:
         common_items.append(json_data["mostCommonItems"][item])
     common_items.sort(key=lambda x: x["buyPercentage"], reverse=True)
+    common_items = filterTearItems(common_items)
     for index in range(min(len(common_items), COMMON_ITEMS_TO_KEEP)):
         data[common_items[index]["id"]] = common_items[index]
     json_data["mostCommonItems"] = data
