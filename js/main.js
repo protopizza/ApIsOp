@@ -27,28 +27,9 @@ function initUI(){
     $("#fight").click(function() {
         if(checkFive()){
             getPatchData(champsA, champsB);
-            fillChampDetails();
+            addChampDOM();
             addFilterHandlers();
 
-            for(var i = 0; i < MAX_CHAMPS_PER_TEAM; i++){
-                var champDOM_a = $('#champion-template').clone();
-                    champDOM_a.appendTo('.sideA').removeAttr('id').data('key', champsA[i]);
-                    champDOM_a.find('.champ-name').text(champsFull[champsA[i]].name);
-                    champDOM_a.find('.champ-img').attr('src', 'assets/champs/' + champsA[i] + '.png');
-                    champDOM_a.show();
-
-                var champDOM_b = $('#champion-template').clone();
-                    champDOM_b.appendTo('.sideB').removeAttr('id').data('key', champsB[i]);
-                    champDOM_b.find('.champ-name').text(champsFull[champsB[i]].name);
-                    champDOM_b.find('.champ-img').attr('src', 'assets/champs/' + champsB[i] + '.png');
-                    champDOM_b.show();
-
-                if( i == 0 ){
-                    champDOM_a.find('.champ-tab').addClass('active');
-                    champDOM_b.find('.champ-tab').addClass('active');
-                }
-            }
-            
             $('.ui.accordion').accordion();
 
             $('#champion-template').remove();

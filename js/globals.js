@@ -3,7 +3,6 @@ var champs = [];
 var champsFull = {};
 var champsA = [];
 var champsB = [];
-var selections = [];
 
 var Champion = function(key){
 	this.key = key;
