@@ -21,9 +21,9 @@ function getPatchData(a, b){
             }).then(function(data){
                 if( i == (c.length-1) ){
                     // addChampDOM();
-                    // setTimeout(function(){
-                    fillChampDetails(selections);
-                    // },300);
+                    setTimeout(function(){
+                        fillChampDetails(selections);
+                    },300);
                 }
             })
         })(i);
