@@ -105,7 +105,7 @@ function fillChampDetails(sel, patch, rank){
         var $dom = null;
         if($('.sideA').find('.'+champKey).length){
             $dom = $('.sideA').find('.'+champKey).find('.summary-stats');
-            $dom.find('.win-rate').find('.value').text(winRate);
+            $('.sideA').find('.'+champKey).find('.title').find('.win-rate').find('.value').text(winRate);
             $dom.find('.kda').find('.value').text(kda);
             $dom.find('.gold-min').find('.value').text(goldAvg);
             $dom.find('.tot-dmg').find('.value').text(dmg);
@@ -128,7 +128,7 @@ function fillChampDetails(sel, patch, rank){
         }
         if($('.sideB').find('.'+champKey).length){
             $dom = $('.sideB').find('.'+champKey).find('.summary-stats');
-            $dom.find('.win-rate').find('.value').text(winRate);
+            $('.sideB').find('.'+champKey).find('.title').find('.win-rate').find('.value').text(winRate);
             $dom.find('.kda').find('.value').text(kda);
             $dom.find('.gold-min').find('.value').text(goldAvg);
             $dom.find('.tot-dmg').find('.value').text(dmg);

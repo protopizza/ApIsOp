@@ -60,6 +60,15 @@
     width: 49%;
 }
 
+.ui.header > img + .content{
+    width: 35%;
+    text-align: left;
+}
+
+.win-rate{
+    float: right;
+}
+
 .patch-header{
     margin: 0;
     line-height: 1em;
