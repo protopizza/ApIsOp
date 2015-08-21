@@ -3,6 +3,8 @@ var champs = [];
 var champsFull = {};
 var champsA = [];
 var champsB = [];
+var items = [];
+var pngItems = [3250, 3255, 3270, 3280];
 
 var Champion = function(key){
 	this.key = key;

@@ -1,4 +1,5 @@
 initChamps();
+initItems();
 initUI();
 
 function initChamps(){
@@ -16,6 +17,12 @@ function initChamps(){
             $(".dropdown .menu").append(
                 '<div class="item" data-value="' + champs[i] + '"><img class="ui avatar image" src="assets/champs/' + champs[i] + '.png">' + champsObj[champs[i]].name + '</div>');
         }
+    })
+}
+
+function initItems(){
+    $.getJSON('data/static/items511.json', function(data){
+        items = data.data;
     })
 }
 

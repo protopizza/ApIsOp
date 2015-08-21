@@ -42,8 +42,7 @@ function fillChampDetails(selections){
         var dmg = selections[i].defaultObj.averageTotalDamageDealtToChampions;
             dmg = parseInt(dmg);
             dmg = addCommas(dmg);
-        console.log(selections[i]);
-
+        var commonItems = selections[i].defaultObj.mostCommonItems;
         var $dom = null;
         if($('.sideA').find('.'+champKey).length){
             $dom = $('.sideA').find('.'+champKey).find('.summary-stats');
@@ -51,6 +50,23 @@ function fillChampDetails(selections){
             $dom.find('.kda').find('.value').text(kda);
             $dom.find('.gold-min').find('.value').text(goldAvg);
             $dom.find('.tot-dmg').find('.value').text(dmg);
+            var count = 0;
+            for(var key in commonItems){
+                var id = key;
+                var time = commonItems[key].averageTimeBought;
+                    time = 'approx. ' + parseInt(moment.duration(time, "milliseconds").as('minutes')) + ' minutes';
+                var $items = $('.sideA').find('.'+champKey).find('.top-items');
+                    var item = items[id];
+                    console.log(item);
+                    var ext = '.jpg';
+                    if( $.inArray(item.id, pngItems) !== -1 ){
+                        ext = '.png';
+                    }
+                    $items.find('.item:eq('+count+')').find('img').attr('src', 'assets/items/511/' + item.id + ext);
+                    $items.find('.item:eq('+count+')').find('.item-name').text(item.name);
+                    $items.find('.item:eq('+count+')').find('.item-time').text(time);
+                count++;
+            }
         }
         if($('.sideB').find('.'+champKey).length){
             $dom = $('.sideB').find('.'+champKey).find('.summary-stats');
@@ -58,6 +74,23 @@ function fillChampDetails(selections){
             $dom.find('.kda').find('.value').text(kda);
             $dom.find('.gold-min').find('.value').text(goldAvg);
             $dom.find('.tot-dmg').find('.value').text(dmg);
+            var count = 0;
+            for(var key in commonItems){
+                var id = key;
+                var time = commonItems[key].averageTimeBought;
+                    time = 'approx. ' + parseInt(moment.duration(time, "milliseconds").as('minutes')) + ' minutes';
+                var $items = $('.sideB').find('.'+champKey).find('.top-items');
+                    var item = items[id];
+                    console.log(item);
+                    var ext = '.jpg';
+                    if( $.inArray(item.id, pngItems) !== -1 ){
+                        ext = '.png';
+                    }
+                    $items.find('.item:eq('+count+')').find('img').attr('src', 'assets/items/511/' + item.id + ext);
+                    $items.find('.item:eq('+count+')').find('.item-name').text(item.name);
+                    $items.find('.item:eq('+count+')').find('.item-time').text(time);
+                count++;
+            }
         }
     }
 }
