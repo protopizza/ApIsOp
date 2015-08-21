@@ -34,6 +34,7 @@ function fillChampDetails(selections){
     for(var i = 0; i < selections.length; i++){
         // win rate, kda, avg gold/min, total dmg to champs
         var champKey = selections[i].key;
+            console.log(selections[i]);
         var winRate = selections[i].defaultObj.winRate;
         var kda = selections[i].defaultObj.averageKda;
             kda = parseFloat(kda).toFixed(2);
@@ -57,7 +58,6 @@ function fillChampDetails(selections){
                     time = 'approx. ' + parseInt(moment.duration(time, "milliseconds").as('minutes')) + ' minutes';
                 var $items = $('.sideA').find('.'+champKey).find('.top-items');
                     var item = items[id];
-                    console.log(item);
                     var ext = '.jpg';
                     if( $.inArray(item.id, pngItems) !== -1 ){
                         ext = '.png';
@@ -81,7 +81,6 @@ function fillChampDetails(selections){
                     time = 'approx. ' + parseInt(moment.duration(time, "milliseconds").as('minutes')) + ' minutes';
                 var $items = $('.sideB').find('.'+champKey).find('.top-items');
                     var item = items[id];
-                    console.log(item);
                     var ext = '.jpg';
                     if( $.inArray(item.id, pngItems) !== -1 ){
                         ext = '.png';
