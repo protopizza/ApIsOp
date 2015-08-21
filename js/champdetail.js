@@ -1,6 +1,7 @@
 var selections = [];
 
 function getPatchData(a, b){
+    selections = [];
     // merge two arrays of selected champions, as we don't need to save data twice.
     var c = a.concat(b.filter(function (item) {
         return a.indexOf(item) < 0;
@@ -153,6 +154,8 @@ function fillChampDetails(sel, patch, rank){
 }
 
 function addChampDOM(){
+    $('.sideA').html('');
+    $('.sideB').html('');
     for(var i = 0; i < MAX_CHAMPS_PER_TEAM; i++){
         var champDOM_a = $('#champion-template').clone();
             champDOM_a.appendTo('.sideA').removeAttr('id').addClass(champsA[i]);
@@ -183,16 +186,4 @@ function addCommas(nStr){
         x1 = x1.replace(rgx, '$1' + ',' + '$2');
     }
     return x1 + x2;
-}
-
-/*  
-    TODO: merge this with fillChampDetails
-*/
-function refreshDetail(type, id){
-    if(type == 'patch'){
-
-    }
-    if(type == 'rank'){
-
-    }
 }

@@ -42,7 +42,7 @@ function initUI(){
 
             $('.ui.accordion').accordion();
 
-            $('#champion-template').remove();
+            $('#champion-template').hide();
             $('#result').show();
             $('html,body').animate({
                 scrollTop: $("#result").offset().top
@@ -56,11 +56,9 @@ function checkFive(){
     var dropdownB = $('#champselect-B').dropdown('get value');
     if( dropdownA.length > 0 ){
         dropdownA = dropdownA.split(',');
-        // console.log('dropdownA:', dropdownA);
     }
     if( dropdownB.length > 0 ){
         dropdownB = dropdownB.split(',');
-        // console.log('dropdownB:', dropdownB);
     }
     if( dropdownA == null || dropdownB == null || dropdownA.length < 5 || dropdownB.length < 5){
         alert('Please select 5 champions for both teams.');
