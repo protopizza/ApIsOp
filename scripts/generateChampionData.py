@@ -192,7 +192,7 @@ def findTimeBought(match_timeline, participant, item):
                 return event["timestamp"]
 
 
-def itemFilter(item):
+def itemFilter(item, patch):
     ITEM_TABLE = {
 
         #upgraded tear items
@@ -219,12 +219,6 @@ def itemFilter(item):
         3200: 3198, #prototype hex core
         3196: 3198, #hex core mk1
         3197: 3198, #hex core mk2
-
-        #devourer
-        3726:3933, #ranger's trailblazer
-        3722:3932, #poacher's knife
-        3718:3931, #skirmisher's sabre
-        3710:3930, #stalker's blade
 
         #boot enchantments
         3254: 3006, #berserker's greaves - alacrity
@@ -302,12 +296,25 @@ def itemFilter(item):
         3040: 0 #tear of the goddess
     }
 
+    DEVOURER_TABLE = {
+        # in patch 5.14 we'll use only sated as our data
+        3726:3933, #ranger's trailblazer
+        3722:3932, #poacher's knife
+        3718:3931, #skirmisher's sabre
+        3710:3930  #stalker's blade
+
+    }
+
     if item in ITEM_TABLE:
         return ITEM_TABLE[item]
+
+    if patch == "5.14":
+        if item in DEVOURER_TABLE:
+            return DEVOURER_TABLE[item]
     return item
 
 
-def parseMatchesData(matches_data, destination_tier):
+def parseMatchesData(matches_data, destination_tier, patch):
     global CHAMPION_DATA
 
     try:
@@ -387,7 +394,7 @@ def parseMatchesData(matches_data, destination_tier):
                 for index in range(POSSIBLE_ITEM_SLOTS):
                     item = stats["item{}".format(index)]
 
-                    item = itemFilter(item)
+                    item = itemFilter(item, patch)
 
                     if item == 0:
                         continue
@@ -445,7 +452,7 @@ def readFilesByType(region, patch, queueType, tier):
             print "reading from {}...".format(BASE_PATH)
             with open(BASE_PATH, 'r') as fp:
                 matches_data = json.load(fp)
-                parseMatchesData(matches_data, tier)
+                parseMatchesData(matches_data, tier, patch)
             fileindex += 1
     except IOError:
         print "done reading tier:{} in queueType:{} in patch:{} in region:{}".format(tier, queueType, patch, region)
