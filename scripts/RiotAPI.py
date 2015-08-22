@@ -16,41 +16,41 @@ class RiotAPI(object):
         "status_endpoint":"http://status.leagueoflegends.com/{api}",
         "league":{
             "by-summoner":{
-                "":"/api/lol/{region}/v{version}/league/by-summoner/{summonerIds}",
-                "entry":"/api/lol/{region}/v{version}/league/by-summoner/{summonerIds}/entry"
+                "":"/api/lol/{URLregion}/v{URLversion}/league/by-summoner/{summonerIds}",
+                "entry":"/api/lol/{URLregion}/v{URLversion}/league/by-summoner/{summonerIds}/entry"
                 },
             "by-team":{
-                "":"/api/lol/{region}/v{version}/league/by-team/{teamIds}",
-                "entry":"/api/lol/{region}/v{version}/league/by-team/{teamIds}/entry"
+                "":"/api/lol/{URLregion}/v{URLversion}/league/by-team/{teamIds}",
+                "entry":"/api/lol/{URLregion}/v{URLversion}/league/by-team/{teamIds}/entry"
             }
         },
         "lol-static-data":{
             "champion":{
-                "":"/api/lol/static-data/{region}/v{version}/champion",
-                "id":"/api/lol/static-data/{region}/v{version}/champion/{id}"
+                "":"/api/lol/static-data/{URLregion}/v{URLversion}/champion",
+                "id":"/api/lol/static-data/{URLregion}/v{URLversion}/champion/{id}"
             },
             "item":{
-                "":"/api/lol/static-data/{region}/v{version}/item",
-                "id":"/api/lol/static-data/{region}/v{version}/item/{id}"
+                "":"/api/lol/static-data/{URLregion}/v{URLversion}/item",
+                "id":"/api/lol/static-data/{URLregion}/v{URLversion}/item/{id}"
             }
         },
         "lol-status":{
             "shards":{
                 "":"/shards",
-                "region":"/shards/{region}"
+                "region":"/shards/{URLregion}"
             }
         },
         "match":{
-            "":"/api/lol/{region}/v{version}/match/{matchId}",
+            "":"/api/lol/{URLregion}/v{URLversion}/match/{matchId}",
         },
         "stats":{
             "by-summoner":{
-                "ranked":"/api/lol/{region}/v{version}/stats/by-summoner/{summonerId}/ranked",
-                "summary":"/api/lol/{region}/v{version}/stats/by-summoner/{summonerId}/summary"
+                "ranked":"/api/lol/{URLregion}/v{URLversion}/stats/by-summoner/{summonerId}/ranked",
+                "summary":"/api/lol/{URLregion}/v{URLversion}/stats/by-summoner/{summonerId}/summary"
             }
         },
         "summoner":{
-            "by-name":"/api/lol/{region}/v{version}/summoner/by-name/{summonerNames}"
+            "by-name":"/api/lol/{URLregion}/v{URLversion}/summoner/by-name/{summonerNames}"
         }
     }
 
@@ -146,8 +146,8 @@ class RiotAPI(object):
         if isinstance(api_url, dict):
             api_url = api_url[""]
         args = {}
-        args["region"] = self.region
-        args["version"] = RiotAPI.API_VERSIONS[api_type]
+        args["URLregion"] = self.region
+        args["URLversion"] = RiotAPI.API_VERSIONS[api_type]
         args.update(request.params.items())
         for key in args:
             if isinstance(args[key], list):
