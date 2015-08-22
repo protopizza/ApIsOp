@@ -464,12 +464,15 @@ def flushAllData(region, patch, queueType, destination_tier):
 def onlyOneBoots(common_items):
     BOOTS = [3006, 3117, 3009, 3158, 3111, 3047, 3020]
     boots_found = False
+    remove_list = []
     for item in common_items:
         if item["id"] in BOOTS:
             if boots_found:
-                common_items.remove(item)
+                remove_list.append(item)
             else:
                 boots_found = True
+    for item in remove_list:
+        common_items.remove(item)
     return common_items
 
 
