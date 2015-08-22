@@ -2,6 +2,7 @@ initChamps();
 initItems();
 initUI();
 
+// import champion json file (includes all champions from both patches)
 function initChamps(){
     $.getJSON('data/static/champions.json', function(data){
         var champsObj = data.data;
@@ -20,6 +21,7 @@ function initChamps(){
     })
 }
 
+// import 5.11 & 5.14 items separately since same items may have different IDs.
 function initItems(){
     $.getJSON('data/static/items511.json', function(data){
         items511 = data.data;
@@ -29,6 +31,8 @@ function initItems(){
     })
 }
 
+// initialize semantic's UI components.
+// other semantic UI components must be initialized after DOM creation.
 function initUI(){
     $('.ui.dropdown').dropdown({
         maxSelections: 5
@@ -36,6 +40,7 @@ function initUI(){
     
     $("#fight").click(function() {
         if(checkFive()){
+            // initialize rest of the page only when checkFive() passes.
             addFilterHandlers();
             getPatchData(champsA, champsB);
             addChampDOM();
@@ -51,6 +56,7 @@ function initUI(){
     });
 }
 
+// function to make sure both dropdowns have 5 champions each selected.
 function checkFive(){
     var dropdownA = $('#champselect-A').dropdown('get value');
     var dropdownB = $('#champselect-B').dropdown('get value');
@@ -69,8 +75,11 @@ function checkFive(){
     return true;
 }
 
+// some globals to be used later.
 var currentPatch = 511;
 var currentRank = 'unranked';
+
+// add mouse handlers to the UI section that filters data by rank and patch.
 function addFilterHandlers(){
     $('.patch-select > button').click(function(){
         var id = $(this).attr('id');
