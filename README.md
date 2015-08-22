@@ -1,3 +1,3 @@
-# Ap is Op
+# AP is OP
 
 http://protopizza.github.io/ApIsOp/
