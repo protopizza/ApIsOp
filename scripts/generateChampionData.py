@@ -66,25 +66,19 @@ Sample json champion output data:
 
 '''
 
-
 import json
 import math
 import os
 import sys
-
-API_KEY = apiKey.API_KEY
 
 NORMAL_INPUT_PATH_BASE = "MATCH_DATA/{patch}/NORMAL_5X5/{region}/{filepatch}-normal-{fileregion}-{fileindex}.json"
 RANKED_INPUT_PATH_BASE = "MATCH_DATA/{patch}/RANKED_SOLO/{region}/{tier}/{filepatch}-ranked-{fileregion}-{filetier}-{fileindex}.json"
 MIDPOINT_FILE_BASE = "data/champion/{championKey}-{region}-{patch}-{queueType}-{rank}.json"
 OUTPUT_PATH_BASE = "data/champion/{championKey}.json"
 
-STATIC_DATA_CHAMPIONS = "data/static/champions.json"
-STATIC_DATA_ITEMS = {
-    "5.11":"data/static/items511.json",
-    "5.14":"data/static/items514.json"
-}
-STATIC_AP_ITEM_CHANGES = "data/static/ap_item_changes.json"
+STATIC_DATA_CHAMPIONS_PATH = "data/static/champions.json"
+STATIC_AP_ITEM_CHANGES_PATH = "data/static/ap_item_changes.json"
+STATIC_ITEM_BUILD_PATH = "data/static/item_build_paths.json"
 
 
 REGIONS = ["NA"] #["BR", "EUNE", "EUW", "KR", "LAN", "LAS", "NA", "OCE", "RU", "TR"]
@@ -111,27 +105,32 @@ COMMON_ITEMS_TO_KEEP = 6
 MIDPOINT_FILES = []
 CHAMPION_ID_TABLE = {}
 CHAMPION_DATA = {}
-
 CHANGED_AP_ITEMS = {}
+ITEM_BUILD_PATHS = {}
 
 
-def buildChampionIdTable():
+def buildGlobalTables():
     global CHAMPION_ID_TABLE
-    with open(STATIC_DATA_CHAMPIONS, 'r') as fp:
+    with open(STATIC_DATA_CHAMPIONS_PATH, 'r') as fp:
         static_champion_data = json.load(fp)
 
         for champion in static_champion_data["data"]:
             champId = static_champion_data["data"][champion]["id"]
             CHAMPION_ID_TABLE[champId] = champion
+
     global CHANGED_AP_ITEMS
-    with open(STATIC_AP_ITEM_CHANGES, 'r') as fp:
+    with open(STATIC_AP_ITEM_CHANGES_PATH, 'r') as fp:
         CHANGED_AP_ITEMS = json.load(fp)
+
+    global ITEM_BUILD_PATHS
+    with open(STATIC_ITEM_BUILD_PATH, 'r') as fp:
+        ITEM_BUILD_PATHS = json.load(fp)
 
 
 def constructChampionDict():
     global CHAMPION_DATA
     CHAMPION_DATA = {}
-    with open(STATIC_DATA_CHAMPIONS, 'r') as fp:
+    with open(STATIC_DATA_CHAMPIONS_PATH, 'r') as fp:
         static_champion_data = json.load(fp)
 
         for champion in static_champion_data["data"]:
@@ -479,13 +478,31 @@ def onlyOneBoots(common_items):
     return common_items
 
 
-def filterOnlyMostCommonItems(json_data):
+def filterLowTierItems(common_items, patch):
+    retry_needed = True
+    while retry_needed:
+        retry_needed = False
+        from_list = []
+        for index in range(min(len(common_items), COMMON_ITEMS_TO_KEEP)):
+            from_list.extend(ITEM_BUILD_PATHS[patch][str(common_items[index]["id"])]["from"])
+
+        for remove_item in from_list:
+            for item in common_items:
+                if str(item["id"]) in from_list:
+                    common_items.remove(item)
+                    retry_needed = True
+
+    return common_items
+
+
+def filterOnlyMostCommonItems(json_data, patch):
     common_items = []
     data = {}
     for item in json_data["mostCommonItems"]:
         common_items.append(json_data["mostCommonItems"][item])
     common_items.sort(key=lambda x: x["buyPercentage"], reverse=True)
     common_items = onlyOneBoots(common_items)
+    common_items = filterLowTierItems(common_items, patch)
     for index in range(min(len(common_items), COMMON_ITEMS_TO_KEEP)):
         data[common_items[index]["id"]] = common_items[index]
     json_data["mostCommonItems"] = data
@@ -509,7 +526,7 @@ def pasteMidpointFilesTogether():
                         try:
                             with open(input_file, 'r') as fp:
                                 json_data = json.load(fp)
-                                json_data = filterOnlyMostCommonItems(json_data)
+                                json_data = filterOnlyMostCommonItems(json_data, patch)
                                 championData[region][patch][queueType][tier] = json_data
                         except IOError:
                             print "no data for {} in {}/{}/{}/{}".format(championKey, tier, queueType, patch, region)
@@ -528,7 +545,7 @@ def cleanupMidpointFiles():
 
 def main():
 
-    buildChampionIdTable()
+    buildGlobalTables()
 
     for region in REGIONS:
         for patch in PATCHES:
