@@ -81,6 +81,12 @@ var currentRank = 'unranked';
 
 // add mouse handlers to the UI section that filters data by rank and patch.
 function addFilterHandlers(){
+    currentPatch = 511;
+    currentRank = 'unranked';
+    
+    // reset UI when filter handlers are invoked (new 5 champions selected);
+    $('.patch-select > button').removeClass('positive active');
+    $('#511').addClass('positive active');
     $('.patch-select > button').click(function(){
         var id = $(this).attr('id');
         $('#'+id).addClass('positive active');
@@ -88,6 +94,10 @@ function addFilterHandlers(){
         currentPatch = id;
         fillChampDetails(null, currentPatch, currentRank);
     })
+    
+    // reset UI when filter handlers are invoked (new 5 champions selected);
+    $('.filter-buttons > img').removeClass('select-filter');
+    $('#unranked').addClass('select-filter');
     $('.filter-buttons > img').click(function(){
         var id = $(this).attr('id');
         $('#'+id).addClass('select-filter');
