@@ -67,8 +67,6 @@ Sample json champion output data:
 '''
 
 
-from RiotAPI import RiotAPI, Request
-import apiKey
 import json
 import math
 import os
@@ -292,8 +290,6 @@ def itemFilter(item, patch):
         3255: 3020, #sorcerer's shoes - homeguard
         1314: 3020, #sorcerer's shoes - homeguard
 
-        #non-full items
-        3040: 0 #tear of the goddess
     }
 
     DEVOURER_TABLE = {
