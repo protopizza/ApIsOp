@@ -179,11 +179,6 @@ def checkSpecialItemCases(item):
         item = 3004
     return item
 
-def filterTearItems(common_items):
-    if "3070" in common_items:
-        if "3040" in common_items or "3003" in common_items or "3042" in common_items or "3004" in common_items:
-            common_items.remove("3070")
-    return common_items
 
 def findTimeBought(match_timeline, participant, item):
     item = checkSpecialItemCases(item)
@@ -199,11 +194,39 @@ def findTimeBought(match_timeline, participant, item):
 
 def itemFilter(item):
     ITEM_TABLE = {
+
+        #upgraded tear items
         3003: 3040, #archangel's -> seraph's
         3004: 3042, #manamune -> muramana
+
+        #consumables
         1054: 0, #doran's shield
         1055: 0, #doran's blade
         1056: 0, #doran's ring
+        2003: 0, #health potion
+        2004: 0, #mana potion
+        2010: 0, #total biscuit of rejuvenation
+        2041: 0, #crystalline flask
+        2140: 0, #elixir of wrath
+        2138: 0, #elixir of iron
+        2139: 0, #elixir of sorcery
+        2137: 0, #elixir of ruin
+        2044: 0, #vision ward
+        2043: 0, #stealth ward
+
+        #special items
+        3599: 0, #black spear
+        3200: 3198, #prototype hex core
+        3196: 3198, #hex core mk1
+        3197: 3198, #hex core mk2
+
+        #devourer
+        3726:3933, #ranger's trailblazer
+        3722:3932, #poacher's knife
+        3718:3931, #skirmisher's sabre
+        3710:3930, #stalker's blade
+
+        #boot enchantments
         3254: 3006, #berserker's greaves - alacrity
         1301: 3006, #berserker's greaves - alacrity
         3274: 3117, #boots of mobility - alacrity
@@ -273,7 +296,10 @@ def itemFilter(item):
         3260: 3047, #ninja tabi - homeguard
         1319: 3047, #ninja tabi - homeguard
         3255: 3020, #sorcerer's shoes - homeguard
-        1314: 3020 #sorcerer's shoes - homeguard
+        1314: 3020, #sorcerer's shoes - homeguard
+
+        #non-full items
+        3040: 0 #tear of the goddess
     }
 
     if item in ITEM_TABLE:
@@ -357,6 +383,7 @@ def parseMatchesData(matches_data, destination_tier):
 
 
                 metric = "mostCommonItems"
+                items = {}
                 for index in range(POSSIBLE_ITEM_SLOTS):
                     item = stats["item{}".format(index)]
 
@@ -364,7 +391,6 @@ def parseMatchesData(matches_data, destination_tier):
 
                     if item == 0:
                         continue
-
                     '''
                         Sometimes the purchasing of an item doesn't show up in the event history (excluding Muramana/Seraph's).
                         I'm not sure what causes this -- possibly buying the item right as the match is ending (due to killing nexus or surrender)
@@ -377,14 +403,19 @@ def parseMatchesData(matches_data, destination_tier):
                         # continue
                         time_bought = match_length * 1000 #milliseconds
 
+                    items[item] = time_bought
 
+
+                for item in items:
                     if item in CHAMPION_DATA[championKey][metric]:
                         CHAMPION_DATA[championKey][metric][item]["buyCount"] += 1
+                        original_average_time_bought = CHAMPION_DATA[championKey][metric][item]["averageTimeBought"]
+                        CHAMPION_DATA[championKey][metric][item]["averageTimeBought"] = calculateNewAverage(original_average_time_bought, items[item], CHAMPION_DATA[championKey][metric][item]["buyCount"])
                     else:
                         CHAMPION_DATA[championKey][metric][item] = {}
                         CHAMPION_DATA[championKey][metric][item]["id"] = item
                         CHAMPION_DATA[championKey][metric][item]["buyCount"] = 1
-                        CHAMPION_DATA[championKey][metric][item]["averageTimeBought"] = 0
+                        CHAMPION_DATA[championKey][metric][item]["averageTimeBought"] = items[item]
                         if str(item) in CHANGED_AP_ITEMS:
                             CHAMPION_DATA[championKey][metric][item]["isApItem"] = True
                         else:
@@ -392,9 +423,12 @@ def parseMatchesData(matches_data, destination_tier):
 
                     CHAMPION_DATA[championKey][metric][item]["buyPercentage"] = float(CHAMPION_DATA[championKey][metric][item]["buyCount"]) / float(CHAMPION_DATA[championKey]["matchesCounted"]) * 100
 
-                    original_average_time_bought = CHAMPION_DATA[championKey][metric][item]["averageTimeBought"]
-                    CHAMPION_DATA[championKey][metric][item]["averageTimeBought"] = calculateNewAverage(original_average_time_bought, time_bought, original_matches_counted)
-                # print championKey, CHAMPION_DATA[championKey]
+
+                for existing_item in CHAMPION_DATA[championKey][metric]:
+                    if existing_item not in items:
+                        CHAMPION_DATA[championKey][metric][existing_item]["buyPercentage"] = float(CHAMPION_DATA[championKey][metric][existing_item]["buyCount"]) / float(CHAMPION_DATA[championKey]["matchesCounted"]) * 100
+
+
     except:
         print "no more matches left in this file"
 
@@ -427,13 +461,25 @@ def flushAllData(region, patch, queueType, destination_tier):
             MIDPOINT_FILES.append(output_file)
 
 
+def onlyOneBoots(common_items):
+    BOOTS = [3006, 3117, 3009, 3158, 3111, 3047, 3020]
+    boots_found = False
+    for item in common_items:
+        if item["id"] in BOOTS:
+            if boots_found:
+                common_items.remove(item)
+            else:
+                boots_found = True
+    return common_items
+
+
 def filterOnlyMostCommonItems(json_data):
     common_items = []
     data = {}
     for item in json_data["mostCommonItems"]:
         common_items.append(json_data["mostCommonItems"][item])
     common_items.sort(key=lambda x: x["buyPercentage"], reverse=True)
-    common_items = filterTearItems(common_items)
+    common_items = onlyOneBoots(common_items)
     for index in range(min(len(common_items), COMMON_ITEMS_TO_KEEP)):
         data[common_items[index]["id"]] = common_items[index]
     json_data["mostCommonItems"] = data
