@@ -82,6 +82,7 @@ function fillChampDetails(sel, patch, rank){
     }
 }
 
+// splits selected champions into two columns and adds DOMs
 function addChampDOM(){
     $('.sideA').html('');
     $('.sideB').html('');
@@ -105,6 +106,7 @@ function addChampDOM(){
     }
 }
 
+// helper function to add commas to every 3 digits.
 function addCommas(nStr){
     nStr += '';
     var x = nStr.split('.');
