@@ -461,12 +461,25 @@ def flushAllData(region, patch, queueType, destination_tier):
             MIDPOINT_FILES.append(output_file)
 
 
+def onlyOneBoots(common_items):
+    BOOTS = [3006, 3117, 3009, 3158, 3111, 3047, 3020]
+    boots_found = False
+    for item in common_items:
+        if item["id"] in BOOTS:
+            if boots_found:
+                common_items.remove(item)
+            else:
+                boots_found = True
+    return common_items
+
+
 def filterOnlyMostCommonItems(json_data):
     common_items = []
     data = {}
     for item in json_data["mostCommonItems"]:
         common_items.append(json_data["mostCommonItems"][item])
     common_items.sort(key=lambda x: x["buyPercentage"], reverse=True)
+    common_items = onlyOneBoots(common_items)
     for index in range(min(len(common_items), COMMON_ITEMS_TO_KEEP)):
         data[common_items[index]["id"]] = common_items[index]
     json_data["mostCommonItems"] = data
