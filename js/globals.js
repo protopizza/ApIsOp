@@ -1,12 +1,17 @@
+// consts
+var NO_DATA 			= ['Caitlyn, Jayce, TahmKench'];
+var PNG_ITEMS 			= [3250, 3255, 3265, 3270, 3274, 3275, 3280];
 var MAX_CHAMPS_PER_TEAM = 5;
-var champs = [];
-var champsFull = {};
-var champsA = [];
-var champsB = [];
-var items511 = [];
-var items514 = [];
-var pngItems = [3250, 3255, 3265, 3270, 3274, 3275, 3280];
 
+// globals
+var items511 			= [];
+var items514 			= [];
+var champs 				= [];
+var champsFull 			= {};
+var champsA 			= [];
+var champsB 			= [];
+
+// container for full champ data
 var Champion = function(key){
 	this.key = key;
 	this.patch511 = {};
@@ -30,6 +35,34 @@ Champion.prototype.getPatch = function(patch){
 		return this.patch514;
 	}
 }
-Champion.prototype.getRank = function(rank){
-	return this['patch'+this.patchId].ranked.rank;
+Champion.prototype.getFilteredData = function(patch, rank){
+	var patchObj = this.getPatch(patch);
+	var rankKey = '';
+	switch(rank){
+		case 'unranked':
+			rankKey = null;
+			break;
+	    case 'bronze':
+	        rankKey = 'BRONZE';
+	        break;
+	    case 'silver':
+	        rankKey = 'SILVER';
+	        break;
+	    case 'gold':
+	        rankKey = 'GOLD';
+	        break;
+	    case 'platinum':
+	        rankKey = 'PLATINUM';
+	        break;
+	    case 'diamond':
+	        rankKey = 'DIAMOND+';
+	        break;
+	    default:
+	        break;
+	}
+	if(rankKey == null){
+		return patchObj.unranked;
+	}else{
+		return patchObj.ranked[rankKey];
+	}
 }

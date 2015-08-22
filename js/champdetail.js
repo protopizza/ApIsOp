@@ -35,54 +35,26 @@ function getPatchData(a, b){
 // update UI with appropriate champ data.
 function fillChampDetails(sel, patch, rank){
     for(var i = 0; i < selections.length; i++){
-        var patchObj = null;
-        var rankObj = null;
+        var champObj = null;
         var currItems = null;
-        
-        if(patch == 511){
-            patchObj = selections[i].patch511;
-            currItems = items511;
-        }else if(patch == 514){
-            patchObj = selections[i].patch514;
-            currItems = items514;
-        }
-        if(rank == 'unranked'){
-            rankObj = patchObj.unranked;
-        }else{
-            var rankKey = '';
-            switch(rank){
-                case 'bronze':
-                    rankKey = 'BRONZE';
-                    break;
-                case 'silver':
-                    rankKey = 'SILVER';
-                    break;
-                case 'gold':
-                    rankKey = 'GOLD';
-                    break;
-                case 'platinum':
-                    rankKey = 'PLATINUM';
-                    break;
-                case 'diamond':
-                    rankKey = 'DIAMOND+';
-                    break;
-                default:
-                    break;
+            if(patch == 511){
+                currItems = items511;
+            }else if(patch == 514){
+                currItems = items514;
             }
-            rankObj = patchObj.ranked[rankKey];
-        }
+        champObj = selections[i].getFilteredData(patch, rank);
 
         // win rate, kda, avg gold/min, total dmg to champs
         var champKey = selections[i].key;
-        var winRate = rankObj.winRate;
-        var kda = rankObj.averageKda;
+        var winRate = champObj.winRate;
+        var kda = champObj.averageKda;
             kda = parseFloat(kda).toFixed(2);
-        var goldAvg = rankObj.averageGoldPerMin;
+        var goldAvg = champObj.averageGoldPerMin;
             goldAvg = parseFloat(goldAvg).toFixed(2);
-        var dmg = rankObj.averageTotalDamageDealtToChampions;
+        var dmg = champObj.averageTotalDamageDealtToChampions;
             dmg = parseInt(dmg);
             dmg = addCommas(dmg);
-        var commonItems = rankObj.mostCommonItems;
+        var commonItems = champObj.mostCommonItems;
         var $dom = null;
         if($('.ui.segments').find('.'+champKey).length){
             $dom = $('.ui.segments').find('.'+champKey).find('.summary-stats');
@@ -98,7 +70,7 @@ function fillChampDetails(sel, patch, rank){
                 var $items = $('.ui.segments').find('.'+champKey).find('.top-items');
                     var item = currItems[id];
                     var ext = '.jpg';
-                    if( $.inArray(item.id, pngItems) !== -1 ){
+                    if( $.inArray(item.id, PNG_ITEMS) !== -1 ){
                         ext = '.png';
                     }
                     $items.find('.item:eq('+count+')').find('img').attr('src', 'assets/items/'+ patch + '/' + item.id + ext);
