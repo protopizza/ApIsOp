@@ -47,8 +47,7 @@ function fillChampDetails(sel, patch, rank){
         var goldAvg = champObj.averageGoldPerMin;
             goldAvg = parseFloat(goldAvg).toFixed(2);
         var dmg = champObj.averageTotalDamageDealtToChampions;
-            dmg = parseInt(dmg);
-            dmg = addCommas(dmg);
+            dmg = parseFloat(dmg/1000).toFixed(2) + 'k';
         var commonItems = champObj.mostCommonItems;
 
         // sort common items
@@ -139,7 +138,7 @@ function addItemDetails(commonItems, champKey, patch){
                 $item.find('img').popup({
                     inline: true
                 });
-                
+
             $('#item-template').hide();
         });
     }
