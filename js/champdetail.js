@@ -112,7 +112,7 @@ function addItemDetails(commonItems, champKey, patch){
             $item.find('img').popup({
                 title       : itemObj.name,
                 content     : 'Average purchase time: ' + time,
-                variation   : 'small wide inverted'
+                variation   : 'tiny wide inverted'
             });
             // $items.find('.item:eq('+count+')').find('.item-name').text(item.name);
             // $items.find('.item:eq('+count+')').find('.item-time').text(time);
