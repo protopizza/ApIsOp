@@ -37,14 +37,7 @@ function getPatchData(a, b){
 var updatedMissing = [];
 function fillChampDetails(sel, patch, rank){
     for(var i = 0; i < selections.length; i++){
-        var champObj = null;
-        var currItems = null;
-            if(patch == 511){
-                currItems = items511;
-            }else if(patch == 514){
-                currItems = items514;
-            }
-        champObj = selections[i].getFilteredData(patch, rank);
+        var champObj = selections[i].getFilteredData(patch, rank);
 
         // win rate, kda, avg gold/min, total dmg to champs
         var champKey = selections[i].key;
@@ -90,26 +83,40 @@ function fillChampDetails(sel, patch, rank){
                 $dom.find('.kda').find('.value').text(kda);
                 $dom.find('.gold-min').find('.value').text(goldAvg);
                 $dom.find('.tot-dmg').find('.value').text(dmg);
-                var count = 0;
-                for(var key in commonItems){
-                    var id = key;
-                    var time = commonItems[key].averageTimeBought;
-                        time = 'approx. ' + parseInt(moment.duration(time, "milliseconds").as('minutes')) + ' minutes';
-                    var $items = $('.ui.segments').find('.'+champKey).find('.top-items');
-                        var item = currItems[id];
-                        var ext = '.jpg';
-                        if( $.inArray(item.id, PNG_ITEMS) !== -1 ){
-                            ext = '.png';
-                        }
-                        $items.find('.item:eq('+count+')').find('img').attr('src', 'assets/items/'+ patch + '/' + item.id + ext);
-                        $items.find('.item:eq('+count+')').find('.item-name').text(item.name);
-                        $items.find('.item:eq('+count+')').find('.item-time').text(time);
-                    count++;
-                }
+
+                addItemDetails(commonItems, champKey, patch);
             }
-
         }
+    }
+}
 
+function addItemDetails(commonItems, champKey, patch){
+    var count = 0;
+    var currItems = null;
+    if(patch == 511){
+        currItems = items511;
+    }else if(patch == 514){
+        currItems = items514;
+    }
+    for(var key in commonItems){
+        var id = key;
+        var itemObj = currItems[id];
+        var time = commonItems[key].averageTimeBought;
+            time = 'approx. ' + parseInt(moment.duration(time, "milliseconds").as('minutes')) + ' minutes';
+        
+        var $items = $('.ui.segments').find('.'+champKey).find('.top-items');
+        var $item = $items.find('.item:eq('+count+')');
+            $item.find('img').attr('src', 'assets/items/'+ patch + '/' + itemObj.id + '.jpg');
+
+            // hover handler:
+            $item.find('img').popup({
+                title       : itemObj.name,
+                content     : 'Average purchase time: ' + time,
+                variation   : 'small wide inverted'
+            });
+            // $items.find('.item:eq('+count+')').find('.item-name').text(item.name);
+            // $items.find('.item:eq('+count+')').find('.item-time').text(time);
+        count++;
     }
 }
 
