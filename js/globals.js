@@ -1,5 +1,4 @@
 // consts
-var NO_DATA 			= ['Caitlyn, Jayce, TahmKench'];
 var PNG_ITEMS 			= [3250, 3255, 3265, 3270, 3274, 3275, 3280];
 var MAX_CHAMPS_PER_TEAM = 5;
 
