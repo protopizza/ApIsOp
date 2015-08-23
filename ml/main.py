@@ -13,8 +13,13 @@ def main():
     dl = DataLoader()
     matchGenerator = dl.getMatch()
 
-    print json.dumps(dl.filterMatchFields(matchGenerator.next()), sort_keys=True, indent=4)
-    print json.dumps(dl.filterMatchFields(matchGenerator.next()), sort_keys=True, indent=4)
+    try:
+        while True:
+            matchGenerator.next()
+    except StopIteration as e:
+        print "Done reading match data."
+    # print json.dumps(dl.filterMatchFields(matchGenerator.next()), sort_keys=True, indent=4)
+    # print json.dumps(dl.filterMatchFields(matchGenerator.next()), sort_keys=True, indent=4)
 
 
 if __name__ == "__main__":
