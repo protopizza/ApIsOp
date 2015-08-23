@@ -50,6 +50,15 @@ function fillChampDetails(sel, patch, rank){
             dmg = parseInt(dmg);
             dmg = addCommas(dmg);
         var commonItems = champObj.mostCommonItems;
+
+        // sort common items
+        var sortedCommonItems = [];
+        for(var key in commonItems){
+            sortedCommonItems.push([key, commonItems[key]]);
+        }
+        sortedCommonItems.sort(function(a,b){ return b[1].buyPercentage - a[1].buyPercentage; });
+
+        console.log('common items for ' + champKey, sortedCommonItems);
         var $dom = null;
         if($('.ui.segments').find('.'+champKey).length){
             // modify inner content if there's actually no data (do this only after DOM creation)
@@ -84,39 +93,45 @@ function fillChampDetails(sel, patch, rank){
                 $dom.find('.gold-min').find('.value').text(goldAvg);
                 $dom.find('.tot-dmg').find('.value').text(dmg);
 
-                addItemDetails(commonItems, champKey, patch);
+                addItemDetails(sortedCommonItems, champKey, patch);
             }
         }
     }
 }
 
 function addItemDetails(commonItems, champKey, patch){
-    var count = 0;
     var currItems = null;
+    var MAX_LENGTH = commonItems.length;
+    $('.ui.segments').find('.'+champKey).find('.top-items').find('.item').not('#item-template').remove();
     if(patch == 511){
         currItems = items511;
     }else if(patch == 514){
         currItems = items514;
     }
-    for(var key in commonItems){
-        var id = key;
+    if(commonItems.length > 8){
+        MAX_LENGTH = 8;
+    }
+    for(var i = 0; i < MAX_LENGTH; i++){
+        var id = commonItems[i][0];
         var itemObj = currItems[id];
-        var time = commonItems[key].averageTimeBought;
+        var buyPercentage = parseFloat(commonItems[i][1].buyPercentage).toFixed(2);
+        var time = commonItems[i][1].averageTimeBought;
             time = 'approx. ' + parseInt(moment.duration(time, "milliseconds").as('minutes')) + ' minutes';
         
         var $items = $('.ui.segments').find('.'+champKey).find('.top-items');
-        var $item = $items.find('.item:eq('+count+')');
+        var $item = $items.find('#item-template').clone().removeAttr('id');
+            $item.appendTo($items).show();
             $item.find('img').attr('src', 'assets/items/'+ patch + '/' + itemObj.id + '.jpg');
 
             // hover handler:
+            $item.find('.item-name').html('<b>' + itemObj.name + '</b>');
+            $item.find('.item-time').text('Average purchase time: ' + time);
+            $item.find('.item-percent').text(buyPercentage + '% bought');
             $item.find('img').popup({
-                title       : itemObj.name,
-                content     : 'Average purchase time: ' + time,
-                variation   : 'tiny wide inverted'
+                inline: true
             });
-            // $items.find('.item:eq('+count+')').find('.item-name').text(item.name);
-            // $items.find('.item:eq('+count+')').find('.item-time').text(time);
-        count++;
+
+            $('#item-template').hide();
     }
 }
 

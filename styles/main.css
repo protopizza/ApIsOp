@@ -78,6 +78,14 @@
     line-height: 1em;
 }
 
+.item-name{
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+.item-time{
+    text-align: left;
+}
+
 #fight{
     margin-top: 3em;
 }
