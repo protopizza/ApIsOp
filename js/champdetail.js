@@ -121,24 +121,27 @@ function addItemDetails(commonItems, champKey, patch){
         var time = commonItems[i][1].averageTimeBought;
             time = 'approx. ' + parseInt(moment.duration(time, "milliseconds").as('minutes')) + ' minutes';
         
-        var $items = $('.ui.segments').find('.'+champKey).find('.top-items');
-        var $item = $items.find('#item-template').clone().removeAttr('id');
-            $item.appendTo($items).show();
-            $item.find('img').attr('src', 'assets/items/'+ patch + '/' + itemObj.id + '.jpg');
+        // double-check for duplicate champions, so that items don't propagate on both sides.
+        $('.ui.segments').find('.'+champKey).each(function(i){
+            var $items = $(this).find('.top-items');
+            var $item = $items.find('#item-template').clone().removeAttr('id');
+                $item.appendTo($items).show();
+                $item.find('img').attr('src', 'assets/items/'+ patch + '/' + itemObj.id + '.jpg');
 
-            // hover handler:
-            // check jungle item
-            if(currJungle.hasOwnProperty(id)){
-                itemObj.name = currJungle[id].full_name;
-            }
-            $item.find('.item-name').html('<b>' + itemObj.name + '</b>');
-            $item.find('.item-time').text('Average purchase time: ' + time);
-            $item.find('.item-percent').text(buyPercentage + '% bought');
-            $item.find('img').popup({
-                inline: true
-            });
-
+                // hover handler:
+                // check jungle item
+                if(currJungle.hasOwnProperty(id)){
+                    itemObj.name = currJungle[id].full_name;
+                }
+                $item.find('.item-name').html('<b>' + itemObj.name + '</b>');
+                $item.find('.item-time').text('Average purchase time: ' + time);
+                $item.find('.item-percent').text(buyPercentage + '% bought');
+                $item.find('img').popup({
+                    inline: true
+                });
+                
             $('#item-template').hide();
+        });
     }
 }
 
