@@ -58,7 +58,6 @@ function fillChampDetails(sel, patch, rank){
         }
         sortedCommonItems.sort(function(a,b){ return b[1].buyPercentage - a[1].buyPercentage; });
 
-        console.log('common items for ' + champKey, sortedCommonItems);
         var $dom = null;
         if($('.ui.segments').find('.'+champKey).length){
             // modify inner content if there's actually no data (do this only after DOM creation)
@@ -100,13 +99,16 @@ function fillChampDetails(sel, patch, rank){
 }
 
 function addItemDetails(commonItems, champKey, patch){
-    var currItems = null;
-    var MAX_LENGTH = commonItems.length;
+    var currItems   = null;
+    var currJungle  = null;
+    var MAX_LENGTH  = commonItems.length;
     $('.ui.segments').find('.'+champKey).find('.top-items').find('.item').not('#item-template').remove();
     if(patch == 511){
-        currItems = items511;
+        currItems   = items511;
+        currJungle  = jungle511;
     }else if(patch == 514){
-        currItems = items514;
+        currItems   = items514;
+        currJungle  = jungle514;
     }
     if(commonItems.length > 8){
         MAX_LENGTH = 8;
@@ -124,6 +126,10 @@ function addItemDetails(commonItems, champKey, patch){
             $item.find('img').attr('src', 'assets/items/'+ patch + '/' + itemObj.id + '.jpg');
 
             // hover handler:
+            // check jungle item
+            if(currJungle.hasOwnProperty(id)){
+                itemObj.name = currJungle[id].full_name;
+            }
             $item.find('.item-name').html('<b>' + itemObj.name + '</b>');
             $item.find('.item-time').text('Average purchase time: ' + time);
             $item.find('.item-percent').text(buyPercentage + '% bought');

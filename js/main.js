@@ -21,14 +21,18 @@ function initChamps(){
     })
 }
 
-// import 5.11 & 5.14 items separately since same items may have different IDs.
+// import static item files.
 function initItems(){
     $.getJSON('data/static/items511.json', function(data){
         items511 = data.data;
-    })
+    });
     $.getJSON('data/static/items514.json', function(data){
         items514 = data.data;
-    })
+    });
+    $.getJSON('data/static/jungle_enchantments.json', function(data){
+        jungle511 = data['5.11'];
+        jungle514 = data['5.14'];
+    });
 }
 
 // initialize semantic's UI components.

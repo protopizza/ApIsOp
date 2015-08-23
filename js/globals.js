@@ -5,6 +5,8 @@ var MAX_CHAMPS_PER_TEAM = 5;
 // globals
 var items511 			= [];
 var items514 			= [];
+var jungle511 			= [];
+var jungle514 			= [];
 var champs 				= [];
 var champsFull 			= {};
 var champsA 			= [];
