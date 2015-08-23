@@ -309,7 +309,7 @@ def itemFilter(item, patch):
     return item
 
 
-def parseMatchesData(matches_data, destination_tier, patch):
+def parseMatchesData(matches_data, patch):
     global CHAMPION_DATA
 
     try:
@@ -411,8 +411,7 @@ def parseMatchesData(matches_data, destination_tier, patch):
                 for item in items:
                     if item in CHAMPION_DATA[championKey][metric]:
                         CHAMPION_DATA[championKey][metric][item]["buyCount"] += 1
-                        original_average_time_bought = CHAMPION_DATA[championKey][metric][item]["averageTimeBought"]
-                        CHAMPION_DATA[championKey][metric][item]["averageTimeBought"] = calculateNewAverage(original_average_time_bought, items[item], CHAMPION_DATA[championKey][metric][item]["buyCount"])
+                        CHAMPION_DATA[championKey][metric][item]["averageTimeBought"] = calculateNewAverage(CHAMPION_DATA[championKey][metric][item]["averageTimeBought"], items[item], CHAMPION_DATA[championKey][metric][item]["buyCount"])
                     else:
                         CHAMPION_DATA[championKey][metric][item] = {}
                         CHAMPION_DATA[championKey][metric][item]["id"] = item
@@ -431,8 +430,8 @@ def parseMatchesData(matches_data, destination_tier, patch):
                         CHAMPION_DATA[championKey][metric][existing_item]["buyPercentage"] = float(CHAMPION_DATA[championKey][metric][existing_item]["buyCount"]) / float(CHAMPION_DATA[championKey]["matchesCounted"]) * 100
 
 
-    except:
-        print "no more matches left in this file"
+    except Exception as e:
+        print "no more matches left in this file ({})".format(e)
 
 
 def readFilesByType(region, patch, queueType, tier):
@@ -447,7 +446,7 @@ def readFilesByType(region, patch, queueType, tier):
             print "reading from {}...".format(BASE_PATH)
             with open(BASE_PATH, 'r') as fp:
                 matches_data = json.load(fp)
-                parseMatchesData(matches_data, tier, patch)
+                parseMatchesData(matches_data, patch)
             fileindex += 1
     except IOError:
         print "done reading tier:{} in queueType:{} in patch:{} in region:{}".format(tier, queueType, patch, region)

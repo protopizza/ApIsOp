@@ -22,7 +22,7 @@
   "3040": {
     "name": "Seraph's Embrace",
     "id": "3048",
-    "change": "AP +20"
+    "change": "AP +20 (Archangel's Staff: Cost +300g, AP +20, recipe changed)"
   },
   "3089": {
     "name": "Rabadon's Deathcap",
@@ -36,7 +36,7 @@
   },
   "3116": {
     "name": "Rylai's Crystal Scepter",
-    "id": "<3116></3116>",
+    "id": "3116",
     "change": "Cost +100g, recipe changed, slowing effects buffed"
   },
   "3135": {
