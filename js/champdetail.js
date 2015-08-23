@@ -99,6 +99,7 @@ function fillChampDetails(sel, patch, rank){
 }
 
 function addItemDetails(commonItems, champKey, patch){
+    console.debug('calling addItemDetails for ' + champKey);
     var currItems   = null;
     var currJungle  = null;
     var MAX_LENGTH  = commonItems.length;
