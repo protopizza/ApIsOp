@@ -98,7 +98,6 @@ function fillChampDetails(sel, patch, rank){
 }
 
 function addItemDetails(commonItems, champKey, patch){
-    console.debug('calling addItemDetails for ' + champKey);
     var currItems   = null;
     var currJungle  = null;
     var MAX_LENGTH  = commonItems.length;
@@ -123,9 +122,9 @@ function addItemDetails(commonItems, champKey, patch){
         // double-check for duplicate champions, so that items don't propagate on both sides.
         $('.ui.segments').find('.'+champKey).each(function(i){
             var $items = $(this).find('.top-items');
-            var $item = $items.find('#item-template').clone().removeAttr('id');
-                $item.appendTo($items).show();
-                $item.find('img').attr('src', 'assets/items/'+ patch + '/' + itemObj.id + '.jpg');
+            var $item = $items.find('#item-template').clone().attr('id', 'item'+patch+'-'+itemObj.id);
+                $item.appendTo($items).css('display', 'inline-block');
+                // $item.find('img').attr('src', 'assets/items/'+ patch + '/' + itemObj.id + '.jpg');
 
                 // hover handler:
                 // check jungle item
