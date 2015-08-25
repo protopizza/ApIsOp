@@ -103,7 +103,8 @@ class DataLoader(object):
             items = []
             for idx in range(DataLoader.MAX_ITEMS):
                 items.append(teamA[player]["item{}".format(idx)])
-            items = sorted(items, key=lambda x: (x is 0, x))
+            items.sort()
+            items = [itemId for itemId in items if itemId != 0]
             teamA[player]["items"] = items
             teamA[player] = { key: teamA[player][key] for key in stats_keys}
 
@@ -111,7 +112,8 @@ class DataLoader(object):
             items = []
             for idx in range(DataLoader.MAX_ITEMS):
                 items.append(teamB[player]["item{}".format(idx)])
-            items = sorted(items, key=lambda x: (x is 0, x))
+            items.sort()
+            items = [itemId for itemId in items if itemId != 0]
             teamB[player]["items"] = items
             teamB[player] = { key: teamB[player][key] for key in stats_keys}
 

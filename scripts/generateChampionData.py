@@ -81,6 +81,8 @@ STATIC_AP_ITEM_CHANGES_PATH = "data/static/ap_item_changes.json"
 STATIC_ITEM_BUILD_PATH = "data/static/item_build_paths.json"
 
 
+RUNNING_MATCH_COUNT = 0
+
 REGIONS = ["NA"] #["BR", "EUNE", "EUW", "KR", "LAN", "LAS", "NA", "OCE", "RU", "TR"]
 PATCHES = ["5.11", "5.14"]
 QUEUETYPES = {
@@ -272,8 +274,8 @@ def itemFilter(item, patch):
         1320: 3111, #mercury's treads - furor
         3262: 3047, #ninja tabi - furor
         1315: 3047, #ninja tabi - furor
-        3255: 3020, #sorcerer's shoes - furor
-        1314: 3020, #sorcerer's shoes - furor
+        3257: 3020, #sorcerer's shoes - furor
+        1310: 3020, #sorcerer's shoes - furor
         3250: 3006, #berserker's greaves - homeguard
         1304: 3006, #berserker's greaves - homeguard
         3270: 3117, #boots of mobility - homeguard
@@ -311,6 +313,7 @@ def itemFilter(item, patch):
 
 def parseMatchesData(matches_data, patch):
     global CHAMPION_DATA
+    global RUNNING_MATCH_COUNT
 
     try:
         for sequence in range(MAX_MATCHES_PER_FILE):
@@ -319,6 +322,7 @@ def parseMatchesData(matches_data, patch):
             match_length = match["matchDuration"]
             match_length_minutes = float(match_length) / 60
             match_timeline = match["timeline"]
+            RUNNING_MATCH_COUNT += 1
 
             for participant in match["participants"]:
                 participantId = participant["participantId"]
@@ -337,10 +341,19 @@ def parseMatchesData(matches_data, patch):
                 CHAMPION_DATA[championKey]["winRate"] = "{:0.2f}".format(float(CHAMPION_DATA[championKey]["matchesWon"]) / float(CHAMPION_DATA[championKey]["matchesCounted"]) * 100)
 
 
-
-                metric = "averageCsAt10"
-                new_value = timeline["creepsPerMinDeltas"]["zeroToTen"]
-                genericMetricUpdate(championKey, metric, new_value, original_matches_counted)
+                '''
+                    Sometimes participant timeline data is missing... not worth throwing away the whole match if this field is missing.
+                    We'll just add another data point at the average. This could potentially skew the data very slightly but these matches are very
+                    anomalous so we'll leave it as such.
+                '''
+                try:
+                    metric = "averageCsAt10"
+                    new_value = timeline["creepsPerMinDeltas"]["zeroToTen"]
+                    genericMetricUpdate(championKey, metric, new_value, original_matches_counted)
+                except:
+                    metric = "averageCsAt10"
+                    new_value = CHAMPION_DATA[championKey][metric]
+                    genericMetricUpdate(championKey, metric, new_value, original_matches_counted)
 
 
                 metric = "averageCsPerMin"
@@ -543,7 +556,7 @@ def cleanupMidpointFiles():
 
 
 def main():
-
+    global RUNNING_MATCH_COUNT
     buildGlobalTables()
 
     for region in REGIONS:
@@ -557,6 +570,8 @@ def main():
                     else:
                         readFilesByType(region, patch, queueType, tier)
                     flushAllData(region, patch, queueType, tier)
+                print "Matches counted in {}/{}/{}: {}".format(queueType, patch, region, RUNNING_MATCH_COUNT)
+                RUNNING_MATCH_COUNT = 0
 
 
     pasteMidpointFilesTogether()

@@ -23,7 +23,10 @@ TIERS = [
 
 FIELDS = [
     "WinRate",
-    "BuyRate"
+    "LossRate",
+    "BuyRate",
+    "NotBuyRate"
+
 ]
 
 region = "NA" # only NA data
@@ -62,8 +65,14 @@ with open(OUTPUT_FILE, 'wb') as csvfile:
                     queueType = "NORMAL_5X5"
                 else:
                     queueType = "RANKED_SOLO"
-                row_values.append(item_json_data[region][patch][queueType][tier]["winRate"])
-                row_values.append(item_json_data[region][patch][queueType][tier]["buyPercentage"])
+                winRate = item_json_data[region][patch][queueType][tier]["winRate"]
+                buyRate = item_json_data[region][patch][queueType][tier]["buyPercentage"]
+                row_values.append(winRate)
+                lossRate = 100.0 - float(winRate)
+                row_values.append(float(str(lossRate)))
+                row_values.append(buyRate)
+                notBuyRate = 100.0 - float(buyRate)
+                row_values.append(float(str(notBuyRate)))
 
         writer.writerow(row_values)
 

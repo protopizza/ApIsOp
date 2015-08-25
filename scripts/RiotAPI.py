@@ -32,6 +32,9 @@ class RiotAPI(object):
             "item":{
                 "":"/api/lol/static-data/{URLregion}/v{URLversion}/item",
                 "id":"/api/lol/static-data/{URLregion}/v{URLversion}/item/{id}"
+            },
+            "map":{
+                "":"/api/lol/static-data/{URLregion}/v{URLversion}/map"
             }
         },
         "lol-status":{
