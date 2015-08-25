@@ -70,10 +70,21 @@ function initChart(){
     var ticks = svg.select(".axis").selectAll(".tick").data(data)
                   .append("svg:image")
                   .attr("xlink:href", function (d) { return 'assets/items/514/' + d['ITEM_ID'] + '.jpg'; })
-                  .attr("width", 37)
-                  .attr("height", 37)
-                  .attr('x', -20)
+                  .attr("width", 38)
+                  .attr("height", 38)
+                  .attr('x', -19)
                   .attr('y', 5);
+
+    svg.select(".axis").selectAll(".tick")
+                  .append("rect")
+                  .attr("width", 38)
+                  .attr("height", 38)
+                  .attr('x', -19)
+                  .attr('y', 5)
+                  .attr('rx', 2)
+                  .attr('ry', 2)
+                  .attr('stroke-width', '1')
+                  .attr('stroke', 'rgba(0,0,0,0.65)');
 
     svg.selectAll('.tick line')
      .attr({'y2': 0});
