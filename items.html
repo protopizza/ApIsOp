@@ -26,7 +26,25 @@
   <div style="height:70px;clear:both;"></div>
   <div class="ui center aligned text container">
     <h4 class="ui horizontal divider header">AP Item Highlights</h4>
+    <div class="ui center aligned text container" id="filter">
+      <div class="ui raised segment">
+        <div class="ui top attached inverted black label">Filter Results</div>
+        <div class="ui images filter-buttons">
+          <img class="ui image select-filter" id="unranked" src="assets/rank/provisional.png">
+          <img class="ui image" id="bronze" src="assets/rank/bronze.png">
+          <img class="ui image" id="silver" src="assets/rank/silver.png">
+          <img class="ui image" id="gold" src="assets/rank/gold.png">
+          <img class="ui image" id="platinum" src="assets/rank/platinum.png">
+          <img class="ui image" id="diamond" src="assets/rank/diamond.png">
+        </div>
+        <div class="patch-select">
+          <button class="ui left attached tiny positive active button" id="511">5.11</button>
+          <button class="right attached ui tiny button" id="514">5.14</button>
+        </div>
+      </div>
+    </div>
     <div id="winrate"></div>
+    <div class="ui center aligned text container">Note: Win rate percentages are counted per match. If multiple people purchase an AP item, we'll be considering that 1 count-- In this match, this specific AP item was bought.</div>
   </div>
   <div class="footer">
     <p style="text-align:center"><span class="fa fa-heart"></span> AP is OP</p>

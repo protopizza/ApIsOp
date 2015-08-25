@@ -26,6 +26,7 @@ function initAPItems(){
 		    })(i);
 		}
 	}).then(function(){
+		console.log(items);
 		initChart();
 	})
 }
