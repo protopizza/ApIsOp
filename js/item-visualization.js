@@ -40,7 +40,7 @@ function initChart(){
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
   
   // open csv file:
-  d3.csv("../data/viz/items.csv", function(error, data) {
+  d3.csv("data/viz/items.csv", function(error, data) {
     if (error) throw error;
 
     color.domain(d3.keys(data[0]).filter(function(key) { return key == "511-NO_RANK-WinRate" || key == "511-NO_RANK-BuyRate"; }));
