@@ -134,7 +134,7 @@ function addItemDetails(commonItems, champKey, patch){
                 $item.find('.item-name').html('<b>' + itemObj.name + '</b>');
                 $item.find('.item-time').text('Average purchase time: ' + time);
                 $item.find('.item-percent').text(buyPercentage + '% bought');
-                $item.find('img').popup({
+                $item.find('.filler').popup({
                     inline: true
                 });
 

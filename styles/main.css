@@ -73,6 +73,11 @@
     margin-left: 0.2em;
 }
 
+.filler{
+    width: 35px;
+    height: 35px;
+}
+
 .patch-header{
     margin: 0;
     line-height: 1em;
