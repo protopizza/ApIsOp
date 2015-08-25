@@ -1,4 +1,5 @@
 import json
+import numpy
 
 class DataLoader(object):
 
@@ -22,6 +23,7 @@ class DataLoader(object):
 
     DIAMOND_PLUS = ["DIAMOND", "MASTER", "CHALLENGER"]
     MAX_ITEMS = 6
+
 
     def __init__(self):
         pass
@@ -100,20 +102,16 @@ class DataLoader(object):
         for player in range(len(teamA)):
             items = []
             for idx in range(DataLoader.MAX_ITEMS):
-                if teamA[player]["item{}".format(idx)] == 0:
-                    continue
                 items.append(teamA[player]["item{}".format(idx)])
-            items.sort()
+            items = sorted(items, key=lambda x: (x is 0, x))
             teamA[player]["items"] = items
             teamA[player] = { key: teamA[player][key] for key in stats_keys}
 
         for player in range(len(teamB)):
             items = []
             for idx in range(DataLoader.MAX_ITEMS):
-                if teamB[player]["item{}".format(idx)] == 0:
-                    continue
                 items.append(teamB[player]["item{}".format(idx)])
-            items.sort()
+            items = sorted(items, key=lambda x: (x is 0, x))
             teamB[player]["items"] = items
             teamB[player] = { key: teamB[player][key] for key in stats_keys}
 

@@ -1,4 +1,5 @@
-from sklearn import datasets
+import numpy as np
+from sklearn import svm
 from DataLoader import DataLoader
 import json
 import math
@@ -6,6 +7,24 @@ import os
 import sys
 
 
+TIERS = {
+    "NO_RANK":0,
+    "BRONZE":0.2,
+    "SILVER":0.4,
+    "GOLD":0.6,
+    "PLATINUM":0.8,
+    "DIAMOND+":1
+}
+
+
+PATCHES = {
+    "5.11":0,
+    "5.14":1
+}
+
+def trainSVM(X, y):
+    clf = svm.SVC(kernel='linear', C=1.0)
+    clf.fit(X, y)
 
 
 def main():
@@ -13,13 +32,34 @@ def main():
     dl = DataLoader()
     matchGenerator = dl.getMatch()
 
+    X = []
+    y = []
+
     try:
         while True:
-            matchGenerator.next()
+            current_list = []
+            raw_data = matchGenerator.next()
+            current_data = dl.filterMatchFields(raw_data)
+
+            # data fields
+            current_list.append(TIERS[current_data["matchTier"]])
+            current_list.append(PATCHES[current_data["patch"]])
+            X.append(current_list)
+
+            # target value
+            if current_data["winnerTeamA"]:
+                y.append(0)
+            else:
+                y.append(1)
+
+            # print json.dumps(dl.filterMatchFields(raw_data), sort_keys=True, indent=4)
+            raise StopIteration
+
     except StopIteration as e:
         print "Done reading match data."
-    # print json.dumps(dl.filterMatchFields(matchGenerator.next()), sort_keys=True, indent=4)
-    # print json.dumps(dl.filterMatchFields(matchGenerator.next()), sort_keys=True, indent=4)
+
+    print X
+    print y
 
 
 if __name__ == "__main__":
