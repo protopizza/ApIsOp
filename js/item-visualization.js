@@ -1,7 +1,7 @@
 function initChart(){
   // define margins, width, height of chart container
   var margin = {top: 20, right: 100, bottom: 50, left: 50},
-      width = 840 - margin.left - margin.right,
+      width = 800 - margin.left - margin.right,
       height = 300 - margin.top - margin.bottom;
 
   // define x data type
@@ -43,7 +43,6 @@ function initChart(){
   d3.csv("../data/viz/items.csv", function(error, data) {
     if (error) throw error;
 
-    console.log(data);
     color.domain(d3.keys(data[0]).filter(function(key) { return key == "511-NO_RANK-WinRate" || key == "511-NO_RANK-BuyRate"; }));
 
     data.forEach(function(d) {
