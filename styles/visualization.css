@@ -1,0 +1,17 @@
+.axis path,
+.axis line {
+    fill: none;
+    stroke: rgba(0,0,0,0.65);
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+.midaxis path {
+	shape-rendering: crispEdges;
+	stroke-dasharray: 2,2;
+	stroke: #777;
+}
+
+.midaxis line, .midaxis text {
+	display:none;
+}
