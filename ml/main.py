@@ -22,10 +22,6 @@ PATCHES = {
     "5.14":1
 }
 
-def trainSVM(X, y):
-    clf = svm.SVC(kernel='linear', C=1.0)
-    clf.fit(X, y)
-
 
 def main():
 
@@ -35,6 +31,7 @@ def main():
     X = []
     y = []
 
+    count = 0
     try:
         while True:
             current_list = []
@@ -53,13 +50,21 @@ def main():
                 y.append(1)
 
             # print json.dumps(dl.filterMatchFields(raw_data), sort_keys=True, indent=4)
-            raise StopIteration
+            if count > 100:
+                raise StopIteration
+            count += 1
 
     except StopIteration as e:
         print "Done reading match data."
 
     print X
     print y
+    clf = svm.SVC(kernel='linear', C=1.0)
+    clf.fit(X[:-1], y[:-1])
+
+    print clf.predict(X[-1])
+
+    print y[-1]
 
 
 if __name__ == "__main__":

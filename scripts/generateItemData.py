@@ -156,6 +156,8 @@ def parseMatchesData(matches_data, patch):
             match_length = match["matchDuration"]
             match_timeline = match["timeline"]
             matches_counted += 1
+
+            duplicate_items = []
             for participant in match["participants"]:
                 participantId = participant["participantId"]
                 stats = participant["stats"]
@@ -178,8 +180,10 @@ def parseMatchesData(matches_data, patch):
                 for item in items:
                     if str(item) not in ITEM_DATA:
                         continue
-                    original_matches_bought = ITEM_DATA[str(item)]["matchesBought"]
-                    ITEM_DATA[str(item)]["matchesBought"] = original_matches_bought + 1
+                    if item not in duplicate_items:
+                        original_matches_bought = ITEM_DATA[str(item)]["matchesBought"]
+                        ITEM_DATA[str(item)]["matchesBought"] = original_matches_bought + 1
+                        duplicate_items.append(item)
 
                     if stats["winner"]:
                         ITEM_DATA[str(item)]["matchesWon"] += 1
