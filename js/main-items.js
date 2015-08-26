@@ -28,6 +28,6 @@ function initAPItems(){
 		}
 	}).then(function(){
 		console.log(items);
-		initChart();
+		drawChart(false);
 	})
 }
