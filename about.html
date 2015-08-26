@@ -25,42 +25,76 @@
   <div style="height:70px;clear:both;"></div>
   <div class="ui left justified text container">
     <div class="ui padded segment">
-      <h3 class="ui horizontal divider header">Champion Analysis</h3>
+      <h3 class="ui horizontal divider header">Background</h3>
+      <p>
+
+      As two avid League of Legends players, finding out that AP itemization was being reworked was a bit of a surprise. Would our favorite AP mage champions still be strong? How would these changes affect the champion spectrum? With these questions in mind, we set out to analyze and display the data handed to us with a single hope in mind: that <b>AP is OP</b>.</p>
+
+      </p>
+    </div>
+    <div class="ui padded segment">
+      <h3 class="ui horizontal divider header"><a href="index.html">Champion Analysis</a></h3>
       <div class="ui centered image">
         <img src="assets/screen1.jpg">
       </div>
       <p></p>
-      <p><b>List purpose here.</b>
+      <p><b>Purpose:</b>
+      We initially set out to display statistics about how each champion fared between patches <b>5.11</b> and <b>5.14</b>, as well as their varying data between different match rankings, from unranked normal matches to each tier in ranked. We also wanted to highlight the most popular items built on each champion and their average time built. This data is displayed in a 5x5 team format.
+      </p>
 
-      Bacon ipsum dolor amet sirloin pastrami rump frankfurter porchetta turducken swine, meatball meatloaf boudin spare ribs tenderloin strip steak. Frankfurter doner hamburger, chicken brisket meatloaf capicola cupim jerky. Ribeye bresaola spare ribs landjaeger, hamburger tail sirloin kevin flank shank. Ground round andouille drumstick jowl frankfurter turducken. Bacon chuck turducken beef cow sirloin turkey andouille brisket pancetta pork belly tri-tip.</p>
+      <p><b>Methodology:</b>
+      To gather all the data we wanted to display, we wrote a variety of Python scripts to perform different tasks for us, located in <a href="http://github.com/protopizza/ApIsOp/tree/master/scripts"><b>ApIsOp/scripts</b></a>. The first of these, <a href="http://github.com/protopizza/ApIsOp/blob/master/scripts/RiotAPI.py"><b>RiotAPI.py</b></a> is a wrapper built directly around the Riot API using Python library <a href="http://www.python-requests.org/en/latest/"><b>requests</b></a>, allowing us to make generic requests to the API. From there, we created a number of scripts to download and sort the data. Finally, the most important script here is <a href="http://github.com/protopizza/ApIsOp/blob/master/scripts/generateChampionData.py"><b>generateChampionData.py</b></a>, which took all the sorted data and produced JSON data files for each champion with different fields for both patches and all match tiers. Additionally, we created also a number of static data files, containing either static data from the Riot API or various mappings we wanted to produce (as well as one documenting all the <a href="http://github.com/protopizza/ApIsOp/blob/master/data/static/ap_item_changes.json"><b>AP item changes</b></a>).
+      </p>
 
-      <p><b>List methodology here.</b>
-      
-      Prosciutto cow doner, tenderloin venison sirloin strip steak flank spare ribs turkey boudin pancetta t-bone. Ribeye tail prosciutto drumstick shoulder alcatra. Tenderloin corned beef swine frankfurter sirloin. Pork chop brisket ham sirloin fatback, frankfurter swine. Venison short loin tenderloin, ham hock spare ribs frankfurter sausage pork loin meatball kevin pig. Capicola cow meatball landjaeger pancetta, picanha sirloin pork loin chuck biltong doner turducken venison brisket jerky. Boudin ham picanha, shankle chuck sirloin biltong chicken filet mignon pancetta kielbasa leberkas.</p>
+      <p>
+      To create a visual format for this data, we used a combination of HTML, CSS, and JavaScript with various libraries, notably <a href="http://semantic-ui.com/"><b>Semantic UI</b></a>.
+      </p>
 
-      <p><b>List findings or interesting facts here.</b>
-      
-      Prosciutto cow doner, tenderloin venison sirloin strip steak flank spare ribs turkey boudin pancetta t-bone. Ribeye tail prosciutto drumstick shoulder alcatra. Tenderloin corned beef swine frankfurter sirloin. Pork chop brisket ham sirloin fatback, frankfurter swine. Venison short loin tenderloin, ham hock spare ribs frankfurter sausage pork loin meatball kevin pig. Capicola cow meatball landjaeger pancetta, picanha sirloin pork loin chuck biltong doner turducken venison brisket jerky. Boudin ham picanha, shankle chuck sirloin biltong chicken filet mignon pancetta kielbasa leberkas.</p>
+      <p><b>Findings of interest:</b>
+      Notably, our dataset was not spread evenly across match tiers. While we were given 10k matches from each queue type in each patch, the distribution of these 10k across ranked matches is very uneven, with <b>Silver</b> having about <b>40%</b> of the data, and <b>Diamond</b>, <b>Master</b>, and <b>Challenger</b> combined only having about <b>4%</b>. Thus, we chose to combine the higher tiers into <b>Diamond+</b> to give it a bit more weight. Yet still, we have very few matches for various champions in <b>Diamond+</b>, for example <b>Zilean</b> only had 2 matches in <b>5.11, Diamond+</b> and 3 matches in <b>5.14, Diamond+</b>.
+      </p>
+
+      <p>
+      Additionally, a few champions did not have any data in patch <b>5.11</b>. <b>Tahm Kench</b> had no data, as expected. However, both <b>Caitlyn</b> and <b>Jayce</b> also had no data for this patch. Both of these champions were disabled for a duration of the patch and thus, the dataset simply did not have any matches with them. (All three do have <b>5.14</b> data, however).</p>
     </div>
     <div class="ui padded segment">
-      <h3 class="ui horizontal divider header">Item Analysis</h3>
-      <p><b>List purpose here.</b>
+      <h3 class="ui horizontal divider header"><a href="items.html">Item Analysis</a></h3>
+      <p><b>Purpose:</b>
+      Displaying champion statistics and their associated item statistics does not give us a direct view onto the data specifically for the changed AP items. To handle this, we decided to to display an item-specific graph showing win rate (how many matches was it won with out of how many matches was it bought?) and buy rate (out of total matches in a tier, how many times was it bought?)
+      </p>
 
-      Bacon ipsum dolor amet pancetta short ribs hamburger cow tail flank. Frankfurter cow pastrami ground round. Corned beef pancetta flank, ground round capicola short ribs picanha pork loin ribeye porchetta turducken short loin. Pastrami venison tri-tip tongue jerky cupim. Tri-tip ribeye jowl, salami spare ribs leberkas ham frankfurter tongue kevin turducken rump. Short ribs prosciutto bacon, ball tip pork chop cow pork belly rump beef ribs chicken meatball turkey landjaeger porchetta pig.</p>
+      <p><b>Methodology:</b>
+      To generate all of the data across changed AP items, we used a script similar to the one for generating champion data called <a href="http://github.com/protopizza/ApIsOp/blob/master/scripts/generateItemData.py"><b>generateItemData.py</b></a>. This produced a JSON data file for each item which we then aggregated into a single CSV file.
+      </p>
+      <p>
+      For visualizing this data, we used <a href="http://d3js.org/"><b>D3.js</b></a>, a JavaScript library for producing data vizualizations.
+      </p>
 
-      <p><b>List methodology here.</b>
-      
-      Leberkas ground round pork loin sirloin alcatra meatball, beef filet mignon porchetta spare ribs. Meatball filet mignon shankle landjaeger turkey biltong pork belly doner strip steak alcatra ground round. Prosciutto biltong flank hamburger turducken, picanha beef. Cupim leberkas shoulder picanha andouille jowl turducken brisket rump short loin pork bacon doner pork belly beef. Cupim corned beef ball tip, tenderloin drumstick t-bone filet mignon pork.</p>
+      <p><b>Findings of interest:</b>
 
-      <p><b>List findings or interesting facts here.</b>
-      
-      Tri-tip drumstick salami kielbasa venison tail pork belly landjaeger. Pork loin pancetta ball tip meatloaf meatball tail strip steak shankle sausage bacon fatback capicola venison. Kielbasa rump pork belly corned beef. Ham hock drumstick salami boudin short ribs capicola tenderloin pastrami cupim leberkas pig. Beef cow pork belly pastrami.</p>
+      </p>
     </div>
     <div class="ui padded segment">
       <h3 class="ui horizontal divider header">Data Biases</h3>
-      <p><b>List possible data biases here.</b>
+      <p>
+      To make processing the data easier and what we considered to be more meaningful, we combined several data points. We ignored all boot enchantments and only considered second-tier boots. Additionally, in the most popular items for each champion, we limited the output to only having one pair of boots. For example, it wouldn't be that interesting to see ADCs with both <b>Homeguard</b> and <b>Furor</b> boots in their most popular items, or tanks deciding between <b>Ninja Tabi</b> or <b>Mercury's Treads</b>. We'd rather see another core item. However, we left in multiple jungle items (and enchantments) as these show meaningful early game choices, especially with the addition of <b>Sated Devourer</b>.
+      </p>
 
-      Bacon ipsum dolor amet pork loin chuck short ribs tail cupim t-bone rump spare ribs pancetta shankle. Pig jowl landjaeger chicken kielbasa turducken short ribs cow corned beef. Pork loin bacon tri-tip, shankle brisket ball tip prosciutto sirloin pig cupim beef ribs frankfurter. Rump short ribs beef leberkas, ham landjaeger doner. Landjaeger chicken rump, alcatra pork loin filet mignon ground round brisket short ribs shank ham.</p>
+      <p>
+      We combined the mana stacked items, <b>Seraph's Embrace</b> and <b>Muramana</b>, into their unstacked counterparts, <b>Archangel's Staff</b> and <b>Manamune</b>. We tracked the buy time as the unstacked version, but always tracked the end data point as the stacked version, since the main difference between them is simply time, and we didn't want to show both a stacked and unstacked version on the most popular items.
+      </p>
+
+      <p>
+      All popular items are taken from a player's end-game build. Additionally, any non-full item components in their list are only considered if the most popular items do not contain and item that builds out of it. For example, if <b>B. F. Sword</b> happens to be one of the most popular items on <b>Caitlyn</b>, it won't show if <b>Infinity Edge</b> or <b>The Bloodthirster</b> are already in the list. However, something like <b>Quicksilver Sash</b> may show if the fully-built <b>Mercurial Scimitar</b> is not that popular.
+      </p>
+
+      <p>
+      There are a few oddities within the data that we esimated around. For example, sometimes in the event timeline of a match, the event of a player buying a certain item simply does not exist.We decided the most likely case was buying an item right as the match ended, most likely during a surrender. It's not uncommon for players to try to buy items at the end of a match, as they want their fullest build to appear in their match history. So for these data points, we set the buy time to the end of the match.
+      </p>
+
+      <p>
+      Not all data is created equal. Or at least, the distribution of matches is not equal, and as mentioned before, we have only a small number of matches in certain tiers or on certain champions. Additionally, we only downloaded matches from <b>NA</b>, as downloading match data from all regions would have been very time consuming, though most of our actual scripts actually have the functionality for all regions. And lastly, from each patch we are only processing a given 10k matches, which is only representative of a portion of matches from the entire patch.
+      </p>
     </div>
   	<div class="ui two cards">
       <div class="card">
@@ -74,7 +108,7 @@
             <p>Current main: Orianna</p>
           </div>
           <div class="description">
-            Data analysis, machine learning
+            Data processing/analysis, machine learning
           </div>
         </div>
         <div class="extra content">
