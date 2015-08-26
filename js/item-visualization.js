@@ -7,7 +7,7 @@ var currentKeyBR = '511-NO_RANK-BuyRate'
 
 function initChart(){
   // define margins, width, height of chart container
-  var margin = {top: 20, right: 100, bottom: 50, left: 50},
+  var margin = {top: 20, right: 250, bottom: 50, left: 50},
       width = 800 - margin.left - margin.right,
       height = 300 - margin.top - margin.bottom;
 
@@ -17,7 +17,7 @@ function initChart(){
 
   // define y data type
   var y = d3.scale.linear()
-      .rangeRound([height, 0]);
+      .range([height, 0]);
 
   // define colors to be used per item
   var color = d3.scale.ordinal()
@@ -47,29 +47,22 @@ function initChart(){
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
   
   // open csv file:
-  d3.csv("data/viz/items.csv", function(error, data) {
+  d3.csv('data/viz/items-'+currentKeyWR+'.csv', function(error, data) {
     if (error) throw error;
-    addFilterHandlers();
-
-    color.domain(d3.keys(data[0]).filter(function(key) { return key == currentKeyBR || key == currentKeyWR; }));
+    
+    // define color domain
+    color.domain(d3.keys(data[0]).filter(function(key) { return key !== "ITEM_ID"; }));
 
     data.forEach(function(d) {
       var y0 = 0;
-      d.winRate = color.domain().map(function(name) { 
-        if( name == currentKeyBR || name == currentKeyWR ){
-          return {name: name, y0: y0, y1: y0 += +d[name]};
-        }
-      });
-      d.winRate.forEach(function(d) { d.y0 /= y0; d.y1 /= y0; });
+      d.win = color.domain().map(function(name) { return {name: name, y0: y0, y1: y0 += +d[name]}; });
+      d.win.forEach(function(d) { d.y0 /= y0; d.y1 /= y0; });
     });
 
-    data.sort(function(a, b) { return b.winRate[0].y1 - a.winRate[0].y1; });
+    data.sort(function(a, b) { return b.win[0].y1 - a.win[0].y1; });
+    console.log(data);
 
-    // define domain values for x-axis
-  	x.domain(data.map(function(d) {
-      var key = d['ITEM_ID'];
-      return items[key].name; 
-    }));
+    x.domain(data.map(function(d) { return d['ITEM_ID']; }));
 
     // append axes
     svg.append("g")
@@ -83,15 +76,15 @@ function initChart(){
     var ticks = svg.select(".axis").selectAll(".tick").data(data)
                   .append("svg:image")
                   .attr("xlink:href", function (d) { return 'assets/items/514/' + d['ITEM_ID'] + '.jpg'; })
-                  .attr("width", 38)
-                  .attr("height", 38)
-                  .attr('x', -19)
+                  .attr("width", 30)
+                  .attr("height", 30)
+                  .attr('x', -15)
                   .attr('y', 5);
     svg.select(".axis").selectAll(".tick")
                   .append("rect")
-                  .attr("width", 38)
-                  .attr("height", 38)
-                  .attr('x', -19)
+                  .attr("width", 30)
+                  .attr("height", 30)
+                  .attr('x', -15)
                   .attr('y', 5)
                   .attr('rx', 2)
                   .attr('ry', 2)
@@ -109,23 +102,41 @@ function initChart(){
 
     // define and append percentage values for win rate per item
     var item = svg.selectAll(".item").data(data)
-          .enter().append("g")
-            .attr("class", "item")
-            .attr("transform", function(d) { return "translate(" + x(items[d['ITEM_ID']].name) + ",0)"; });
+        .enter().append("g")
+        .attr("class", "item")
+        .attr("transform", function(d) { return "translate(" + x(d['ITEM_ID']) + ",0)"; });
 
-        item.selectAll("rect")
-              .data(function(d) { return d.winRate; })
-            .enter().append("rect")
-              .attr("width", x.rangeBand())
-              .attr("y", function(d) { return y(d.y1); })
-              .attr("height", function(d) { return y(d.y0) - y(d.y1); })
-              .style("fill", function(d) { return color(d.name); });
+        item.selectAll("rect").data(function(d){ return d.win; })
+          .enter().append("rect")
+            .attr("width", x.rangeBand())
+            .attr("y", function(d) { return y(d.y1); })
+            .attr("height", function(d) { return y(d.y0) - y(d.y1); })
+            .style("fill", function(d) { return color(d.name); });
 
+    // draw 50% line only after rendering percentage values
     svg.append("g")
       .attr("class", "midaxis")
       .attr("transform", "translate(0," + height/2 + ")")
       .style({ 'stroke': 'rgba(0,0,0,0.65)', 'fill': 'none', 'stroke-width': '1px'})
       .call(midAxis);
+
+    svg.selectAll('.item').on('mouseover', mouseOver).on('mouseout', mouseOut);
+
+    function mouseOver(d){
+      // filter for selected state.
+      // var st = data.filter(function(s){ console.log(s); return s.State == d[0];})[0],
+          // nD = d3.keys(st.freq).map(function(s){ return {type:s, freq:st.freq[s]};});
+         
+      // call update functions of pie-chart and legend.    
+      // pC.update(nD);
+      // leg.update(nD);
+    }
+
+    function mouseOut(d){
+      // reset the pie-chart and legend.    
+      // pC.update(tF);
+      // leg.update(tF);
+    }
   });
 }
 
@@ -143,6 +154,9 @@ function addFilterHandlers(){
         $('.patch-select > button').not('#'+id).removeClass('positive active');
         if( parseInt(id) !== currentPatch ){
           currentPatch = id;
+          currentKeyWR = currentPatch + '-' + currentRank + '-WinRate';
+          currentKeyBR = currentPatch + '-' + currentRank + '-BuyRate';
+          console.log('clicked:', currentPatch, currentRank);
         }
     })
     $('.filter-buttons > img').click(function(){
@@ -151,6 +165,9 @@ function addFilterHandlers(){
         $('.filter-buttons > img').not('#'+id).removeClass('select-filter');
         currentRank = id;
         switch(id){
+          case 'unranked':
+            currentRank = 'NO_RANK';
+            break;
           case 'bronze':
             currentRank = 'BRONZE';
             break;
@@ -164,12 +181,13 @@ function addFilterHandlers(){
             currentRank = 'PLATINUM';
             break;
           case 'diamond':
-            currentRank = 'DIAMOND';
+            currentRank = 'DIAMOND+';
             break;
           default:
             break;
         }
         currentKeyWR = currentPatch + '-' + currentRank + '-WinRate';
         currentKeyBR = currentPatch + '-' + currentRank + '-BuyRate';
+        console.log('clicked:', currentPatch, currentRank);
     })
 }

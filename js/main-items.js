@@ -1,3 +1,4 @@
+addFilterHandlers();
 initAPItems();
 
 // import static item files.
