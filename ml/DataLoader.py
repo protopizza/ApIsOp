@@ -1,5 +1,6 @@
 import json
 import numpy
+import ModelGlobals
 
 class DataLoader(object):
 
@@ -64,8 +65,8 @@ class DataLoader(object):
         match["patch"] = '.'.join(match["matchVersion"].split('.')[:2])
         desired_keys = [
             "matchTier",
-            "patch",
-            "region"
+            "patch"
+            #"region"
         ]
         match = { key: match[key] for key in desired_keys}
 
@@ -102,3 +103,4 @@ class DataLoader(object):
         match['teamB'] = teamB
 
         return match
+
