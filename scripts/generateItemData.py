@@ -158,6 +158,7 @@ def parseMatchesData(matches_data, patch):
             matches_counted += 1
 
             duplicate_items = []
+            team_items = {"100":[], "200":[]}
             for participant in match["participants"]:
                 participantId = participant["participantId"]
                 stats = participant["stats"]
@@ -185,8 +186,8 @@ def parseMatchesData(matches_data, patch):
                         ITEM_DATA[str(item)]["matchesBought"] = original_matches_bought + 1
                         duplicate_items.append(item)
 
-                    if stats["winner"]:
-                        ITEM_DATA[str(item)]["matchesWon"] += 1
+                        if stats["winner"]:
+                            ITEM_DATA[str(item)]["matchesWon"] += 1
 
                     ITEM_DATA[str(item)]["winRate"] = "{:0.2f}".format(float(ITEM_DATA[str(item)]["matchesWon"]) / float(ITEM_DATA[str(item)]["matchesBought"]) * 100)
 
