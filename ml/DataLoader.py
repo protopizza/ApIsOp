@@ -48,16 +48,15 @@ class DataLoader(object):
                                         BASE_PATH = DataLoader.RANKED_INPUT_PATH_BASE.format(patch=patch, region=region, filepatch=patch.replace(".", ""), tier=destination_tier, fileregion=region, filetier=destination_tier.lower(), fileindex=fileindex)
                                     else:
                                         BASE_PATH = DataLoader.NORMAL_INPUT_PATH_BASE.format(patch=patch, region=region, filepatch=patch.replace(".", ""), fileregion=region, fileindex=fileindex)
-                                    # print "reading from {}...".format(BASE_PATH)
                                     with open(BASE_PATH, 'r') as fp:
                                         matches_data = json.load(fp)
                                         for sequence in matches_data:
-                                            matches_data[sequence]["matchTier"] = destination_tier
+                                            matches_data[sequence]["matchTier"] = tier
                                             yield matches_data[sequence]
                                     fileindex += 1
                             except IOError:
                                 pass
-                                # print "done reading tier:{} in queueType:{} in patch:{} in region:{}".format(destination_tier, queueType, patch, region)
+
 
 
     def filterMatchFields(self, match):
@@ -94,31 +93,11 @@ class DataLoader(object):
         else:
             match['winnerTeamA'] = False
 
-        stats_keys = [
-            "championId",
-            "items"
-        ]
+        teamA = [player["championId"] for player in teamA]
+        teamB = [player["championId"] for player in teamB]
+        teamA.sort()
+        teamB.sort()
 
-        for player in range(len(teamA)):
-            items = []
-            for idx in range(DataLoader.MAX_ITEMS):
-                items.append(teamA[player]["item{}".format(idx)])
-            items.sort()
-            items = [itemId for itemId in items if itemId != 0]
-            teamA[player]["items"] = items
-            teamA[player] = { key: teamA[player][key] for key in stats_keys}
-
-        for player in range(len(teamB)):
-            items = []
-            for idx in range(DataLoader.MAX_ITEMS):
-                items.append(teamB[player]["item{}".format(idx)])
-            items.sort()
-            items = [itemId for itemId in items if itemId != 0]
-            teamB[player]["items"] = items
-            teamB[player] = { key: teamB[player][key] for key in stats_keys}
-
-        teamA.sort(key=lambda x: x["championId"])
-        teamB.sort(key=lambda x: x["championId"])
         match['teamA'] = teamA
         match['teamB'] = teamB
 
