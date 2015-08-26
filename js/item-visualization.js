@@ -127,22 +127,28 @@ function drawTicks(data, update){
   }
 
   var ticks = svg.selectAll("image").data(data);
-      ticks.exit().transition().duration(500).remove();
       ticks.enter().append("svg:image")
            .attr("xlink:href", function (d) { return 'assets/items/514/' + d['ITEM_ID'] + '.jpg'; })
            .attr("width", 30)
            .attr("height", 30)
-           .attr('transform', function(d){ return "translate(" + x(d['ITEM_ID']) + ",0)"; })
-           .attr('y', function(d){ return height+2; })
+           .attr('transform', function (d){ return "translate(" + x(d['ITEM_ID']) + ",0)"; })
+           .attr('y', function(d){ return height+2; });
+      ticks.exit().remove();
+      ticks.attr("xlink:href", function (d) { return 'assets/items/514/' + d['ITEM_ID'] + '.jpg'; })
+      ticks.transition().duration(500)
+           .attr('transform', function (d){ return "translate(" + x(d['ITEM_ID']) + ",0)"; });
+
       ticks.append("rect")
            .attr("width", 30)
            .attr("height", 30)
-           .attr('transform', function(d){ return "translate(" + x(d['ITEM_ID']) + ",0)"; })
-           .attr('y', function(d){ return height+2; })
+           .attr('y', function (d){ return height+2; })
            .attr('rx', 2)
            .attr('ry', 2)
            .attr('stroke-width', '1')
            .attr('stroke', 'rgba(0,0,0,0.65)');
+      ticks.exit().remove();
+      ticks.transition().duration(500)
+           .attr('transform', function (d){ return "translate(" + x(d['ITEM_ID']) + ",0)"; })
   
   if(!update){
     // remove x-axis tick lines
@@ -159,73 +165,24 @@ function drawTicks(data, update){
 function drawBars(data, update){
   // define and append percentage values for win rate per item
   var item = svg.selectAll(".item").data(data);
-      item.exit().transition().duration(500).remove();
       item.enter().append("g")
         .attr("class", "item")
         .attr("transform", function(d) { return "translate(" + x(d['ITEM_ID']) + ",0)"; });
+      item.exit().remove();
+      item.transition().duration(500)
+          .attr("transform", function(d) { return "translate(" + x(d['ITEM_ID']) + ",0)"; });
 
   var rect = item.selectAll("rect").data(function(d){ return d.rate; });
-      rect.exit().transition().duration(500).remove();
       rect.enter().append("rect")
           .attr("width", x.rangeBand())
           .attr("y", function(d) { return y(d.y1); })
           .attr("height", function(d) { return y(d.y0) - y(d.y1); })
           .style("fill", function(d) { return color(d.name); });
-}
 
-function transitionChart(){
-  d3.csv('data/viz/items.csv')
-    .row(function(d){
-      return{
-        ITEM_ID: d.ITEM_ID,
-        winRate: +d[currentKeyWR],
-        notWinRate: 100 - +d[currentKeyWR],
-        buyRate: +d[currentKeyBR],
-        notBuyRate: 100 - +d[currentKeyBR]
-      };
-  }).get(function(error, data){
-    if (error) throw error;
-
-    // define color domain
-    if( currentWinBuy == 'win' ){
-      color.domain(d3.keys(data[0]).filter(function (key) { return key == "winRate" || key == 'notWinRate'; }));
-    }
-    if( currentWinBuy == 'buy' ){
-      color.domain(d3.keys(data[0]).filter(function (key) { return key == "buyRate" || key == 'notBuyRate'; }));
-    }
-
-    data.forEach(function (d) {
-      var y0 = 0;
-      d.rate = color.domain().map(function (name) {
-        return {name: name, y0: y0, y1: y0 += +d[name]};
-      });
-      d.rate.forEach(function (d) { d.y0 /= y0; d.y1 /= y0; });
-    });
-
-    data.sort(function (a, b) { return b.rate[0].y1 - a.rate[0].y1; });
-    console.log(data);
-
-    x.domain(data.map(function (d) { return d['ITEM_ID']; }));
-
-    // convert x-axis to icons
-    var transitionX = svg.transition().duration(500);
-    var ticks = transitionX.selectAll("image")
-             .attr("xlink:href", function (d) { return 'assets/items/514/' + d['ITEM_ID'] + '.jpg'; })
-             .attr('transform', function (d){ return "translate(" + x(d['ITEM_ID']) + ",0)"; })
-             .attr('y', function (d){ return height+2; })
-        ticks.selectAll("rect")
-             .attr('transform', function (d){ return "translate(" + x(d['ITEM_ID']) + ",0)"; })
-             .attr('y', function (d){ return height+2; })
-
-    var items = transitionX.selectAll(".item")
-        items.attr("transform", function(d) { return "translate(" + x(d['ITEM_ID']) + ",0)"; });
-
-    var transitionY = items.transition().duration(500);
-    var rects = transitionY.selectAll('rect')
-      .attr("y", function (d) { console.log(d); return y(d.y1); })
-      .attr("height", function (d) { return y(d.y0) - y(d.y1); })
-      .style("fill", function (d) { return color(d.name); });
-  })
+      rect.exit().remove();
+      rect.transition().duration(500)
+          .attr("y", function(d) { return y(d.y1); })
+          .attr("height", function(d) { return y(d.y0) - y(d.y1); })
 }
 
 // add mouse handlers to the UI section that filters data by rank and patch.
@@ -244,8 +201,7 @@ function addFilterHandlers(){
           currentPatch = id;
           currentKeyWR = currentPatch + '-' + currentRank + '-WinRate';
           currentKeyBR = currentPatch + '-' + currentRank + '-BuyRate';
-          // drawChart(true);
-          transitionChart();
+          drawChart(true);
           console.log('clicked:', currentPatch, currentRank);
         }
     })
@@ -278,8 +234,7 @@ function addFilterHandlers(){
         }
         currentKeyWR = currentPatch + '-' + currentRank + '-WinRate';
         currentKeyBR = currentPatch + '-' + currentRank + '-BuyRate';
-        // drawChart(true);
-        transitionChart();
+        drawChart(true);
         console.log('clicked:', currentPatch, currentRank);
     })
 }
