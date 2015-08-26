@@ -2,6 +2,7 @@ initChamps();
 initItems();
 initUI();
 
+// import champion json file (includes all champions from both patches)
 function initChamps(){
     $.getJSON('data/static/champions.json', function(data){
         var champsObj = data.data;
@@ -20,15 +21,22 @@ function initChamps(){
     })
 }
 
+// import static item files.
 function initItems(){
     $.getJSON('data/static/items511.json', function(data){
         items511 = data.data;
-    })
+    });
     $.getJSON('data/static/items514.json', function(data){
         items514 = data.data;
-    })
+    });
+    $.getJSON('data/static/jungle_enchantments.json', function(data){
+        jungle511 = data['5.11'];
+        jungle514 = data['5.14'];
+    });
 }
 
+// initialize semantic's UI components.
+// other semantic UI components must be initialized after DOM creation.
 function initUI(){
     $('.ui.dropdown').dropdown({
         maxSelections: 5
@@ -36,13 +44,14 @@ function initUI(){
     
     $("#fight").click(function() {
         if(checkFive()){
+            // initialize rest of the page only when checkFive() passes.
             addFilterHandlers();
             getPatchData(champsA, champsB);
             addChampDOM();
 
             $('.ui.accordion').accordion();
 
-            $('#champion-template').remove();
+            $('#champion-template').hide();
             $('#result').show();
             $('html,body').animate({
                 scrollTop: $("#result").offset().top
@@ -51,16 +60,15 @@ function initUI(){
     });
 }
 
+// function to make sure both dropdowns have 5 champions each selected.
 function checkFive(){
     var dropdownA = $('#champselect-A').dropdown('get value');
     var dropdownB = $('#champselect-B').dropdown('get value');
     if( dropdownA.length > 0 ){
         dropdownA = dropdownA.split(',');
-        // console.log('dropdownA:', dropdownA);
     }
     if( dropdownB.length > 0 ){
         dropdownB = dropdownB.split(',');
-        // console.log('dropdownB:', dropdownB);
     }
     if( dropdownA == null || dropdownB == null || dropdownA.length < 5 || dropdownB.length < 5){
         alert('Please select 5 champions for both teams.');
@@ -71,9 +79,18 @@ function checkFive(){
     return true;
 }
 
+// some globals to be used later.
 var currentPatch = 511;
 var currentRank = 'unranked';
+
+// add mouse handlers to the UI section that filters data by rank and patch.
 function addFilterHandlers(){
+    // reset UI when filter handlers are invoked (new 5 champions selected);
+    $('.patch-select > button').removeClass('positive active');
+    $('.filter-buttons > img').removeClass('select-filter');
+    $('#511').addClass('positive active');
+    $('#unranked').addClass('select-filter');
+    
     $('.patch-select > button').click(function(){
         var id = $(this).attr('id');
         $('#'+id).addClass('positive active');

@@ -1,34 +1,27 @@
-// consts
-var PNG_ITEMS 			= [3250, 3255, 3265, 3270, 3274, 3275, 3280];
-var MAX_CHAMPS_PER_TEAM = 5;
+var ITEM_KEYS 	= [1026,1058,3003,3027,3040,3089,3115,3116,3135,3136,3151,3152,3157,3165,3174,3285];
+var items 	 	= {};
+var itemsAry 	= [];
 
-// globals
-var items511 			= [];
-var items514 			= [];
-var jungle511 			= [];
-var jungle514 			= [];
-var champs 				= [];
-var champsFull 			= {};
-var champsA 			= [];
-var champsB 			= [];
-
-// container for full champ data
-var Champion = function(key){
+var APItem = function(key){
 	this.key = key;
+	this.name = '';
+	this.detail = '';
 	this.patch511 = {};
 	this.patch514 = {};
-	this.defaultObj = {};
 };
-Champion.prototype.setUnranked = function(unrankedA, unrankedB){
+APItem.prototype.setUnranked = function(unrankedA, unrankedB){
 	this.patch511.unranked = unrankedA;
 	this.patch514.unranked = unrankedB;
-	this.defaultObj = unrankedA;
 }
-Champion.prototype.setRanked = function(rankedA, rankedB){
+APItem.prototype.setRanked = function(rankedA, rankedB){
 	this.patch511.ranked = rankedA;
 	this.patch514.ranked = rankedB;
 }
-Champion.prototype.getPatch = function(patch){
+APItem.prototype.setDescription = function(name, change){
+	this.name = name;
+	this.detail = change;
+}
+APItem.prototype.getPatch = function(patch){
 	if( patch == 511 ){
 		return this.patch511;
 	}
@@ -36,7 +29,7 @@ Champion.prototype.getPatch = function(patch){
 		return this.patch514;
 	}
 }
-Champion.prototype.getFilteredData = function(patch, rank){
+APItem.prototype.getFilteredData = function(patch, rank){
 	var patchObj = this.getPatch(patch);
 	var rankKey = '';
 	switch(rank){

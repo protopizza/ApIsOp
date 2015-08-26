@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="UTF-8">
+  <title>AP is OP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="styles/main.css">
+  <link rel="stylesheet" type="text/css" href="styles/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="styles/font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+  <div class="ui centered grid" id="navbar">
+    <div class="center aligned column">
+      <div class="ui inverted segment">
+        <div class="ui inverted compact menu">
+          <a class="active item" href="about.html">about</a>
+          <a class="item" href="index.html">champions</a>
+          <a class="item" href="items.html">items</a>
+          <a class="item" href="//github.com/protopizza/ApIsOp">github</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="height:70px;clear:both;"></div>
+  <div class="ui left justified text container">
+    <div class="ui padded segment">
+      <h3 class="ui horizontal divider header">Background</h3>
+      <p>
+
+      As two avid League of Legends players, finding out that AP itemization was being reworked was a bit of a surprise. Would our favorite AP mage champions still be strong? How would these changes affect the champion spectrum? With these questions in mind, we set out to analyze and display the data handed to us with a single hope in mind: that <b>AP is OP</b>.</p>
+
+      </p>
+    </div>
+    <div class="ui padded segment">
+      <h3 class="ui horizontal divider header"><a href="index.html">Champion Analysis</a></h3>
+      <div class="ui centered image">
+        <img src="assets/screen1.jpg">
+      </div>
+      <p></p>
+      <p><b>Purpose:</b>
+      We initially set out to display statistics about how each champion fared between patches <b>5.11</b> and <b>5.14</b>, as well as their varying data between different match rankings, from unranked normal matches to each tier in ranked. We also wanted to highlight the most popular items built on each champion and their average time built. This data is displayed in a 5x5 team format.
+      </p>
+
+      <p><b>Methodology:</b>
+      To gather all the data we wanted to display, we wrote a variety of Python scripts to perform different tasks for us, located in <a href="http://github.com/protopizza/ApIsOp/tree/master/scripts"><b>ApIsOp/scripts</b></a>. The first of these, <a href="http://github.com/protopizza/ApIsOp/blob/master/scripts/RiotAPI.py"><b>RiotAPI.py</b></a> is a wrapper built directly around the Riot API using Python library <a href="http://www.python-requests.org/en/latest/"><b>requests</b></a>, allowing us to make generic requests to the API. From there, we created a number of scripts to download and sort the data. Finally, the most important script here is <a href="http://github.com/protopizza/ApIsOp/blob/master/scripts/generateChampionData.py"><b>generateChampionData.py</b></a>, which took all the sorted data and produced JSON data files for each champion with different fields for both patches and all match tiers. Additionally, we created also a number of static data files, containing either static data from the Riot API or various mappings we wanted to produce (as well as one documenting all the <a href="http://github.com/protopizza/ApIsOp/blob/master/data/static/ap_item_changes.json"><b>AP item changes</b></a>).
+      </p>
+
+      <p>
+      To create a visual format for this data, we used a combination of HTML, CSS, and JavaScript with various libraries, notably <a href="http://semantic-ui.com/"><b>Semantic UI</b></a>.
+      </p>
+
+      <p><b>Findings of interest:</b>
+      Notably, our dataset was not spread evenly across match tiers. While we were given 10k matches from each queue type in each patch, the distribution of these 10k across ranked matches is very uneven, with <b>Silver</b> having about <b>40%</b> of the data, and <b>Diamond</b>, <b>Master</b>, and <b>Challenger</b> combined only having about <b>4%</b>. Thus, we chose to combine the higher tiers into <b>Diamond+</b> to give it a bit more weight. Yet still, we have very few matches for various champions in <b>Diamond+</b>, for example <b>Zilean</b> only had 2 matches in <b>5.11, Diamond+</b> and 3 matches in <b>5.14, Diamond+</b>.
+      </p>
+
+      <p>
+      Additionally, a few champions did not have any data in patch <b>5.11</b>. <b>Tahm Kench</b> had no data, as expected. However, both <b>Caitlyn</b> and <b>Jayce</b> also had no data for this patch. Both of these champions were disabled for a duration of the patch and thus, the dataset simply did not have any matches with them. (All three do have <b>5.14</b> data, however).</p>
+    </div>
+    <div class="ui padded segment">
+      <h3 class="ui horizontal divider header"><a href="items.html">Item Analysis</a></h3>
+      <p><b>Purpose:</b>
+      Displaying champion statistics and their associated item statistics does not give us a direct view onto the data specifically for the changed AP items. To handle this, we decided to to display an item-specific graph showing win rate (how many matches was it won with out of how many matches was it bought?) and buy rate (out of total matches in a tier, how many times was it bought?)
+      </p>
+
+      <p><b>Methodology:</b>
+      To generate all of the data across changed AP items, we used a script similar to the one for generating champion data called <a href="http://github.com/protopizza/ApIsOp/blob/master/scripts/generateItemData.py"><b>generateItemData.py</b></a>. This produced a JSON data file for each item which we then aggregated into a single CSV file.
+      </p>
+      <p>
+      For visualizing this data, we used <a href="http://d3js.org/"><b>D3.js</b></a>, a JavaScript library for producing data vizualizations.
+      </p>
+
+      <p><b>Findings of interest:</b>
+
+      </p>
+    </div>
+    <div class="ui padded segment">
+      <h3 class="ui horizontal divider header">Data Biases</h3>
+      <p>
+      To make processing the data easier and what we considered to be more meaningful, we combined several data points. We ignored all boot enchantments and only considered second-tier boots. Additionally, in the most popular items for each champion, we limited the output to only having one pair of boots. For example, it wouldn't be that interesting to see ADCs with both <b>Homeguard</b> and <b>Furor</b> boots in their most popular items, or tanks deciding between <b>Ninja Tabi</b> or <b>Mercury's Treads</b>. We'd rather see another core item. However, we left in multiple jungle items (and enchantments) as these show meaningful early game choices, especially with the addition of <b>Sated Devourer</b>.
+      </p>
+
+      <p>
+      We combined the mana stacked items, <b>Seraph's Embrace</b> and <b>Muramana</b>, into their unstacked counterparts, <b>Archangel's Staff</b> and <b>Manamune</b>. We tracked the buy time as the unstacked version, but always tracked the end data point as the stacked version, since the main difference between them is simply time, and we didn't want to show both a stacked and unstacked version on the most popular items.
+      </p>
+
+      <p>
+      All popular items are taken from a player's end-game build. Additionally, any non-full item components in their list are only considered if the most popular items do not contain and item that builds out of it. For example, if <b>B. F. Sword</b> happens to be one of the most popular items on <b>Caitlyn</b>, it won't show if <b>Infinity Edge</b> or <b>The Bloodthirster</b> are already in the list. However, something like <b>Quicksilver Sash</b> may show if the fully-built <b>Mercurial Scimitar</b> is not that popular.
+      </p>
+
+      <p>
+      There are a few oddities within the data that we esimated around. For example, sometimes in the event timeline of a match, the event of a player buying a certain item simply does not exist.We decided the most likely case was buying an item right as the match ended, most likely during a surrender. It's not uncommon for players to try to buy items at the end of a match, as they want their fullest build to appear in their match history. So for these data points, we set the buy time to the end of the match.
+      </p>
+
+      <p>
+      Not all data is created equal. Or at least, the distribution of matches is not equal, and as mentioned before, we have only a small number of matches in certain tiers or on certain champions. Additionally, we only downloaded matches from <b>NA</b>, as downloading match data from all regions would have been very time consuming, though most of our actual scripts actually have the functionality for all regions. And lastly, from each patch we are only processing a given 10k matches, which is only representative of a portion of matches from the entire patch.
+      </p>
+    </div>
+  	<div class="ui two cards">
+      <div class="card">
+        <div class="content">
+          <img class="right floated mini ui image" src="assets/champs/Orianna.png">
+          <div class="header">
+            <a href="http://na.op.gg/summoner/champions/userName=aznchipmunk">aznchipmunk</a>
+          </div>
+          <div class="meta">
+            <p>Plat.</p>
+            <p>Current main: Orianna</p>
+          </div>
+          <div class="description">
+            Data processing/analysis, machine learning
+          </div>
+        </div>
+        <div class="extra content">
+          <h4 class="ui header">Other top champions</h4>
+          <div class="ui image black label">
+            <img src="assets/champs/Thresh.png">Thresh
+          </div>
+          <div class="ui image orange label">
+            <img src="assets/champs/Malphite.png">Malphite
+          </div>
+          <div class="ui image violet label">
+            <img src="assets/champs/Morgana.png">Morgana
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="content">
+          <img class="right floated mini ui image" src="assets/champs/KogMaw.png">
+          <div class="header">
+            <a href="http://na.op.gg/summoner/champions/userName=helloso">helloso</a>
+          </div>
+          <div class="meta">
+            <p>ARAM only.</p>
+            <p>Current favorite champion: Kog'Maw</p>
+          </div>
+          <div class="description">
+            Front-end, UI/UX design, data visualization
+          </div>
+        </div>
+        <div class="extra content">
+          <h4 class="ui header">Other top champions</h4>
+          <div class="ui image grey label">
+            <img src="assets/champs/Irelia.png">Irelia
+          </div>
+          <div class="ui image brown label">
+            <img src="assets/champs/Zyra.png">Zyra
+          </div>
+          <div class="ui image green label">
+            <img src="assets/champs/Urgot.png">Urgot
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <p style="text-align:center"><span class="fa fa-heart"></span> AP is OP</p>
+    <p style="text-align:center"><em>AP is OP</em> isn’t endorsed by Riot Games and doesn’t reflect the views or opinions of Riot Games <br/> or anyone officially involved in producing or managing <em>League of Legends</em>.<br/> <em>League of Legends</em> and Riot Games are trademarks or registered trademarks of<br/> Riot Games, Inc. <em>League of Legends</em> © Riot Games, Inc.</p>
+  </div>
+
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/semantic-ui/dist/semantic.min.js"></script>
+  <script src="bower_components/moment/min/moment.min.js"></script>
+</body>
+</html>
