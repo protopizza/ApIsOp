@@ -175,11 +175,11 @@ function addRandomChampions(){
     var teamARandom = [];
     var teamBRandom = [];
 
-    console.log(dropdownANeeded);
-    console.log(dropdownBNeeded);
+    // console.log(dropdownANeeded);
+    // console.log(dropdownBNeeded);
     for(var i = 0; i < dropdownANeeded; ) {
         var rand = champs[Math.floor(Math.random()*champs.length)];
-        console.log(rand);
+        // console.log(rand);
         if($.inArray(rand, dropdownACurrent) == -1) {
             if($.inArray(rand, teamARandom) == -1) {
                 teamARandom.push(rand)
@@ -190,7 +190,7 @@ function addRandomChampions(){
 
     for(var i = 0; i < dropdownBNeeded; ) {
         var rand = champs[Math.floor(Math.random()*champs.length)];
-        console.log(rand);
+        // console.log(rand);
         if($.inArray(rand, dropdownACurrent) == -1) {
             if($.inArray(rand, teamARandom) == -1) {
                 if($.inArray(rand, dropdownBCurrent) == -1) {

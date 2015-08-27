@@ -35,7 +35,13 @@ function getPatchData(a, b){
 
 // update UI with appropriate champ data.
 var updatedMissing = [];
+var aggregateSummaryA = [];
+var aggregateSummaryB = [];
 function fillChampDetails(sel, patch, rank, type){
+    var summaryAry = [];
+    var summaryAryA = [];
+    var summaryAryB = [];
+    var totalMatchCount = 0;
     for(var i = 0; i < selections.length; i++){
         var champObj = selections[i].getFilteredData(patch, rank);
 
@@ -50,6 +56,16 @@ function fillChampDetails(sel, patch, rank, type){
             dmg = parseFloat(dmg/1000).toFixed(2) + 'k';
         var commonItems = champObj.mostCommonItems;
         var matchesCounted = champObj.matchesCounted;
+        totalMatchCount += matchesCounted;
+
+        summaryAry.push({
+            key: champKey,
+            winRate: +winRate,
+            kda: +kda,
+            gold: +goldAvg,
+            dmg: champObj.averageTotalDamageDealtToChampions,
+            matchesCounted
+        })
 
         // sort common items
         var sortedCommonItems = [];
@@ -96,6 +112,50 @@ function fillChampDetails(sel, patch, rank, type){
             }
         }
     }
+
+    // add each match count
+    // value * (match count of champion / total match count)
+    console.log(champsA);
+    console.log(champsB);
+    console.log(summaryAry);
+    // console.log('total matches:', totalMatchCount);
+    summaryAry.forEach(function(o){
+        var weightedKDA = o.kda * o.matchesCounted / totalMatchCount;
+        var weightedGold = o.gold * o.matchesCounted / totalMatchCount;
+        var weightedDmg = o.dmg * o.matchesCounted / totalMatchCount;
+        var weightedWin = o.winRate * o.matchesCounted / totalMatchCount;
+        weightedKDA = parseFloat(weightedKDA).toFixed(2);
+        weightedGold = parseFloat(weightedGold).toFixed(2);
+        weightedDmg = parseFloat(weightedDmg/1000).toFixed(2);
+        weightedWin = parseFloat(weightedWin).toFixed(2);
+
+        if(champsA.indexOf(o.key) > -1){
+            summaryAryA.push({
+                key: o.key,
+                kda: +weightedKDA,
+                gold: +weightedGold,
+                dmg: +weightedDmg,
+                win: +weightedWin
+            })
+        }else if(champsB.indexOf(o.key) > -1){
+            summaryAryB.push({
+                key: o.key,
+                kda: +weightedKDA,
+                gold: +weightedGold,
+                dmg: +weightedDmg,
+                win: +weightedWin
+            })
+        }
+    });
+
+    summaryAryA.forEach(function(i){
+        var o = summaryAryA[i];
+    })
+    console.log(summaryAryA)
+    summaryAryB.forEach(function(i){
+        var o = summaryAryB[i];
+    })
+    console.log(summaryAryB)
 }
 
 function addItemDetails(commonItems, champKey, patch){
