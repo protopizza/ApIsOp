@@ -6,7 +6,7 @@ var currentWinBuy = 'win';
 var currentKeyWR = '511-NO_RANK-WinRate'
 var currentKeyBR = '511-NO_RANK-BuyRate'
 
-var margin = {top: 20, right: 250, bottom: 50, left: 50},
+var margin = {top: 20, right: 250, bottom: 50, left: 45},
     width = 800 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
@@ -93,24 +93,6 @@ function drawChart(update){
         .style({ 'stroke': 'rgba(0,0,0,0.65)', 'fill': 'none', 'stroke-width': '1px'})
         .call(midAxis);
     }
-
-    svg.selectAll('.item').on('mouseover', mouseOver).on('mouseout', mouseOut);
-
-    function mouseOver(d){
-      // filter for selected state.
-      // var st = data.filter(function(s){ console.log(s); return s.State == d[0];})[0],
-          // nD = d3.keys(st.freq).map(function(s){ return {type:s, freq:st.freq[s]};});
-         
-      // call update functions of pie-chart and legend.    
-      // pC.update(nD);
-      // leg.update(nD);
-    }
-
-    function mouseOut(d){
-      // reset the pie-chart and legend.    
-      // pC.update(tF);
-      // leg.update(tF);
-    }
   });
 }
 
@@ -168,6 +150,7 @@ function drawBars(data, update){
       item.enter().append("g")
         .attr("class", "item")
         .attr("transform", function(d) { return "translate(" + x(d['ITEM_ID']) + ",0)"; });
+      
       item.exit().remove();
       item.transition().duration(500)
           .attr("transform", function(d) { return "translate(" + x(d['ITEM_ID']) + ",0)"; });
@@ -183,7 +166,71 @@ function drawBars(data, update){
       rect.transition().duration(500)
           .attr("y", function(d) { return y(d.y1); })
           .attr("height", function(d) { return y(d.y0) - y(d.y1); })
+      
+  // append labels
+  var labelLossRateSub = svg.append('text')
+    .attr('x', function(d){ return 800 - margin.right - 40; })
+    .attr('y', function(d){ return height/4 - 10; })
+    .text('Loss Rate')
+    .style('opacity', 0);
+
+  var labelLossRate = svg.append('text')
+    .attr('x', function(d){ return 800 - margin.right - 40; })
+    .attr('y', function(d){ return height/4 + 10; })
+    .style('font-size', '1.2em')
+    .style('fill', 'rgb(203, 92, 92)');
+
+  var labelName = svg.append('text')
+    .attr('x', function(d){ return 800 - margin.right - 40; })
+    .attr('y', function(d){ return height/2 + 5; })
+    .style('font-size', '1.1em')
+    .style('font-weight', 'bold')
+
+  var labelWinRate = svg.append('text')
+    .attr('x', function(d){ return 800 - margin.right - 40; })
+    .attr('y', function(d){ return height/4*3 - 10; })
+    .style('font-size', '1.2em')
+    .style('fill', 'rgb(40, 184, 200)');
+
+  var labelWinRateSub = svg.append('text')
+    .attr('x', function(d){ return 800 - margin.right - 40; })
+    .attr('y', function(d){ return height/4*3 + 10; })
+    .text('Win Rate')
+    .style('opacity', 0);
+
+  // add hover handlers
+  item.on("mouseover", mouseOver);
+  item.on("mouseout", mouseOut);
+
+  function mouseOver(d){
+    console.log(d);
+    var name = items[d.ITEM_ID].name;
+    var detail = items[d.ITEM_ID].detail;
+    labelName.text(name).style('opacity', 1);
+    labelWinRate.text(d.winRate + '%').style('opacity', 1);
+    labelLossRate.text(d.notWinRate + '%').style('opacity', 1);
+    labelWinRateSub.style('opacity', 1);
+    labelLossRateSub.style('opacity', 1);
+
+
+    // filter for selected state.
+    // var st = data.filter(function(s){ console.log(s); return s.State == d[0];})[0],
+        // nD = d3.keys(st.freq).map(function(s){ return {type:s, freq:st.freq[s]};});
+       
+    // call update functions of pie-chart and legend.    
+    // pC.update(nD);
+    // leg.update(nD);
+  }
+
+  function mouseOut(d){
+    labelName.style('opacity', 0);
+    labelWinRate.style('opacity', 0);
+    labelWinRateSub.style('opacity', 0);
+    labelLossRate.style('opacity', 0);
+    labelLossRateSub.style('opacity', 0);
+  }
 }
+
 
 // add mouse handlers to the UI section that filters data by rank and patch.
 function addFilterHandlers(){

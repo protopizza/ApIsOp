@@ -15,3 +15,8 @@
 .midaxis line, .midaxis text {
 	display:none;
 }
+
+text{
+	font-family: Lato;
+	font-size: 0.8em;
+}
