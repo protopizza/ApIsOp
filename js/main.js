@@ -8,11 +8,23 @@ function initChamps(){
         var champsObj = data.data;
         champsFull = champsObj;
         // console.log(champsObj);
+        //
+        temp_champs = [];
         $.each(data.data, function(key, val){
-            champs.push(key);
+            temp_champs.push(val["name"]);
+        })
+        temp_champs.sort();
+
+        $.each(temp_champs, function(i, val){
+            $.each(data.data, function(key, ob){
+                if(val == ob["name"]) {
+                    champs.push(key);
+                    return false;
+                }
+            })
         })
 
-        champs.sort();
+
         // console.log(champs);
         for( var i in champs ){
             $(".dropdown .menu").append(
