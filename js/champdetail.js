@@ -35,13 +35,16 @@ function getPatchData(a, b){
 
 // update UI with appropriate champ data.
 var updatedMissing = [];
-var aggregateSummaryA = [];
-var aggregateSummaryB = [];
+
+// shared variables for calculating aggregate statistics
+var aggregateSummaryA = {};
+var aggregateSummaryB = {};
+var summaryAry = [];
+var summaryAryA = [];
+var summaryAryB = [];
+var totalMatchCountA = 0;
+var totalMatchCountB = 0;
 function fillChampDetails(sel, patch, rank, type){
-    var summaryAry = [];
-    var summaryAryA = [];
-    var summaryAryB = [];
-    var totalMatchCount = 0;
     for(var i = 0; i < selections.length; i++){
         var champObj = selections[i].getFilteredData(patch, rank);
 
@@ -56,7 +59,12 @@ function fillChampDetails(sel, patch, rank, type){
             dmg = parseFloat(dmg/1000).toFixed(2) + 'k';
         var commonItems = champObj.mostCommonItems;
         var matchesCounted = champObj.matchesCounted;
-        totalMatchCount += matchesCounted;
+
+        if(champsA.indexOf(champKey) > -1){
+            totalMatchCountA += matchesCounted;
+        }else if(champsB.indexOf(champKey) > -1){
+            totalMatchCountB += matchesCounted;
+        }
 
         summaryAry.push({
             key: champKey,
@@ -64,7 +72,7 @@ function fillChampDetails(sel, patch, rank, type){
             kda: +kda,
             gold: +goldAvg,
             dmg: champObj.averageTotalDamageDealtToChampions,
-            matchesCounted
+            matchesCounted: matchesCounted
         })
 
         // sort common items
@@ -113,23 +121,24 @@ function fillChampDetails(sel, patch, rank, type){
         }
     }
 
-    // add each match count
-    // value * (match count of champion / total match count)
-    console.log(champsA);
-    console.log(champsB);
-    console.log(summaryAry);
-    // console.log('total matches:', totalMatchCount);
-    summaryAry.forEach(function(o){
-        var weightedKDA = o.kda * o.matchesCounted / totalMatchCount;
-        var weightedGold = o.gold * o.matchesCounted / totalMatchCount;
-        var weightedDmg = o.dmg * o.matchesCounted / totalMatchCount;
-        var weightedWin = o.winRate * o.matchesCounted / totalMatchCount;
-        weightedKDA = parseFloat(weightedKDA).toFixed(2);
-        weightedGold = parseFloat(weightedGold).toFixed(2);
-        weightedDmg = parseFloat(weightedDmg/1000).toFixed(2);
-        weightedWin = parseFloat(weightedWin).toFixed(2);
+    calculateAggregate();
+    renderAggregate();
+}
 
+/*
+    calculate aggregate data
+*/
+function calculateAggregate(){
+    summaryAry.forEach(function(o){
+        var total = 0;
+        var weightedKDA = 0;        var weightedGold = 0;
+        var weightedDmg = 0;        var weightedWin = 0;
+        // weighted data:
+        // value * (match count of champion / total match count)
+        
         if(champsA.indexOf(o.key) > -1){
+            total = totalMatchCountA;
+            getWeightedValues();
             summaryAryA.push({
                 key: o.key,
                 kda: +weightedKDA,
@@ -138,6 +147,8 @@ function fillChampDetails(sel, patch, rank, type){
                 win: +weightedWin
             })
         }else if(champsB.indexOf(o.key) > -1){
+            total = totalMatchCountB;
+            getWeightedValues();
             summaryAryB.push({
                 key: o.key,
                 kda: +weightedKDA,
@@ -146,16 +157,65 @@ function fillChampDetails(sel, patch, rank, type){
                 win: +weightedWin
             })
         }
+
+        function getWeightedValues(){
+            weightedKDA = o.kda * o.matchesCounted / total;
+            weightedGold = o.gold * o.matchesCounted / total;
+            weightedDmg = o.dmg * o.matchesCounted / total;
+            weightedWin = o.winRate * o.matchesCounted / total;
+            weightedKDA = parseFloat(weightedKDA);
+            weightedGold = parseFloat(weightedGold);
+            weightedDmg = parseFloat(weightedDmg);
+            weightedWin = parseFloat(weightedWin);
+        }
     });
 
-    summaryAryA.forEach(function(i){
-        var o = summaryAryA[i];
+    // for each champ, get sum of weighted values
+    var aggregateKDA = 0;    var aggregateGold = 0;
+    var aggregateDmg = 0;    var aggregateWin = 0;
+    summaryAryA.forEach(function(obj){
+        aggregateKDA += obj.kda;
+        aggregateGold += obj.gold;
+        aggregateDmg += obj.dmg;
+        aggregateWin += obj.win;
     })
-    console.log(summaryAryA)
-    summaryAryB.forEach(function(i){
-        var o = summaryAryB[i];
+    aggregateSummaryA.kda = parseFloat(aggregateKDA).toFixed(2);
+    aggregateSummaryA.gold = parseFloat(aggregateGold).toFixed(2);
+    aggregateSummaryA.dmg = parseFloat(aggregateDmg/1000).toFixed(2) + 'k';
+    aggregateSummaryA.win = parseFloat(aggregateWin).toFixed(2);
+
+
+    aggregateKDA = 0;    aggregateGold = 0;
+    aggregateDmg = 0;    aggregateWin = 0;
+    summaryAryB.forEach(function(obj){
+        aggregateKDA += obj.kda;
+        aggregateGold += obj.gold;
+        aggregateDmg += obj.dmg;
+        aggregateWin += obj.win;
     })
-    console.log(summaryAryB)
+    aggregateSummaryB.kda = parseFloat(aggregateKDA).toFixed(2);
+    aggregateSummaryB.gold = parseFloat(aggregateGold).toFixed(2);
+    aggregateSummaryB.dmg = parseFloat(aggregateDmg/1000).toFixed(2) + 'k';
+    aggregateSummaryB.win = parseFloat(aggregateWin).toFixed(2);
+}
+
+// add team comp averages to bottom of matchup
+function renderAggregate(){
+    var $teamA = $('.sideA');
+    var $teamB = $('.sideB');
+    var domA = $('#summary-template').clone().removeAttr('id');
+        domA.find('.kda').find('.value').text(aggregateSummaryA.kda);
+        domA.find('.gold-min').find('.value').text(aggregateSummaryA.gold);
+        domA.find('.tot-dmg').find('.value').text(aggregateSummaryA.dmg);
+        domA.find('.win-rate').find('.value').text(aggregateSummaryA.win);
+        domA.appendTo($teamA).show();
+
+    var domB = $('#summary-template').clone().removeAttr('id');
+        domB.find('.kda').find('.value').text(aggregateSummaryB.kda);
+        domB.find('.gold-min').find('.value').text(aggregateSummaryB.gold);
+        domB.find('.tot-dmg').find('.value').text(aggregateSummaryB.dmg);
+        domB.find('.win-rate').find('.value').text(aggregateSummaryB.win);
+        domB.appendTo($teamB).show();
 }
 
 function addItemDetails(commonItems, champKey, patch){
