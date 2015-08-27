@@ -34,6 +34,11 @@
 .ui.statistic > .value ~ .label{
     line-height: 1em;
 }
+
+#filter{
+    margin: 0 auto;
+}
+
 .ui.filter-buttons.images .image, .ui.filter-buttons.images img{
     width: 50px;
     height: auto;
