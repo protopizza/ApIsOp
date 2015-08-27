@@ -234,8 +234,8 @@ function drawBars(data, update){
     var name = items[d.ITEM_ID].name;
     var detail = items[d.ITEM_ID].detail;
     labelName.text(name).style('opacity', 1);
-    labelWinRate.text(d.winRate + '%').style('opacity', 1);
-    labelLossRate.text(d.notWinRate + '%').style('opacity', 1);
+    labelWinRate.text(parseFloat(d.winRate).toFixed(2) + '%').style('opacity', 1);
+    labelLossRate.text(parseFloat(d.notWinRate).toFixed(2) + '%').style('opacity', 1);
     labelWinRateSub.style('opacity', 1);
     labelLossRateSub.style('opacity', 1);
 
@@ -249,8 +249,8 @@ function drawBars(data, update){
   function mouseOut(d){
     labelName.style('opacity', 0);
     labelWinRate.style('opacity', 0);
-    labelWinRateSub.style('opacity', 0);
     labelLossRate.style('opacity', 0);
+    labelWinRateSub.style('opacity', 0);
     labelLossRateSub.style('opacity', 0);
     labelTotalCounted.style('opacity', 0);
   }
