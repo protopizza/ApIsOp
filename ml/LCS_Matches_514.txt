@@ -36,7 +36,6 @@ Kassadin
 Lucian
 Braum
 
-
 =====
 teamB(TIP):
 
@@ -45,7 +44,6 @@ Elise
 Lulu
 KogMaw
 Leona
-
 
 ========
 Match 3: teamA win
