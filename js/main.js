@@ -106,7 +106,7 @@ function addFilterHandlers(){
         fillChampDetails(null, currentPatch, currentRank);
     })
     $('#unranked').popup({
-        content  : 'Display statistics for normal matches (players can be at any elo.)',
+        content  : 'Display statistics for normal matches (players can be at any tier.)',
     })
     $('#bronze').popup({
         content  : 'Display statistics for ranked matches at Bronze tier.',
