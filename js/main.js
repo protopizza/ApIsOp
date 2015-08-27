@@ -53,6 +53,7 @@ function initUI(){
     $('.ui.dropdown').dropdown({
         maxSelections: 5
     });
+    $('.ui.sticky').sticky();
 
     $("#fight").click(function() {
         if(checkFive()){
