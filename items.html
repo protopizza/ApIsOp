@@ -25,7 +25,7 @@
   </div>
   <div style="height:70px;clear:both;"></div>
   <div class="ui center aligned text container">
-    <h4 class="ui horizontal divider header">AP Item Highlights</h4>
+    <h4 class="ui horizontal divider header">AP Item Win Rates</h4>
     <div class="ui center aligned text container" id="filter">
       <div class="ui raised segment">
         <div class="ui top attached inverted black label">Filter Results</div>
@@ -44,7 +44,18 @@
       </div>
     </div>
     <div id="vis"></div>
-    <div class="ui center aligned text container">Note: Win rate percentages are counted per match. If multiple people purchase an AP item in a single match, we'll be considering that 1 count-- In this match, this specific AP item was bought.</div>
+      <p>Note: Win rate percentages are counted per match. If multiple people purchase an AP item in a single match, we'll be considering that 1 count-- In this match, this specific AP item was bought.</p>
+    <div class="ui left aligned text container">
+      <h4 class="ui horizontal divider header">AP Item Reference</h4>
+      <div class="ui tiny list" id="list">
+        <div class="item" id="item-template" style="display:none">
+          <img class="ui mini image" src="assets/items/514/3285.jpg">
+          <div class="content">
+            <div class="header"><span class="item-name"></span></div>
+            <div class="description"><span class="item-detail"></span></div>
+          </div>
+        </div>
+      </div>
   </div>
   <div class="footer">
     <p style="text-align:center"><span class="fa fa-heart"></span> AP is OP</p>

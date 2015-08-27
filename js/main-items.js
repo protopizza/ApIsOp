@@ -29,5 +29,26 @@ function initAPItems(){
 	}).then(function(){
 		console.log(items);
 		drawChart(false);
+		initAPReference();
 	})
+}
+
+function initAPReference(){
+	var $list = $('#list');
+	var sorted = itemsAry;
+	sorted.sort(function (a, b){
+		if(a.name < b.name) return -1;
+	    if(a.name > b.name) return 1;
+	    return 0;
+	})
+	for( var i in sorted ){
+		var $item = $('#item-template').clone().removeAttr('id');
+		$item.appendTo($list)
+
+		$item.find('img').attr('src', 'assets/items/514/'+sorted[i].key+'.jpg');
+		$item.find('.item-name').text(sorted[i].name);
+		$item.find('.item-detail').text(sorted[i].detail);
+
+		$item.show();
+	}
 }
