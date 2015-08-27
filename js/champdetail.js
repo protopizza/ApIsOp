@@ -49,6 +49,7 @@ function fillChampDetails(sel, patch, rank){
         var dmg = champObj.averageTotalDamageDealtToChampions;
             dmg = parseFloat(dmg/1000).toFixed(2) + 'k';
         var commonItems = champObj.mostCommonItems;
+        var matchesCounted = champObj.matchesCounted;
 
         // sort common items
         var sortedCommonItems = [];
@@ -85,7 +86,7 @@ function fillChampDetails(sel, patch, rank){
                 }
                // handle normal champ data.
                 $dom = $('.ui.segments').find('.'+champKey);
-                $dom.find('.title').find('.sub.header').text('');
+                $dom.find('.title').find('.sub.header').text(matchesCounted + ' matches played');
                 $dom.find('.title').find('.win-rate').find('.value').text(winRate);
                 $dom.find('.kda').find('.value').text(kda);
                 $dom.find('.gold-min').find('.value').text(goldAvg);
