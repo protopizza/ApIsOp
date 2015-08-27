@@ -75,7 +75,7 @@ function drawChart(update, sort){
           result.push(item);
           found = true;
           return false;
-        } else 
+        } else
           return true;
       })
     })
@@ -155,7 +155,7 @@ function drawTicks(data, update){
       ticks.exit().remove();
       ticks.transition().duration(500)
            .attr('transform', function (d){ return "translate(" + x(d['ITEM_ID']) + ",0)"; })
-  
+
   if(!update){
     // remove x-axis tick lines
     svg.selectAll('.tick line')
@@ -174,7 +174,7 @@ function drawBars(data, update, type){
       item.enter().append("g")
         .attr("class", "item")
         .attr("transform", function(d) { return "translate(" + x(d['ITEM_ID']) + ",0)"; });
-      
+
       item.exit().remove();
       item.transition().duration(500)
           .attr("transform", function(d) { return "translate(" + x(d['ITEM_ID']) + ",0)"; });
@@ -190,7 +190,7 @@ function drawBars(data, update, type){
       rect.transition().duration(500)
           .attr("y", function(d) { return y(d.y1); })
           .attr("height", function(d) { return y(d.y0) - y(d.y1); })
-      
+
   // append labels
   var labelTotalCounted = svg.append('text')
     .attr('x', function(d){ return 800 - margin.right - 40; })
@@ -201,7 +201,7 @@ function drawBars(data, update, type){
         .attr('x', function(d){ return 800 - margin.right - 40; })
         .attr('y', function(d){ return height/4 - 10; })
         .style('opacity', 0);
-      
+
   var labelNegativeRate = svg.append('text')
         .attr('x', function(d){ return 800 - margin.right - 40; })
         .attr('y', function(d){ return height/4 + 10; })
@@ -227,7 +227,7 @@ function drawBars(data, update, type){
     .attr('x', function(d){ return 800 - margin.right - 40; })
     .attr('y', function(d){ return height/4*3 + 10; })
     .style('opacity', 0);
-      
+
   if(type == 'win'){
       labelPositiveRateSub.text('Win Rate');
       labelNegativeRateSub.text('Loss Rate');
@@ -286,7 +286,7 @@ function addFilterHandlers(){
     $('.ui.checkbox').checkbox();
 
     $('#unranked').popup({
-        content  : 'Display statistics for normal matches (players can be at any tier.)',
+        content  : 'Display statistics for normal matches (players can be at any tier).',
     })
     $('#bronze').popup({
         content  : 'Display statistics for ranked matches at Bronze tier.',
@@ -315,7 +315,7 @@ function addFilterHandlers(){
     $('#type-win').popup({
         content  : 'Sort statistics by win rate of the AP items.',
     })
-    
+
     $('.patch-select > button').click(function(){
         var id = $(this).attr('id');
         $('#'+id).addClass('positive active');

@@ -41,7 +41,7 @@ function initUI(){
     $('.ui.dropdown').dropdown({
         maxSelections: 5
     });
-    
+
     $("#fight").click(function() {
         if(checkFive()){
             // initialize rest of the page only when checkFive() passes.
@@ -90,7 +90,7 @@ function addFilterHandlers(){
     $('.filter-buttons > img').removeClass('select-filter');
     $('#511').addClass('positive active');
     $('#unranked').addClass('select-filter');
-    
+
     $('.patch-select > button').click(function(){
         var id = $(this).attr('id');
         $('#'+id).addClass('positive active');
@@ -106,7 +106,7 @@ function addFilterHandlers(){
         fillChampDetails(null, currentPatch, currentRank);
     })
     $('#unranked').popup({
-        content  : 'Display statistics for normal matches (players can be at any tier.)',
+        content  : 'Display statistics for normal matches (players can be at any tier).',
     })
     $('#bronze').popup({
         content  : 'Display statistics for ranked matches at Bronze tier.',

@@ -66,7 +66,7 @@ function fillChampDetails(sel, patch, rank, type){
                 $dom.find('.content.champ-tab').removeClass('active').hide();
                 $dom.find('i.fa').hide();
                 $dom.find('.title').removeClass('active').unwrap();
-                $dom.find('.title').find('.sub.header').text('This champion was disabled for 5.11.');
+                $dom.find('.title').find('.sub.header').text('This champion has no data for 5.11.');
                 $dom.find('.blue.statistic').find('.value').text('???');
                 updatedMissing.push(champKey);
             }else{
@@ -119,7 +119,7 @@ function addItemDetails(commonItems, champKey, patch){
         var buyPercentage = parseFloat(commonItems[i][1].buyPercentage).toFixed(2);
         var time = commonItems[i][1].averageTimeBought;
             time = 'approx. ' + parseInt(moment.duration(time, "milliseconds").as('minutes')) + ' minutes';
-        
+
         // double-check for duplicate champions, so that items don't propagate on both sides.
         $('.ui.segments').find('.'+champKey).each(function(i){
             var $items = $(this).find('.top-items');
