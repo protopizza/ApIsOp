@@ -3,8 +3,9 @@ var csvKeys = ['ITEM_ID','511-NO_RANK-WinRate','511-NO_RANK-BuyRate','511-BRONZE
 var currentPatch = 511;
 var currentRank = 'NO_RANK';
 var currentWinBuy = 'win';
-var currentKeyWR = '511-NO_RANK-WinRate'
-var currentKeyBR = '511-NO_RANK-BuyRate'
+var currentKeyWR = '511-NO_RANK-WinRate';
+var currentKeyBR = '511-NO_RANK-BuyRate';
+var sort = false;
 
 var margin = {top: 20, right: 250, bottom: 50, left: 45},
     width = 800 - margin.left - margin.right,
@@ -46,7 +47,7 @@ var svg = d3.select("#vis").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 // open csv file:
-function drawChart(update){
+function drawChart(update, sort){
   d3.csv('data/viz/items.csv').row(function(d){
       return{
         ITEM_ID: d.ITEM_ID,
@@ -76,7 +77,9 @@ function drawChart(update){
       d.rate.forEach(function(d) { d.y0 /= y0; d.y1 /= y0; });
     });
 
-    data.sort(function(a, b) { return b.rate[0].y1 - a.rate[0].y1; });
+    if(sort){
+      data.sort(function(a, b) { return b.rate[0].y1 - a.rate[0].y1; });
+    }
     // console.log(data);
 
     x.domain(data.map(function(d) { return d['ITEM_ID']; }));
@@ -240,6 +243,7 @@ function addFilterHandlers(){
     $('.filter-buttons > img').removeClass('select-filter');
     $('#511').addClass('positive active');
     $('#unranked').addClass('select-filter');
+    $('.ui.checkbox').checkbox();
     
     $('.patch-select > button').click(function(){
         var id = $(this).attr('id');
@@ -249,7 +253,7 @@ function addFilterHandlers(){
           currentPatch = id;
           currentKeyWR = currentPatch + '-' + currentRank + '-WinRate';
           currentKeyBR = currentPatch + '-' + currentRank + '-BuyRate';
-          drawChart(true);
+          drawChart(true, sort);
           console.log('clicked:', currentPatch, currentRank);
         }
     })
@@ -282,7 +286,16 @@ function addFilterHandlers(){
         }
         currentKeyWR = currentPatch + '-' + currentRank + '-WinRate';
         currentKeyBR = currentPatch + '-' + currentRank + '-BuyRate';
-        drawChart(true);
+        drawChart(true, sort);
         console.log('clicked:', currentPatch, currentRank);
+    })
+
+    $('.sort-select > .checkbox').click(function(){
+      if($('.ui.checkbox').checkbox('is checked')){
+        sort = true;
+      }else{
+        sort = false;
+      }
+      drawChart(true, sort);
     })
 }

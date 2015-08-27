@@ -28,7 +28,7 @@ function initAPItems(){
 		}
 	}).then(function(){
 		console.log(items);
-		drawChart(false);
+		drawChart(false, false);
 		initAPReference();
 	})
 }
