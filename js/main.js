@@ -105,4 +105,22 @@ function addFilterHandlers(){
         currentRank = id;
         fillChampDetails(null, currentPatch, currentRank);
     })
+    $('#unranked').popup({
+        content  : 'Display statistics for normal matches (players can be at any elo.)',
+    })
+    $('#bronze').popup({
+        content  : 'Display statistics for ranked matches at Bronze tier.',
+    })
+    $('#silver').popup({
+        content  : 'Display statistics for ranked matches at Silver tier.',
+    })
+    $('#gold').popup({
+        content  : 'Display statistics for ranked matches at Gold tier.',
+    })
+    $('#platinum').popup({
+        content  : 'Display statistics for ranked matches at Platinum tier.',
+    })
+    $('#diamond').popup({
+        content  : 'Display statistics for ranked matches at Diamond or higher tier.',
+    })
 }
