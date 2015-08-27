@@ -194,7 +194,8 @@ function drawBars(data, update){
   // append labels
   var labelTotalCounted = svg.append('text')
     .attr('x', function(d){ return 800 - margin.right - 40; })
-    .attr('y', function(d){ return 12; });
+    .attr('y', function(d){ return 12; })
+    .style('opacity', 0);
 
   var labelLossRateSub = svg.append('text')
     .attr('x', function(d){ return 800 - margin.right - 40; })
@@ -206,19 +207,22 @@ function drawBars(data, update){
     .attr('x', function(d){ return 800 - margin.right - 40; })
     .attr('y', function(d){ return height/4 + 10; })
     .style('font-size', '1.2em')
-    .style('fill', 'rgb(203, 92, 92)');
+    .style('fill', 'rgb(203, 92, 92)')
+    .style('opacity', 0);
 
   var labelName = svg.append('text')
     .attr('x', function(d){ return 800 - margin.right - 40; })
     .attr('y', function(d){ return height/2 + 5; })
     .style('font-size', '1.1em')
     .style('font-weight', 'bold')
+    .style('opacity', 0);
 
   var labelWinRate = svg.append('text')
     .attr('x', function(d){ return 800 - margin.right - 40; })
     .attr('y', function(d){ return height/4*3 - 10; })
     .style('font-size', '1.2em')
-    .style('fill', 'rgb(40, 184, 200)');
+    .style('fill', 'rgb(40, 184, 200)')
+    .style('opacity', 0);
 
   var labelWinRateSub = svg.append('text')
     .attr('x', function(d){ return 800 - margin.right - 40; })
@@ -243,7 +247,6 @@ function drawBars(data, update){
     labelTotalCounted
       .text(additionalInfo.matchesCounted + ' matches analyzed')
       .style('opacity', 1);
-    
   }
 
   function mouseOut(d){
