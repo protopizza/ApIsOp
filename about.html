@@ -27,9 +27,7 @@
     <div class="ui padded segment">
       <h3 class="ui horizontal divider header">Background</h3>
       <p>
-
       As two avid League of Legends players, finding out that AP itemization was being reworked was a bit of a surprise. Would our favorite AP mage champions still be strong? How would these changes affect the champion spectrum? With these questions in mind, we set out to analyze and display the data handed to us with a single hope in mind: that <b>AP is OP</b>.</p>
-
       </p>
     </div>
     <div class="ui padded segment">
@@ -47,7 +45,7 @@
       </p>
 
       <p>
-      To create a visual format for this data, we used a combination of HTML, CSS, and JavaScript with various libraries, notably <a href="http://semantic-ui.com/"><b>Semantic UI</b></a>.
+      To create a visual format for this data, we used a combination of HTML, CSS, and JavaScript with various libraries, most prominently <a href="http://semantic-ui.com/"><b>Semantic UI</b></a>.
       </p>
 
       <p><b>Findings of interest:</b>
@@ -55,12 +53,17 @@
       </p>
 
       <p>
-      Additionally, a few champions did not have any data in patch <b>5.11</b>. <b>Tahm Kench</b> had no data, as expected. However, both <b>Caitlyn</b> and <b>Jayce</b> also had no data for this patch. Both of these champions were disabled for a duration of the patch and thus, the dataset simply did not have any matches with them. (All three do have <b>5.14</b> data, however).</p>
+      Additionally, a few champions did not have any data in patch <b>5.11</b>. <b>Tahm Kench</b> had no data, as expected. However, both <b>Caitlyn</b> and <b>Jayce</b> also had no data for this patch. Both of these champions were disabled for a duration of the patch and thus, the dataset simply did not have any matches with them. (All three do have <b>5.14</b> data, however).
+      </p>
+
+      <p>
+      <b>Kayle</b> is a bit of an exceptional data point in our findings. In patch <b>5.11</b>, all of her popular items in all tiers of play indicate that she is mostly played in a laning role, sometimes as support. However, in <b>5.14</b>, suddenly, she became extremely popular as a jungler, going from 0 to 3 jungle items in her most popular items (and most other popular junglers still only having 1 or 2), employing <b>Skirmisher's Sabre</b>, <b>Ranger's Trailblazer</b>, and also <b>Stalker's Blade</b>, all with the <b>Sated Devourer</b> enchantment.
+      </p>
     </div>
     <div class="ui padded segment">
       <h3 class="ui horizontal divider header"><a href="items.html">Item Analysis</a></h3>
       <p><b>Purpose:</b>
-      Displaying champion statistics and their associated item statistics does not give us a direct view onto the data specifically for the changed AP items. To handle this, we decided to to display an item-specific graph showing win rate (how many matches was it won with out of how many matches was it bought?) and buy rate (out of total matches in a tier, how many times was it bought?)
+      Displaying champion statistics and their associated item statistics does not give us a direct view onto the data specifically for the changed AP items. To handle this, we decided to display an item-specific graph showing win rate (how many matches was it won with out of how many matches was it bought?) and buy rate (out of total matches in a tier, how many times was it bought?)
       </p>
 
       <p><b>Methodology:</b>
@@ -71,13 +74,25 @@
       </p>
 
       <p><b>Findings of interest:</b>
-
+      The win rates for individual items is generally not overwhelming, the highest being at about 70% in <b>Diamond+</b> for <b>Rylai's Crystal Scepter</b> and <b>Rabadon's Deathcap</b> (depending on patch), but for the most part, items generally sit approximately at a little above 50%. This is likely because popularly built AP items have a high chance of being on both teams, which would then be considered a 50% win rate in that match. Of much more interest is the actual changes in which items have the highest percentages and how they change across tiers and patches. In general, in terms of win rate, it looks as if items across the board generally had a more balanced spread, meaning that there was less of a disparity between the "strongest" and "weakest" items, especially so in our normal non-ranked matches, which has the largest amount of match data.
+      </p>
+      <p>
+      In particular, it looks like the AP item with generally the highest win rate is <b>Rabadon's Deathcap</b>. If it wasn't the highest win rate, it was at least a very strong contender. This is likely because players are more inclined to build offensively (and thus get the most AP) when ahead, and build defensively (<b>Zhonya's Hourglass</b>, etc.) when behind&mdash;and being ahead early leads to a higher chance of winning. <b>Rabadon's Deathcap</b>'s large flat AP and % bonus AP also synergizes well with many items.
+      </p>
+    </div>
+    <div class="ui padded segment">
+      <h3 class="ui horizontal divider header">Conclusion</h3>
+      <p>
+      While initially fearing that the AP item changes would have been a large nerf, it doesn't appear that way after examining our data. Rather, the it doesn't seem as if the changes can be explicitly called a "buff" or "nerf"&mdash;simply, they're just changes that created a shift in itemization possibilities, allowing different item synergies and playstyles. There are many factors that need to be taken into consideration when discussing the impact of such a large number of item changes at once, and it's not easy to make a simple judgment. Yet, it's still clear that AP is still strong, and champions that wield it can find their place in many team comps.
       </p>
     </div>
     <div class="ui padded segment">
       <h3 class="ui horizontal divider header">Data Biases</h3>
       <p>
-      To make processing the data easier and what we considered to be more meaningful, we combined several data points. We ignored all boot enchantments and only considered second-tier boots. Additionally, in the most popular items for each champion, we limited the output to only having one pair of boots. For example, it wouldn't be that interesting to see ADCs with both <b>Homeguard</b> and <b>Furor</b> boots in their most popular items, or tanks deciding between <b>Ninja Tabi</b> or <b>Mercury's Treads</b>. We'd rather see another core item. However, we left in multiple jungle items (and enchantments) as these show meaningful early game choices, especially with the addition of <b>Sated Devourer</b>.
+      While we've taken care to consider all the elements that go into processing the data set, there are a variety of factors that may indicate that the data is not necessarily able to suffice as the "purest" form of an AP item change analysis. For example, we are examining data from patches <b>5.11</b> and <b>5.14</b>, and the changes were released in <b>5.13</b>. Within these patches there were also a large number of other changes introduced that heavily affected the entire champion spectrum and possibly the affect of AP items as well. Notably, <b>Sated Devourer</b> was released, causing huge shifts in the metagame. Not every single change has been analyzed in-depth (and to do so would be a daunting task).
+      </p>
+      <p>
+      To make processing the data easier and what we considered to be more meaningful, we combined several data points. We ignored all boot enchantments and only considered second-tier boots. Additionally, in the most popular items for each champion, we limited the output to only having one pair of boots. For example, it wouldn't be that interesting to see ADCs with both <b>Homeguard</b> and <b>Furor</b> boots in their most popular items, or tanks deciding between <b>Ninja Tabi</b> or <b>Mercury's Treads</b>. We'd rather see another core item. However, we left in multiple jungle items (and enchantments) as these show meaningful early game choices (especially with the addition of <b>Sated Devourer</b>).
       </p>
 
       <p>
