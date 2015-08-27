@@ -24,3 +24,10 @@ text{
 .sort-select{
     margin-top:15px;
 }
+
+button#sort-name {
+    padding: 10px 15px;
+}
+button#sort-rate {
+    padding: 10px 20px;
+}
