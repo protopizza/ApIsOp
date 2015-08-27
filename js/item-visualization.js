@@ -59,7 +59,28 @@ function drawChart(update, sort){
   })
   .get(function(error, data) {
     if (error) throw error;
-    console.log(data);
+
+    var sorted = itemsAry;
+    sorted.sort(function (a, b){
+      if(a.name < b.name) return -1;
+        if(a.name > b.name) return 1;
+        return 0;
+    })
+
+    var result = [];
+    sorted.forEach(function(i){
+      var found = false;
+      data.filter(function(item) {
+        if(!found && item['ITEM_ID'] == i.key) {
+          result.push(item);
+          found = true;
+          return false;
+        } else 
+          return true;
+      })
+    })
+
+    data = result;
 
     // define color domain
     if( currentWinBuy == 'win' ){
@@ -171,6 +192,11 @@ function drawBars(data, update){
           .attr("height", function(d) { return y(d.y0) - y(d.y1); })
       
   // append labels
+  var labelTotalCounted = svg.append('text')
+    .attr('x', function(d){ return 800 - margin.right - 40; })
+    .attr('y', function(d){ return 12; })
+    .style('opacity', 0);
+
   var labelLossRateSub = svg.append('text')
     .attr('x', function(d){ return 800 - margin.right - 40; })
     .attr('y', function(d){ return height/4 - 10; })
@@ -181,29 +207,28 @@ function drawBars(data, update){
     .attr('x', function(d){ return 800 - margin.right - 40; })
     .attr('y', function(d){ return height/4 + 10; })
     .style('font-size', '1.2em')
-    .style('fill', 'rgb(203, 92, 92)');
+    .style('fill', 'rgb(203, 92, 92)')
+    .style('opacity', 0);
 
   var labelName = svg.append('text')
     .attr('x', function(d){ return 800 - margin.right - 40; })
     .attr('y', function(d){ return height/2 + 5; })
     .style('font-size', '1.1em')
     .style('font-weight', 'bold')
+    .style('opacity', 0);
 
   var labelWinRate = svg.append('text')
     .attr('x', function(d){ return 800 - margin.right - 40; })
     .attr('y', function(d){ return height/4*3 - 10; })
     .style('font-size', '1.2em')
-    .style('fill', 'rgb(40, 184, 200)');
+    .style('fill', 'rgb(40, 184, 200)')
+    .style('opacity', 0);
 
   var labelWinRateSub = svg.append('text')
     .attr('x', function(d){ return 800 - margin.right - 40; })
     .attr('y', function(d){ return height/4*3 + 10; })
     .text('Win Rate')
     .style('opacity', 0);
-
-  var labelTotalCounted = svg.append('text')
-    .attr('x', function(d){ return 800 - margin.right - 40; })
-    .attr('y', function(d){ return height + 10; });
 
   // add hover handlers
   item.on("mouseover", mouseOver);
@@ -213,8 +238,8 @@ function drawBars(data, update){
     var name = items[d.ITEM_ID].name;
     var detail = items[d.ITEM_ID].detail;
     labelName.text(name).style('opacity', 1);
-    labelWinRate.text(d.winRate + '%').style('opacity', 1);
-    labelLossRate.text(d.notWinRate + '%').style('opacity', 1);
+    labelWinRate.text(parseFloat(d.winRate).toFixed(2) + '%').style('opacity', 1);
+    labelLossRate.text(parseFloat(d.notWinRate).toFixed(2) + '%').style('opacity', 1);
     labelWinRateSub.style('opacity', 1);
     labelLossRateSub.style('opacity', 1);
 
@@ -222,14 +247,13 @@ function drawBars(data, update){
     labelTotalCounted
       .text(additionalInfo.matchesCounted + ' matches analyzed')
       .style('opacity', 1);
-    
   }
 
   function mouseOut(d){
     labelName.style('opacity', 0);
     labelWinRate.style('opacity', 0);
-    labelWinRateSub.style('opacity', 0);
     labelLossRate.style('opacity', 0);
+    labelWinRateSub.style('opacity', 0);
     labelLossRateSub.style('opacity', 0);
     labelTotalCounted.style('opacity', 0);
   }
@@ -240,9 +264,11 @@ function drawBars(data, update){
 function addFilterHandlers(){
     // reset UI when filter handlers are invoked (new 5 champions selected);
     $('.patch-select > button').removeClass('positive active');
+    $('.sort-select > button').removeClass('positive active');
     $('.filter-buttons > img').removeClass('select-filter');
     $('#511').addClass('positive active');
     $('#unranked').addClass('select-filter');
+    $('#sort-name').addClass('positive active');
     $('.ui.checkbox').checkbox();
     
     $('.patch-select > button').click(function(){
@@ -290,11 +316,15 @@ function addFilterHandlers(){
         console.log('clicked:', currentPatch, currentRank);
     })
 
-    $('.sort-select > .checkbox').click(function(){
-      if($('.ui.checkbox').checkbox('is checked')){
-        sort = true;
-      }else{
+    $('.sort-select > button').click(function(){
+      var id = $(this).attr('id');
+      $('#'+id).addClass('positive active');
+      $('.sort-select > button').not('#'+id).removeClass('positive active');
+      if( id == 'sort-name' ){
         sort = false;
+      }
+      if( id == 'sort-rate'){
+        sort = true;
       }
       drawChart(true, sort);
     })

@@ -49,6 +49,15 @@ function initAPReference(){
 		$item.find('.item-name').text(sorted[i].name);
 		$item.find('.item-detail').text(sorted[i].detail);
 
+		if(sorted[i].key == 3003){
+			$item.css('opacity', '0.5');
+			$item.popup({
+			    title    : 'Duplicate Item',
+			    content  : 'This item has been consolidated into Seraph\'s Embrace. You can read our about page for more details.',
+			    variation: 'tiny inverted'
+			  })
+		}
+
 		$item.show();
 	}
 }
