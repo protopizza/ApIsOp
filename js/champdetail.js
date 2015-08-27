@@ -44,7 +44,13 @@ var summaryAryA = [];
 var summaryAryB = [];
 var totalMatchCountA = 0;
 var totalMatchCountB = 0;
+var aggregateRendered = false;
 function fillChampDetails(sel, patch, rank, type){
+    summaryAry = [];
+    summaryAryA = [];
+    summaryAryB = [];
+    totalMatchCountA = 0;
+    totalMatchCountB = 0;
     for(var i = 0; i < selections.length; i++){
         var champObj = selections[i].getFilteredData(patch, rank);
 
@@ -197,25 +203,38 @@ function calculateAggregate(){
     aggregateSummaryB.gold = parseFloat(aggregateGold).toFixed(2);
     aggregateSummaryB.dmg = parseFloat(aggregateDmg/1000).toFixed(2) + 'k';
     aggregateSummaryB.win = parseFloat(aggregateWin).toFixed(2);
+    console.log('summary:', summaryAry);
+    console.log('aggregate A:', aggregateSummaryA);
+    console.log('aggregate B:', aggregateSummaryB);
 }
 
 // add team comp averages to bottom of matchup
 function renderAggregate(){
     var $teamA = $('.sideA');
     var $teamB = $('.sideB');
-    var domA = $('#summary-template').clone().removeAttr('id');
-        domA.find('.kda').find('.value').text(aggregateSummaryA.kda);
-        domA.find('.gold-min').find('.value').text(aggregateSummaryA.gold);
-        domA.find('.tot-dmg').find('.value').text(aggregateSummaryA.dmg);
-        domA.find('.win-rate').find('.value').text(aggregateSummaryA.win);
-        domA.appendTo($teamA).show();
+    var domA = null;
+    var domB = null;
+    if(!aggregateRendered){
+        domA = $('#summary-template').clone().attr('id', 'aggregateA');
+        domB = $('#summary-template').clone().attr('id', 'aggregateB');
+    }else{
+        domA = $('#aggregateA');
+        domB = $('#aggregateB');
+    }
+    domA.find('.kda').find('.value').text(aggregateSummaryA.kda);
+    domA.find('.gold-min').find('.value').text(aggregateSummaryA.gold);
+    domA.find('.tot-dmg').find('.value').text(aggregateSummaryA.dmg);
+    domA.find('.win-rate').find('.value').text(aggregateSummaryA.win);
 
-    var domB = $('#summary-template').clone().removeAttr('id');
-        domB.find('.kda').find('.value').text(aggregateSummaryB.kda);
-        domB.find('.gold-min').find('.value').text(aggregateSummaryB.gold);
-        domB.find('.tot-dmg').find('.value').text(aggregateSummaryB.dmg);
-        domB.find('.win-rate').find('.value').text(aggregateSummaryB.win);
+    domB.find('.kda').find('.value').text(aggregateSummaryB.kda);
+    domB.find('.gold-min').find('.value').text(aggregateSummaryB.gold);
+    domB.find('.tot-dmg').find('.value').text(aggregateSummaryB.dmg);
+    domB.find('.win-rate').find('.value').text(aggregateSummaryB.win);
+    if(!aggregateRendered){
+        domA.appendTo($teamA).show();
         domB.appendTo($teamB).show();
+    }
+    aggregateRendered = true;
 }
 
 function addItemDetails(commonItems, champKey, patch){
