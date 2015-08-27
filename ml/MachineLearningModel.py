@@ -10,8 +10,8 @@ import os
 class MachineLearningModel(object):
 
 
-    def __init__(self):
-        self.clf = svm.SVC(kernel='linear', C=1.0)
+    def __init__(self, kernelType="linear"):
+        self.clf = svm.SVC(kernel=kernelType, C=1.0)
         self.X = [] # training data array
         self.y = [] # target data array
 
@@ -101,7 +101,11 @@ class MachineLearningModel(object):
             return
         score = 0
         for data in range(size):
-            print "Prediction: {}, Expected: {}".format(self.clf.predict(self.X[-data])[0], self.y[-data])
+            print "Prediction: {}, Expected: {}, {}, Confidence: {}".format(
+                self.clf.predict(self.X[-data])[0],
+                self.y[-data],
+                "Y" if self.clf.predict(self.X[-data])[0] == self.y[-data] else "N",
+                self.clf.decision_function(self.X[-data])[0])
             if self.clf.predict(self.X[-data])[0] == self.y[-data]:
                 score += 1
 
@@ -148,4 +152,4 @@ class MachineLearningModel(object):
 
         predict_X.append(current_list)
 
-        return self.clf.predict(X[-data])[0]
+        return self.clf.predict(X[-data])[0], self.clf.decision_function(X[-data])
