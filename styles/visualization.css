@@ -21,7 +21,7 @@ text{
 	font-size: 0.8em;
 }
 
-.sort-select{
+.sort-select, .type-select{
     margin-top:15px;
 }
 

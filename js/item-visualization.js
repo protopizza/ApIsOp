@@ -107,7 +107,7 @@ function drawChart(update, sort){
 
     // append axes
     drawTicks(data, update);
-    drawBars(data, update);
+    drawBars(data, update, currentWinBuy);
 
     if(!update){
       // draw 50% line only after rendering percentage values
@@ -168,7 +168,7 @@ function drawTicks(data, update){
   }
 }
 
-function drawBars(data, update){
+function drawBars(data, update, type){
   // define and append percentage values for win rate per item
   var item = svg.selectAll(".item").data(data);
       item.enter().append("g")
@@ -197,18 +197,17 @@ function drawBars(data, update){
     .attr('y', function(d){ return 12; })
     .style('opacity', 0);
 
-  var labelLossRateSub = svg.append('text')
-    .attr('x', function(d){ return 800 - margin.right - 40; })
-    .attr('y', function(d){ return height/4 - 10; })
-    .text('Loss Rate')
-    .style('opacity', 0);
-
-  var labelLossRate = svg.append('text')
-    .attr('x', function(d){ return 800 - margin.right - 40; })
-    .attr('y', function(d){ return height/4 + 10; })
-    .style('font-size', '1.2em')
-    .style('fill', 'rgb(203, 92, 92)')
-    .style('opacity', 0);
+  var labelNegativeRateSub = svg.append('text')
+        .attr('x', function(d){ return 800 - margin.right - 40; })
+        .attr('y', function(d){ return height/4 - 10; })
+        .style('opacity', 0);
+      
+  var labelNegativeRate = svg.append('text')
+        .attr('x', function(d){ return 800 - margin.right - 40; })
+        .attr('y', function(d){ return height/4 + 10; })
+        .style('font-size', '1.2em')
+        .style('fill', 'rgb(203, 92, 92)')
+        .style('opacity', 0);
 
   var labelName = svg.append('text')
     .attr('x', function(d){ return 800 - margin.right - 40; })
@@ -217,18 +216,26 @@ function drawBars(data, update){
     .style('font-weight', 'bold')
     .style('opacity', 0);
 
-  var labelWinRate = svg.append('text')
+  var labelPositiveRate = svg.append('text')
     .attr('x', function(d){ return 800 - margin.right - 40; })
     .attr('y', function(d){ return height/4*3 - 10; })
     .style('font-size', '1.2em')
     .style('fill', 'rgb(40, 184, 200)')
     .style('opacity', 0);
 
-  var labelWinRateSub = svg.append('text')
+  var labelPositiveRateSub = svg.append('text')
     .attr('x', function(d){ return 800 - margin.right - 40; })
     .attr('y', function(d){ return height/4*3 + 10; })
-    .text('Win Rate')
     .style('opacity', 0);
+      
+  if(type == 'win'){
+      labelPositiveRateSub.text('Win Rate');
+      labelNegativeRateSub.text('Loss Rate');
+  }
+  if(type == 'buy'){
+      labelPositiveRateSub.text('Purchase Rate');
+      labelNegativeRateSub.text('Not purchased');
+  }
 
   // add hover handlers
   item.on("mouseover", mouseOver);
@@ -238,10 +245,16 @@ function drawBars(data, update){
     var name = items[d.ITEM_ID].name;
     var detail = items[d.ITEM_ID].detail;
     labelName.text(name).style('opacity', 1);
-    labelWinRate.text(parseFloat(d.winRate).toFixed(2) + '%').style('opacity', 1);
-    labelLossRate.text(parseFloat(d.notWinRate).toFixed(2) + '%').style('opacity', 1);
-    labelWinRateSub.style('opacity', 1);
-    labelLossRateSub.style('opacity', 1);
+    if(type == 'win'){
+      labelPositiveRate.text(parseFloat(d.winRate).toFixed(2) + '%').style('opacity', 1);
+      labelNegativeRate.text(parseFloat(d.notWinRate).toFixed(2) + '%').style('opacity', 1);
+    }
+    if(type == 'buy'){
+      labelPositiveRate.text(parseFloat(d.buyRate).toFixed(2) + '%').style('opacity', 1);
+      labelNegativeRate.text(parseFloat(d.notBuyRate).toFixed(2) + '%').style('opacity', 1);
+    }
+    labelPositiveRateSub.style('opacity', 1);
+    labelNegativeRateSub.style('opacity', 1);
 
     var additionalInfo = items[d.ITEM_ID].getFilteredData(currentPatch, currentRank);
     labelTotalCounted
@@ -251,24 +264,25 @@ function drawBars(data, update){
 
   function mouseOut(d){
     labelName.style('opacity', 0);
-    labelWinRate.style('opacity', 0);
-    labelLossRate.style('opacity', 0);
-    labelWinRateSub.style('opacity', 0);
-    labelLossRateSub.style('opacity', 0);
+    labelPositiveRate.style('opacity', 0);
+    labelNegativeRate.style('opacity', 0);
+    labelPositiveRateSub.style('opacity', 0);
+    labelNegativeRateSub.style('opacity', 0);
     labelTotalCounted.style('opacity', 0);
   }
 }
-
 
 // add mouse handlers to the UI section that filters data by rank and patch.
 function addFilterHandlers(){
     // reset UI when filter handlers are invoked (new 5 champions selected);
     $('.patch-select > button').removeClass('positive active');
     $('.sort-select > button').removeClass('positive active');
+    $('.type-select > button').removeClass('positive active');
     $('.filter-buttons > img').removeClass('select-filter');
     $('#511').addClass('positive active');
     $('#unranked').addClass('select-filter');
     $('#sort-name').addClass('positive active');
+    $('#type-win').addClass('positive active');
     $('.ui.checkbox').checkbox();
     
     $('.patch-select > button').click(function(){
@@ -279,8 +293,7 @@ function addFilterHandlers(){
           currentPatch = id;
           currentKeyWR = currentPatch + '-' + currentRank + '-WinRate';
           currentKeyBR = currentPatch + '-' + currentRank + '-BuyRate';
-          drawChart(true, sort);
-          console.log('clicked:', currentPatch, currentRank);
+          drawChart(true, sort, currentWinBuy);
         }
     })
     $('.filter-buttons > img').click(function(){
@@ -312,10 +325,8 @@ function addFilterHandlers(){
         }
         currentKeyWR = currentPatch + '-' + currentRank + '-WinRate';
         currentKeyBR = currentPatch + '-' + currentRank + '-BuyRate';
-        drawChart(true, sort);
-        console.log('clicked:', currentPatch, currentRank);
+        drawChart(true, sort, currentWinBuy);
     })
-
     $('.sort-select > button').click(function(){
       var id = $(this).attr('id');
       $('#'+id).addClass('positive active');
@@ -326,6 +337,18 @@ function addFilterHandlers(){
       if( id == 'sort-rate'){
         sort = true;
       }
-      drawChart(true, sort);
+      drawChart(true, sort, currentWinBuy);
+    })
+    $('.type-select > button').click(function(){
+      var id = $(this).attr('id');
+      $('#'+id).addClass('positive active');
+      $('.type-select > button').not('#'+id).removeClass('positive active');
+      if( id == 'type-win' ){
+        currentWinBuy = 'win';
+      }
+      if( id == 'type-buy'){
+        currentWinBuy = 'buy';
+      }
+      drawChart(true, sort, currentWinBuy);
     })
 }

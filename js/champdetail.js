@@ -35,7 +35,7 @@ function getPatchData(a, b){
 
 // update UI with appropriate champ data.
 var updatedMissing = [];
-function fillChampDetails(sel, patch, rank){
+function fillChampDetails(sel, patch, rank, type){
     for(var i = 0; i < selections.length; i++){
         var champObj = selections[i].getFilteredData(patch, rank);
 

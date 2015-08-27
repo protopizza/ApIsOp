@@ -18,6 +18,7 @@
           <a class="item" href="about.html">about</a>
           <a class="item" href="index.html">champions</a>
           <a class="active item" href="items.html">items</a>
+          <a class="item" href="lcs.html">predictions</a>
           <a class="item" href="//github.com/protopizza/ApIsOp">github</a>
         </div>
       </div>
@@ -45,10 +46,15 @@
           <button class="ui left attached tiny positive active button" id="sort-name">A-Z</button>
           <button class="right attached ui tiny button" id="sort-rate">%</button>
         </div>
+        <div class="type-select">
+          <button class="ui left attached tiny positive active button" id="type-win">Win</button>
+          <button class="right attached ui tiny button" id="type-buy">Buy</button>
+        </div>
       </div>
     </div>
     <div id="vis"></div>
-    <p></p>
+    <p>Note 1: Win rate percentages are counted per match. If multiple people purchase an AP item in a single match, we'll be considering that 1 count-- In this match, this specific AP item was bought.</p>
+    <p>Note 2: Buy rate percentages represent which AP items remained until the end of a match.</p>
     <div class="ui left aligned text container">
       <h4 class="ui horizontal divider header">AP Item Changes Reference</h4>
       <div class="ui tiny list" id="list">
