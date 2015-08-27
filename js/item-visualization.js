@@ -284,6 +284,37 @@ function addFilterHandlers(){
     $('#sort-name').addClass('positive active');
     $('#type-win').addClass('positive active');
     $('.ui.checkbox').checkbox();
+
+    $('#unranked').popup({
+        content  : 'Display statistics for normal matches (players can be at any tier.)',
+    })
+    $('#bronze').popup({
+        content  : 'Display statistics for ranked matches at Bronze tier.',
+    })
+    $('#silver').popup({
+        content  : 'Display statistics for ranked matches at Silver tier.',
+    })
+    $('#gold').popup({
+        content  : 'Display statistics for ranked matches at Gold tier.',
+    })
+    $('#platinum').popup({
+        content  : 'Display statistics for ranked matches at Platinum tier.',
+    })
+    $('#diamond').popup({
+        content  : 'Display statistics for ranked matches at Diamond or higher tier.',
+    })
+    $('#sort-name').popup({
+        content  : 'Sort statistics by alphabetical order of the AP item name.',
+    })
+    $('#sort-rate').popup({
+        content  : 'Sort statistics by win rate or buy rate of the AP item name.',
+    })
+    $('#type-buy').popup({
+        content  : 'Sort statistics by purchase rate of the AP items.',
+    })
+    $('#type-win').popup({
+        content  : 'Sort statistics by win rate of the AP items.',
+    })
     
     $('.patch-select > button').click(function(){
         var id = $(this).attr('id');
