@@ -20,5 +20,5 @@ TEAMS = {
     "teamB": 2
 }
 
-SERIALIZED_MODEL_PATH = "clf"
+SERIALIZED_MODEL_PATH = "clf_linear"
 SERIALIZED_MODEL_FILE = "ap_is_op_svm_model.pkl"
