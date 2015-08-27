@@ -59,7 +59,6 @@ function drawChart(update, sort){
   })
   .get(function(error, data) {
     if (error) throw error;
-    console.log(data);
 
     var sorted = itemsAry;
     sorted.sort(function (a, b){
