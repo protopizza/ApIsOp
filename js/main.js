@@ -169,7 +169,7 @@ function addRandomChampions(){
 
     if( dropdownACurrent.length == 5 && dropdownBCurrent.length == 5){
         $('#champselect-A').dropdown('clear');
-        $('#champselect-A').dropdown('clear');
+        $('#champselect-B').dropdown('clear');
         dropdownACurrent = $('#champselect-A').dropdown('get value');
         dropdownBCurrent = $('#champselect-B').dropdown('get value');
 
