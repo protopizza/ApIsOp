@@ -198,12 +198,15 @@ function drawBars(data, update){
     .text('Win Rate')
     .style('opacity', 0);
 
+  var labelTotalCounted = svg.append('text')
+    .attr('x', function(d){ return 800 - margin.right - 40; })
+    .attr('y', function(d){ return height + 10; });
+
   // add hover handlers
   item.on("mouseover", mouseOver);
   item.on("mouseout", mouseOut);
 
   function mouseOver(d){
-    console.log(d);
     var name = items[d.ITEM_ID].name;
     var detail = items[d.ITEM_ID].detail;
     labelName.text(name).style('opacity', 1);
@@ -212,14 +215,11 @@ function drawBars(data, update){
     labelWinRateSub.style('opacity', 1);
     labelLossRateSub.style('opacity', 1);
 
-
-    // filter for selected state.
-    // var st = data.filter(function(s){ console.log(s); return s.State == d[0];})[0],
-        // nD = d3.keys(st.freq).map(function(s){ return {type:s, freq:st.freq[s]};});
-       
-    // call update functions of pie-chart and legend.    
-    // pC.update(nD);
-    // leg.update(nD);
+    var additionalInfo = items[d.ITEM_ID].getFilteredData(currentPatch, currentRank);
+    labelTotalCounted
+      .text(additionalInfo.matchesCounted + ' matches analyzed')
+      .style('opacity', 1);
+    
   }
 
   function mouseOut(d){
@@ -228,6 +228,7 @@ function drawBars(data, update){
     labelWinRateSub.style('opacity', 0);
     labelLossRate.style('opacity', 0);
     labelLossRateSub.style('opacity', 0);
+    labelTotalCounted.style('opacity', 0);
   }
 }
 

@@ -31,32 +31,9 @@ APItem.prototype.getPatch = function(patch){
 }
 APItem.prototype.getFilteredData = function(patch, rank){
 	var patchObj = this.getPatch(patch);
-	var rankKey = '';
-	switch(rank){
-		case 'unranked':
-			rankKey = null;
-			break;
-	    case 'bronze':
-	        rankKey = 'BRONZE';
-	        break;
-	    case 'silver':
-	        rankKey = 'SILVER';
-	        break;
-	    case 'gold':
-	        rankKey = 'GOLD';
-	        break;
-	    case 'platinum':
-	        rankKey = 'PLATINUM';
-	        break;
-	    case 'diamond':
-	        rankKey = 'DIAMOND+';
-	        break;
-	    default:
-	        break;
-	}
-	if(rankKey == null){
+	if(rank == 'NO_RANK'){
 		return patchObj.unranked;
 	}else{
-		return patchObj.ranked[rankKey];
+		return patchObj.ranked[rank];
 	}
 }
