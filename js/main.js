@@ -58,6 +58,24 @@ function initUI(){
             }, 'slow');
         }
     });
+
+    $("#randomize").click(function() {
+        addRandomChampions()
+        if(checkFive()){
+            // initialize rest of the page only when checkFive() passes.
+            addFilterHandlers();
+            getPatchData(champsA, champsB);
+            addChampDOM();
+
+            $('.ui.accordion').accordion();
+
+            $('#champion-template').hide();
+            $('#result').show();
+            $('html,body').animate({
+                scrollTop: $("#result").offset().top
+            }, 'slow');
+        }
+    });
 }
 
 // function to make sure both dropdowns have 5 champions each selected.
@@ -123,4 +141,72 @@ function addFilterHandlers(){
     $('#diamond').popup({
         content  : 'Display statistics for ranked matches at Diamond or higher tier.',
     })
+}
+
+function addRandomChampions(){
+    var dropdownACurrent = $('#champselect-A').dropdown('get value');
+    var dropdownBCurrent = $('#champselect-B').dropdown('get value');
+
+    if( dropdownACurrent.length > 0 ){
+        dropdownACurrent = dropdownACurrent.split(',');
+    }
+    if( dropdownBCurrent.length > 0 ){
+        dropdownBCurrent = dropdownBCurrent.split(',');
+    }
+
+    if( dropdownACurrent.length == 5 && dropdownBCurrent.length == 5){
+        $('#champselect-A').dropdown('clear');
+        $('#champselect-A').dropdown('clear');
+        dropdownACurrent = $('#champselect-A').dropdown('get value');
+        dropdownBCurrent = $('#champselect-B').dropdown('get value');
+
+        if( dropdownACurrent.length > 0 ){
+            dropdownACurrent = dropdownACurrent.split(',');
+        }
+        if( dropdownBCurrent.length > 0 ){
+            dropdownBCurrent = dropdownBCurrent.split(',');
+        }
+    }
+
+
+    var dropdownANeeded = 5 - dropdownACurrent.length;
+    var dropdownBNeeded = 5 - dropdownBCurrent.length;
+
+    var teamARandom = [];
+    var teamBRandom = [];
+
+    console.log(dropdownANeeded);
+    console.log(dropdownBNeeded);
+    for(var i = 0; i < dropdownANeeded; ) {
+        var rand = champs[Math.floor(Math.random()*champs.length)];
+        console.log(rand);
+        if($.inArray(rand, dropdownACurrent) == -1) {
+            if($.inArray(rand, teamARandom) == -1) {
+                teamARandom.push(rand)
+                i++;
+            }
+        }
+    }
+
+    for(var i = 0; i < dropdownBNeeded; ) {
+        var rand = champs[Math.floor(Math.random()*champs.length)];
+        console.log(rand);
+        if($.inArray(rand, dropdownACurrent) == -1) {
+            if($.inArray(rand, teamARandom) == -1) {
+                if($.inArray(rand, dropdownBCurrent) == -1) {
+                    if($.inArray(rand, teamBRandom) == -1) {
+                        teamBRandom.push(rand)
+                        i++;
+                    }
+                }
+            }
+        }
+    }
+
+    for(var i in teamARandom){
+        $('#champselect-A').dropdown('set selected', teamARandom[i]);
+    }
+    for(var i in teamBRandom){
+        $('#champselect-B').dropdown('set selected', teamBRandom[i]);
+    }
 }
