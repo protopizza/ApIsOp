@@ -31,6 +31,13 @@ function getPatchData(a, b){
             })
         })(i);
     }
+    updatedMissing = [];
+    summaryAry = [];
+    summaryAryA = [];
+    summaryAryB = [];
+    totalMatchCountA = 0;
+    totalMatchCountB = 0;
+    aggregateRendered = false;
 }
 
 // update UI with appropriate champ data.
@@ -46,11 +53,6 @@ var totalMatchCountA = 0;
 var totalMatchCountB = 0;
 var aggregateRendered = false;
 function fillChampDetails(sel, patch, rank, type){
-    summaryAry = [];
-    summaryAryA = [];
-    summaryAryB = [];
-    totalMatchCountA = 0;
-    totalMatchCountB = 0;
     for(var i = 0; i < selections.length; i++){
         var champObj = selections[i].getFilteredData(patch, rank);
 
@@ -112,7 +114,6 @@ function fillChampDetails(sel, patch, rank, type){
                     $dom.find('.content.champ-tab').show();
                     $dom.find('i.fa').show();
                     updatedMissing.splice(updatedMissing.indexOf(champKey), 1);
-                    $('.ui.accordion').accordion('refresh');
                 }
                // handle normal champ data.
                 $dom = $('.ui.segments').find('.'+champKey);
@@ -127,6 +128,7 @@ function fillChampDetails(sel, patch, rank, type){
         }
     }
 
+    $('.ui.accordion').accordion('refresh');
     calculateAggregate();
     renderAggregate();
 }
