@@ -135,6 +135,7 @@ function fillChampDetails(sel, patch, rank, type){
 
     calculateAggregate();
     renderAggregate();
+    $('.ui.accordion').accordion();
 }
 
 /*

@@ -47,6 +47,8 @@ function initItems(){
     });
 }
 
+var checkFiveA = false;
+var checkFiveB = false;
 // initialize semantic's UI components.
 // other semantic UI components must be initialized after DOM creation.
 function initUI(){
@@ -54,21 +56,61 @@ function initUI(){
         maxSelections: 5
     });
 
-    $("#fight").click(function() {
-        if(checkFive()){
-            // initialize rest of the page only when checkFive() passes.
-            addFilterHandlers();
-            getPatchData(champsA, champsB);
-            addChampDOM();
+    $('#fight-error').show();
 
-            $('.ui.accordion').accordion();
-
-            $('#champion-template').hide();
-            $('#result').show();
-            $('html,body').animate({
-                scrollTop: $("#result").offset().top
-            }, 'slow');
+    $('#champselect-A').dropdown({
+        onChange: function(val, text, $sel){
+            if(val.split(',').length == 5){
+                checkFiveA = true;
+            }else{
+                checkFiveA = false;
+            }
+            if(checkFiveA && checkFiveB){
+                $('#fight').removeClass('disabled');
+                $('#fight-error').hide();
+                $('#fight, #randomize').css('margin-top', '15px');
+            }else{
+                $('#fight').addClass('disabled');
+                $('#fight-error').show();
+                $('#fight, #randomize').css('margin-top', '0');
+            }
         }
+    })
+    $('#champselect-B').dropdown({
+        onChange: function(val, text, $sel){
+            if(val.split(',').length == 5){
+                checkFiveB = true;
+            }else{
+                checkFiveB = false;
+            }
+            if(checkFiveA && checkFiveB){
+                $('#fight').removeClass('disabled');
+                $('#fight-error').hide();
+                $('#fight, #randomize').css('margin-top', '15px');
+            }else{
+                $('#fight').addClass('disabled');
+                $('#fight-error').show();
+                $('#fight, #randomize').css('margin-top', '0');
+            }
+        }
+    })
+
+    $("#fight").click(function() {
+        // initialize rest of the page only when checkFive() passes.
+        var dropdownA = $('#champselect-A').dropdown('get value');
+        var dropdownB = $('#champselect-B').dropdown('get value');
+        champsA = dropdownA.split(',');
+        champsB = dropdownB.split(',');
+
+        addFilterHandlers();
+        getPatchData(champsA, champsB);
+        addChampDOM();
+
+        $('#champion-template').hide();
+        $('#result').show();
+        $('html,body').animate({
+            scrollTop: $("#result").offset().top
+        }, 'slow');
     });
 
     $("#randomize").click(function() {
@@ -78,8 +120,6 @@ function initUI(){
             addFilterHandlers();
             getPatchData(champsA, champsB);
             addChampDOM();
-
-            $('.ui.accordion').accordion();
 
             $('#champion-template').hide();
             $('#result').show();
@@ -94,6 +134,8 @@ function initUI(){
 function checkFive(){
     var dropdownA = $('#champselect-A').dropdown('get value');
     var dropdownB = $('#champselect-B').dropdown('get value');
+    console.log('dropdown A: ', dropdownA);
+    console.log('dropdown B: ', dropdownB);
     if( dropdownA.length > 0 ){
         dropdownA = dropdownA.split(',');
     }

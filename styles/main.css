@@ -28,6 +28,12 @@
     line-height: 2em;
 }
 
+#fight-error{
+    margin: 15px;
+    color: #db2828;
+    font-size: 0.85em;
+}
+
 .ui.list > .item > img.image + .content{
     text-align: left;
 }
@@ -94,10 +100,6 @@
 }
 .item-time{
     text-align: left;
-}
-
-#fight{
-    margin-top: 3em;
 }
 
 #duplicate-warning{
