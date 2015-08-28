@@ -2,18 +2,18 @@
     "matchTier": "DIAMOND+", 
     "winnerTeamA": false, 
     "teamA": [
-        "Rumble", 
-        "Sejuani", 
-        "Jayce", 
-        "Kalista", 
-        "Thresh"
+        68, 
+        113, 
+        126, 
+        412, 
+        429
     ], 
     "teamB": [
-        "JarvanIV", 
-        "RekSai", 
-        "Lulu", 
-        "Corki", 
-        "Nautilus"
+        42, 
+        59, 
+        111, 
+        117, 
+        421
     ], 
     "patch": "5.11"
 }

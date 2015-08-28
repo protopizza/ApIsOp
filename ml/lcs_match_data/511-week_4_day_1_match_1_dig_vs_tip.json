@@ -2,18 +2,18 @@
     "matchTier": "DIAMOND+", 
     "winnerTeamA": true, 
     "teamA": [
-        "Hecarim", 
-        "XinZhao", 
-        "TwistedFate", 
-        "Corki", 
-        "Alistar"
+        4, 
+        5, 
+        12, 
+        42, 
+        120
     ], 
     "teamB": [
-        "Ekko", 
-        "RekSai", 
-        "Varus", 
-        "Graves", 
-        "Janna"
+        40, 
+        104, 
+        110, 
+        245, 
+        421
     ], 
     "patch": "5.11"
 }

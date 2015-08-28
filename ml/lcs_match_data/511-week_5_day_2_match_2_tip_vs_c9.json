@@ -2,18 +2,18 @@
     "matchTier": "DIAMOND+", 
     "winnerTeamA": true, 
     "teamA": [
-        "Maokai", 
-        "LeeSin", 
-        "Orianna", 
-        "Sivir", 
-        "Alistar"
+        12, 
+        15, 
+        57, 
+        61, 
+        64
     ], 
     "teamB": [
-        "Rumble", 
-        "Nocturne", 
-        "Viktor", 
-        "Jinx", 
-        "Annie"
+        1, 
+        56, 
+        68, 
+        112, 
+        222
     ], 
     "patch": "5.11"
 }

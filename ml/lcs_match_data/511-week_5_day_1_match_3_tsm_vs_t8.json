@@ -2,18 +2,18 @@
     "matchTier": "DIAMOND+", 
     "winnerTeamA": true, 
     "teamA": [
-        "Gnar", 
-        "JarvanIV", 
-        "Azir", 
-        "Kalista", 
-        "Thresh"
+        59, 
+        150, 
+        268, 
+        412, 
+        429
     ], 
     "teamB": [
-        "Shen", 
-        "Nocturne", 
-        "Viktor", 
-        "Sivir", 
-        "Annie"
+        1, 
+        15, 
+        56, 
+        98, 
+        112
     ], 
     "patch": "5.11"
 }
