@@ -10,8 +10,8 @@ Match 1: DIG vs TIP: teamA win
 teamA(DIG):
 
 Hecarim
-Xin Zhao
-Twisted Fate
+XinZhao
+TwistedFate
 Corki
 Alistar
 
@@ -19,7 +19,7 @@ Alistar
 teamB(TIP):
 
 Ekko
-Reksai
+RekSai
 Varus
 Graves
 Janna
@@ -31,7 +31,7 @@ Match 2: TDK vs CLG: teamB win
 teamA(TDK):
 
 Rumble
-Reksai
+RekSai
 Azir
 Corki
 Nautilus
@@ -61,7 +61,7 @@ Annie
 teamB(TSM):
 
 Gnar
-Reksai
+RekSai
 Azir
 Corki
 Alistar
@@ -73,7 +73,7 @@ Match 4: GV vs T8: teamA win
 teamA(GV):
 
 Ekko
-Reksai
+RekSai
 Urgot
 Vayne
 Thresh
@@ -139,7 +139,7 @@ Match 2: GV vs TSM: teamB win
 teamA(GV):
 
 Rumble
-Xin Zhao
+XinZhao
 Urgot
 Tristana
 Thresh
@@ -148,7 +148,7 @@ Thresh
 teamB(TSM):
 
 Gnar
-Reksai
+RekSai
 Azir
 Kalista
 Annie
@@ -160,7 +160,7 @@ Match 3: CLG vs C9: teamA win
 teamA(CLG):
 
 Gnar
-Reksai
+RekSai
 KogMaw
 Ashe
 Alistar
@@ -181,7 +181,7 @@ Match 4: NME vs TIP: teamB win
 teamA(NME):
 
 Hecarim
-Reksai
+RekSai
 Nidalee
 Kalista
 Thresh
@@ -211,7 +211,7 @@ Thresh
 teamB(DIG):
 
 JarvanIV
-Reksai
+RekSai
 Lulu
 Corki
 Nautilus
@@ -289,7 +289,7 @@ Match 4: C9 vs TDK: teamA win
 teamA(C9):
 
 Fizz
-Reksai
+RekSai
 Viktor
 Ashe
 Annie
@@ -310,7 +310,7 @@ Match 5: DIG vs NME: teamA win
 teamA(DIG):
 
 Hecarim
-Reksai
+RekSai
 Azir
 Sivir
 Nautilus
@@ -343,7 +343,7 @@ Janna
 teamB(TL):
 
 Gnar
-Reksai
+RekSai
 Viktor
 Vayne
 Alistar
@@ -355,7 +355,7 @@ Match 2: TIP vs C9: teamA win
 teamA(TIP):
 
 Maokai
-Lee Sin
+LeeSin
 Orianna
 Sivir
 Alistar
@@ -406,7 +406,7 @@ Nautilus
 teamB(DIG):
 
 Hecarim
-Reksai
+RekSai
 Azir
 Corki
 Thresh
@@ -418,7 +418,7 @@ Match 5: T8 vs NME: teamA win
 teamA(T8):
 
 Shen
-Reksai
+RekSai
 Vladimir
 Kalista
 Morgana
