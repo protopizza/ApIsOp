@@ -109,9 +109,6 @@ function checkFive(){
     return true;
 }
 
-// flag for displaying warning message only once
-var warned = false;
-
 // some globals to be used later.
 var currentPatch = 511;
 var currentRank = 'unranked';
@@ -138,9 +135,10 @@ function addFilterHandlers(){
         currentRank = id;
         fillChampDetails(null, currentPatch, currentRank);
 
-        if(selections.length < 10 && id !== 'unranked' && !warned){
-            alert("Warning: There cannot be duplicate champions in ranked matches.");
-            warned = true;
+        if(selections.length < 10 && id !== 'unranked'){
+            $('#duplicate-warning').show();
+        } else {
+            $('#duplicate-warning').hide();
         }
     })
     $('#unranked').popup({

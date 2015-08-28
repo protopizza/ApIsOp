@@ -100,6 +100,10 @@
     margin-top: 3em;
 }
 
+#duplicate-warning{
+    color: #CC0000;
+}
+
 .footer {
     margin-top: 50px;
     padding-left: 15px;
@@ -107,5 +111,5 @@
     padding-top: 19px;
     border-top: 1px solid #e5e5e5;
     color: #777;
-    text-align: center; 
+    text-align: center;
 }
