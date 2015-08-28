@@ -52,13 +52,10 @@ var checkFiveB = false;
 // initialize semantic's UI components.
 // other semantic UI components must be initialized after DOM creation.
 function initUI(){
-    $('.ui.dropdown').dropdown({
-        maxSelections: 5
-    });
-
     $('#fight-error').show();
 
     $('#champselect-A').dropdown({
+        maxSelections: 5,
         onChange: function(val, text, $sel){
             if(val.split(',').length == 5){
                 checkFiveA = true;
@@ -77,6 +74,7 @@ function initUI(){
         }
     })
     $('#champselect-B').dropdown({
+        maxSelections: 5,
         onChange: function(val, text, $sel){
             if(val.split(',').length == 5){
                 checkFiveB = true;
