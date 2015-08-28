@@ -1,0 +1,19 @@
+{
+    "matchTier": "DIAMOND+", 
+    "winnerTeamA": true, 
+    "teamA": [
+        "Gnar", 
+        "RekSai", 
+        "KogMaw", 
+        "Ashe", 
+        "Alistar"
+    ], 
+    "teamB": [
+        "Fizz", 
+        "Ekko", 
+        "Azir", 
+        "Sivir", 
+        "Nautilus"
+    ], 
+    "patch": "5.11"
+}

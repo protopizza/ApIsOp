@@ -1,0 +1,19 @@
+{
+    "matchTier": "DIAMOND+", 
+    "winnerTeamA": false, 
+    "teamA": [
+        "Maokai", 
+        "Nocturne", 
+        "Kassadin", 
+        "Sivir", 
+        "Nautilus"
+    ], 
+    "teamB": [
+        "Rumble", 
+        "Evelynn", 
+        "Hecarim", 
+        "Jinx", 
+        "Thresh"
+    ], 
+    "patch": "5.11"
+}

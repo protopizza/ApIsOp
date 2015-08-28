@@ -1,0 +1,19 @@
+{
+    "matchTier": "DIAMOND+", 
+    "winnerTeamA": true, 
+    "teamA": [
+        "Gnar", 
+        "Ekko", 
+        "Lulu", 
+        "Jinx", 
+        "Thresh"
+    ], 
+    "teamB": [
+        "Nautilus", 
+        "Gragas", 
+        "Viktor", 
+        "Twitch", 
+        "Braum"
+    ], 
+    "patch": "5.14"
+}

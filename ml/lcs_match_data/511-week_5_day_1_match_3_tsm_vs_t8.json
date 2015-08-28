@@ -1,0 +1,19 @@
+{
+    "matchTier": "DIAMOND+", 
+    "winnerTeamA": true, 
+    "teamA": [
+        "Gnar", 
+        "JarvanIV", 
+        "Azir", 
+        "Kalista", 
+        "Thresh"
+    ], 
+    "teamB": [
+        "Shen", 
+        "Nocturne", 
+        "Viktor", 
+        "Sivir", 
+        "Annie"
+    ], 
+    "patch": "5.11"
+}

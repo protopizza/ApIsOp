@@ -61,8 +61,8 @@ Alistar
 teamB(DIG):
 
 Gangplank
-Reksai
-Kogmaw
+RekSai
+KogMaw
 Corki
 Thresh
 
@@ -186,7 +186,7 @@ Match 2: teamB win
 teamA(TIP):
 
 Maokai
-Lee Sin
+LeeSin
 Lulu
 Vayne
 Braum
@@ -216,7 +216,7 @@ Alistar
 teamB(TIP):
 
 Maokai
-Lee Sin
+LeeSin
 Viktor
 KogMaw
 Braum
@@ -328,7 +328,7 @@ Janna
 teamB(TIP):
 
 Ryze
-Lee Sin
+LeeSin
 Lulu
 Ashe
 Leona

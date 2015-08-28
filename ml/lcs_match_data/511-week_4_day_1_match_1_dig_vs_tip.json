@@ -1,0 +1,19 @@
+{
+    "matchTier": "DIAMOND+", 
+    "winnerTeamA": true, 
+    "teamA": [
+        "Hecarim", 
+        "XinZhao", 
+        "TwistedFate", 
+        "Corki", 
+        "Alistar"
+    ], 
+    "teamB": [
+        "Ekko", 
+        "RekSai", 
+        "Varus", 
+        "Graves", 
+        "Janna"
+    ], 
+    "patch": "5.11"
+}

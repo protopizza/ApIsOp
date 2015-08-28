@@ -1,0 +1,19 @@
+{
+    "matchTier": "DIAMOND+", 
+    "winnerTeamA": false, 
+    "teamA": [
+        "Shen", 
+        "Elise", 
+        "Urgot", 
+        "Tristana", 
+        "Braum"
+    ], 
+    "teamB": [
+        "Olaf", 
+        "Nidalee", 
+        "Orianna", 
+        "Corki", 
+        "Thresh"
+    ], 
+    "patch": "5.14"
+}
