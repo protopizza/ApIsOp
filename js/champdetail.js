@@ -75,7 +75,8 @@ function fillChampDetails(sel, patch, rank, type){
 
         if(champsA.indexOf(champKey) > -1){
             totalMatchCountA += matchesCounted;
-        }else if(champsB.indexOf(champKey) > -1){
+        }
+        if(champsB.indexOf(champKey) > -1){
             totalMatchCountB += matchesCounted;
         }
 
@@ -159,7 +160,8 @@ function calculateAggregate(){
                 dmg: +weightedDmg,
                 win: +weightedWin
             })
-        }else if(champsB.indexOf(o.key) > -1){
+        }
+        if(champsB.indexOf(o.key) > -1){
             total = totalMatchCountB;
             getWeightedValues();
             summaryAryB.push({
