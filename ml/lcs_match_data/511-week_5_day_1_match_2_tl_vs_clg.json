@@ -2,18 +2,18 @@
     "matchTier": "DIAMOND+", 
     "winnerTeamA": true, 
     "teamA": [
-        "Sion", 
-        "Ekko", 
-        "Azir", 
-        "Sivir", 
-        "Annie"
+        1, 
+        14, 
+        15, 
+        245, 
+        268
     ], 
     "teamB": [
-        "Gnar", 
-        "Evelynn", 
-        "TwistedFate", 
-        "Ashe", 
-        "Bard"
+        4, 
+        22, 
+        28, 
+        150, 
+        432
     ], 
     "patch": "5.11"
 }

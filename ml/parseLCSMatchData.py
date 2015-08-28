@@ -6,6 +6,11 @@ file_514 = "LCS_Matches_514.txt"
 output_dir = "lcs_match_data"
 output_file = "{patch}-{game}.json"
 
+champion_static_data = "../data/static/champions.json"
+CHAMPION_TABLE = {}
+
+with open(champion_static_data, 'r') as fp:
+    CHAMPION_TABLE = json.load(fp)
 
 with open(file_511, 'r') as fp:
     current_match = {}
@@ -34,10 +39,12 @@ with open(file_511, 'r') as fp:
             else:
                 if "team" in line:
                     continue
-                champList.append(line.replace("\n",""))
+                champList.append(CHAMPION_TABLE["data"][line.replace("\n","")]["id"])
                 if len(champList) >= 10:
                     teamA = champList[:5]
                     teamB = champList[5:]
+                    teamA.sort()
+                    teamB.sort()
                     champList = []
                     current_match["teamA"] = teamA
                     current_match["teamB"] = teamB
@@ -57,6 +64,7 @@ with open(file_514, 'r') as fp:
     gameName = ""
     name_base = ""
     name_match = ""
+    name_teams = ""
     patch = "5.14"
     winner = 0
     champList = []
@@ -71,11 +79,11 @@ with open(file_514, 'r') as fp:
             if "final" in line.lower():
                 splitline = line.split(":")
                 name_base = splitline[0].strip().lower().replace(" ","_")
-                name_base += "_" + splitline[1].strip().lower().replace(" ","_")
+                name_teams = splitline[1].strip().lower().replace(" ","_")
             elif "third place" in line.lower():
                 splitline = line.split(":")
                 name_base = splitline[0].strip().lower().replace(" ","_")
-                name_base += "_" + splitline[1].strip().lower().replace(" ","_")
+                name_teams = splitline[1].strip().lower().replace(" ","_")
             elif "Match" in line:
                 splitline = line.split(":")
                 winner = splitline[1]
@@ -83,10 +91,12 @@ with open(file_514, 'r') as fp:
             else:
                 if "team" in line:
                     continue
-                champList.append(line.replace("\n",""))
+                champList.append(CHAMPION_TABLE["data"][line.replace("\n","")]["id"])
                 if len(champList) >= 10:
                     teamA = champList[:5]
                     teamB = champList[5:]
+                    teamA.sort()
+                    teamB.sort()
                     champList = []
                     current_match["teamA"] = teamA
                     current_match["teamB"] = teamB
@@ -96,7 +106,7 @@ with open(file_514, 'r') as fp:
                         current_match["winnerTeamA"] = False
                     current_match["patch"] = patch
                     current_match["matchTier"] = "DIAMOND+"
-                    full_match_name = name_base.replace("\n", "") + "_" + name_match
+                    full_match_name = name_base.replace("\n", "") + "_" + name_match + "_" + name_teams
                     with open(output_dir + '/' + output_file.format(patch=patch.replace(".",""), game=full_match_name), 'w') as outfile:
                         json.dump(current_match, outfile, indent=4)
 

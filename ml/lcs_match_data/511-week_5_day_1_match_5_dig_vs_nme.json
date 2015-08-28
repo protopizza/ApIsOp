@@ -2,18 +2,18 @@
     "matchTier": "DIAMOND+", 
     "winnerTeamA": true, 
     "teamA": [
-        "Hecarim", 
-        "RekSai", 
-        "Azir", 
-        "Sivir", 
-        "Nautilus"
+        15, 
+        111, 
+        120, 
+        268, 
+        421
     ], 
     "teamB": [
-        "Rumble", 
-        "Sejuani", 
-        "Jayce", 
-        "Jinx", 
-        "Annie"
+        1, 
+        68, 
+        113, 
+        126, 
+        222
     ], 
     "patch": "5.11"
 }

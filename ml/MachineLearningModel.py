@@ -137,6 +137,7 @@ class MachineLearningModel(object):
     def predict(self, data):
         predict_X = []
 
+        current_list = []
         current_list.append(ModelGlobals.TIERS[data["matchTier"]])
         current_list.append(ModelGlobals.PATCHES[data["patch"]])
 
@@ -151,5 +152,18 @@ class MachineLearningModel(object):
             current_list[self._findChampIndex("teamB", champion, offset)] = 1
 
         predict_X.append(current_list)
+        predict_Y = -1
+        if "winnerTeamA" in data:
+            if data["winnerTeamA"]:
+                predict_Y = 0
+            else:
+                predict_Y = 1
 
-        return self.clf.predict(X[-data])[0], self.clf.decision_function(X[-data])
+        if predict_Y == -1:
+            return "Prediction: {}, Confidence: {}".format(self.clf.predict(predict_X)[0], self.clf.decision_function(predict_X)[0])
+        else:
+            return "Prediction: {}, Expected: {}, {}, Confidence: {}".format(
+                self.clf.predict(predict_X)[0],
+                predict_Y,
+                "Y" if self.clf.predict(predict_X)[0] == predict_Y else "N",
+                self.clf.decision_function(predict_X)[0])

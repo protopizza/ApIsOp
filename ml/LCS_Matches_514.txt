@@ -92,7 +92,7 @@ Sivir
 Braum
 
 ========
-Match 2: teamB win
+Match 2: teamA win
 
 =====
 teamA(GV):

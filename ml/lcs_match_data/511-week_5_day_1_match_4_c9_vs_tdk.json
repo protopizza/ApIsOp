@@ -2,18 +2,18 @@
     "matchTier": "DIAMOND+", 
     "winnerTeamA": true, 
     "teamA": [
-        "Fizz", 
-        "RekSai", 
-        "Viktor", 
-        "Ashe", 
-        "Annie"
+        1, 
+        22, 
+        105, 
+        112, 
+        421
     ], 
     "teamB": [
-        "Gnar", 
-        "Ekko", 
-        "Azir", 
-        "Sivir", 
-        "Thresh"
+        15, 
+        150, 
+        245, 
+        268, 
+        412
     ], 
     "patch": "5.11"
 }

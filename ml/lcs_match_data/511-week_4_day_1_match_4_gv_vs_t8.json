@@ -2,18 +2,18 @@
     "matchTier": "DIAMOND+", 
     "winnerTeamA": true, 
     "teamA": [
-        "Ekko", 
-        "RekSai", 
-        "Urgot", 
-        "Vayne", 
-        "Thresh"
+        6, 
+        67, 
+        245, 
+        412, 
+        421
     ], 
     "teamB": [
-        "Hecarim", 
-        "Gragas", 
-        "Viktor", 
-        "Sivir", 
-        "Nautilus"
+        15, 
+        79, 
+        111, 
+        112, 
+        120
     ], 
     "patch": "5.11"
 }

@@ -2,18 +2,18 @@
     "matchTier": "DIAMOND+", 
     "winnerTeamA": true, 
     "teamA": [
-        "Shen", 
-        "RekSai", 
-        "Vladimir", 
-        "Kalista", 
-        "Morgana"
+        8, 
+        25, 
+        98, 
+        421, 
+        429
     ], 
     "teamB": [
-        "Nautilus", 
-        "Olaf", 
-        "Varus", 
-        "Sivir", 
-        "Annie"
+        1, 
+        2, 
+        15, 
+        110, 
+        111
     ], 
     "patch": "5.11"
 }

@@ -1,0 +1,19 @@
+{
+    "matchTier": "DIAMOND+", 
+    "winnerTeamA": true, 
+    "teamA": [
+        2, 
+        76, 
+        117, 
+        222, 
+        412
+    ], 
+    "teamB": [
+        12, 
+        22, 
+        57, 
+        60, 
+        61
+    ], 
+    "patch": "5.14"
+}

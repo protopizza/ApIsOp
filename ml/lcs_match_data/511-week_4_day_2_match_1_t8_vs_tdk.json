@@ -2,18 +2,18 @@
     "matchTier": "DIAMOND+", 
     "winnerTeamA": true, 
     "teamA": [
-        "Rumble", 
-        "Gragas", 
-        "Varus", 
-        "Kalista", 
-        "Thresh"
+        68, 
+        79, 
+        110, 
+        412, 
+        429
     ], 
     "teamB": [
-        "Irelia", 
-        "Evelynn", 
-        "Azir", 
-        "Corki", 
-        "Alistar"
+        12, 
+        28, 
+        39, 
+        42, 
+        268
     ], 
     "patch": "5.11"
 }
