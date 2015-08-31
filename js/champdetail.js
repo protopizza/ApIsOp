@@ -212,9 +212,9 @@ function calculateAggregate(){
     aggregateSummaryB.gold = parseFloat(aggregateGold).toFixed(2);
     aggregateSummaryB.dmg = parseFloat(aggregateDmg/1000).toFixed(2) + 'k';
     aggregateSummaryB.win = parseFloat(aggregateWin).toFixed(2);
-    console.log('summary:', summaryAry);
-    console.log('aggregate A:', aggregateSummaryA);
-    console.log('aggregate B:', aggregateSummaryB);
+    // console.log('summary:', summaryAry);
+    // console.log('aggregate A:', aggregateSummaryA);
+    // console.log('aggregate B:', aggregateSummaryB);
 }
 
 // add team comp averages to bottom of matchup
@@ -272,8 +272,11 @@ function addItemDetails(commonItems, champKey, patch){
         $('.ui.segments').find('.'+champKey).each(function(i){
             var $items = $(this).find('.top-items');
             var $item = $items.find('#item-template').clone().attr('id', 'item'+patch+'-'+itemObj.id);
-                $item.appendTo($items).css('display', 'inline-block');
-                // $item.find('img').attr('src', 'assets/items/'+ patch + '/' + itemObj.id + '.jpg');
+                $item.appendTo($items).css('display', 'inline-block').addClass('not-ap-item').removeClass('ap-item');
+                if(ITEM_KEYS.indexOf(parseInt(itemObj.id)) > -1){
+                    $item.addClass('ap-item');
+                    $item.removeClass('not-ap-item');
+                }
 
                 // hover handler:
                 // check jungle item
@@ -281,6 +284,9 @@ function addItemDetails(commonItems, champKey, patch){
                     itemObj.name = currJungle[id].full_name;
                 }
                 $item.find('.item-name').html('<b>' + itemObj.name + '</b>');
+                if(ITEM_KEYS.indexOf(parseInt(itemObj.id)) > -1){
+                    $item.find('.item-name').html('<b>' + itemObj.name + ' (Patched AP Item)</b>');
+                }
                 $item.find('.item-time').text('Average purchase time: ' + time);
                 $item.find('.item-percent').text(buyPercentage + '% bought');
                 $item.find('.filler').popup({
