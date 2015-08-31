@@ -285,7 +285,7 @@ function addItemDetails(commonItems, champKey, patch){
                 }
                 $item.find('.item-name').html('<b>' + itemObj.name + '</b>');
                 if(ITEM_KEYS.indexOf(parseInt(itemObj.id)) > -1){
-                    $item.find('.item-name').html('<b>' + itemObj.name + ' (Patched AP Item)</b>');
+                    $item.find('.item-name').html('<b>' + itemObj.name + ' (Changed AP Item)</b>');
                 }
                 $item.find('.item-time').text('Average purchase time: ' + time);
                 $item.find('.item-percent').text(buyPercentage + '% bought');
