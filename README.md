@@ -1,5 +1,5 @@
-# AP is OP - Entry for The Riot Games API Challenge 2.0
-*****
+# AP is OP
+###### Entry for The Riot Games API Challenge 2.0
 Live: http://protopizza.github.io/ApIsOp/
 
 by Kevin C. Liu (protopizza), So Choi (sos0)
