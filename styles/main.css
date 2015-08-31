@@ -115,3 +115,7 @@
     color: #777;
     text-align: center;
 }
+
+.winning{
+    border: 10px solid rgba(60,230,100,0.2);
+}

@@ -47,9 +47,281 @@
     </div>
     <div class="ui padded segment">
       <h3 class="ui horizontal divider header">Matchups and Results</h3>
-      <p>
-      It would be nice for this section to be a little more visual.
-      </p>
+      <p>In terms of the machine, if it predicts a team will win, it believes that this team has the superior team comp with the relevant patch data.</p>
+      <p>Many times our match predictor correctly predicted 3-0 stomps in finals (CLG vs TSM, TIP vs DIG). However, it incorrectly predicted on a few matches that became turning points in series, showing that a team's ability to synergize and play from behind is a huge factor in which team will win the game. This data mostly represents the value of particular team comp matches within 5.11 and 5.14 data and doesn't regard the individual abilities of players to overcome their mistakes or disadvantages and win.</p>
+      <p>Overall prediction rate was 61%. We had a very high correct prediction rate for 5.14 (playoff matches) at 75%, but only about 45% for 5.11. However our sample size is not that great.</p>
+      <h3 class="ui horizontal divider header">Selections from 5.11</h3>
+      <div class="ui container">
+        <div class="ui raised segment" id="w4-d1-511">
+          <div class="ui red ribbon large label">Week 4, Day 1, Match 3: TL vs TSM
+          <br>(TL Win Wrongly Predicted)</div>
+          <p></p>
+          <div class="ui two column middle aligned compact grid" style="position:relative">
+            <div class="left aligned column">
+              <h4 class="ui header">
+                <a href="http://na.lolesports.com/na-lcs/2015/summer/teams/team-liquid">Team Liquid</a>
+                <div class="sub header">Quas · IWDominate · FeniX · Piglet · Xpecial</div>
+              </h4>
+              <div class="ui mini images">
+                <img class="ui image" src="assets/champs/Rumble.png">
+                <img class="ui image" src="assets/champs/Sejuani.png">
+                <img class="ui image" src="assets/champs/Jayce.png">
+                <img class="ui image" src="assets/champs/Kalista.png">
+                <img class="ui image" src="assets/champs/Annie.png">
+              </div>
+            </div>
+            <div class="ui vertical divider">vs</div>
+            <div class="right aligned winning column">
+              <h4 class="ui header">
+                <a href="http://na.lolesports.com/na-lcs/2015/summer/teams/team-solomid">Team SoloMid</a>
+                <div class="sub header" style="font-size:0.9rem;">Dyrus · Santorin · Bjergsen · WildTurtle · Lustboy</div>
+              </h4>
+              <div class="ui mini images">
+                <img class="ui image" src="assets/champs/Gnar.png">
+                <img class="ui image" src="assets/champs/RekSai.png">
+                <img class="ui image" src="assets/champs/Azir.png">
+                <img class="ui image" src="assets/champs/Corki.png">
+                <img class="ui image" src="assets/champs/Alistar.png">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ui raised segment" id="w4-d2-511">
+          <div class="ui red ribbon large label">Week 4, Day 2, Match 3: CLG vs C9 <br>(C9 Win Wrongly Predicted)</div>
+          <p></p>
+          <div class="ui two column middle aligned compact grid" style="position:relative">
+            <div class="left aligned winning column">
+              <h4 class="ui header">
+                <a href="http://na.lolesports.com/na-lcs/2015/summer/teams/counter-logic-gaming">Counter Logic Gaming</a>
+                <div class="sub header" style="font-size:0.8rem;">ZionSpartan · Xmithie · Pobelter · Doublelift · Aphromoo</div>
+              </h4>
+              <div class="ui mini images">
+                <img class="ui image" src="assets/champs/Gnar.png">
+                <img class="ui image" src="assets/champs/RekSai.png">
+                <img class="ui image" src="assets/champs/KogMaw.png">
+                <img class="ui image" src="assets/champs/Ashe.png">
+                <img class="ui image" src="assets/champs/Alistar.png">
+              </div>
+            </div>
+            <div class="ui vertical divider">vs</div>
+            <div class="right aligned column">
+              <h4 class="ui header">
+                <a href="http://na.lolesports.com/na-lcs/2015/summer/teams/cloud9">Cloud9</a>
+                <div class="sub header" style="font-size:0.9rem">Balls · Meteos · Incarnati0n · Sneaky · LemonNation</div>
+              </h4>
+              <div class="ui mini images">
+                <img class="ui image" src="assets/champs/Fizz.png">
+                <img class="ui image" src="assets/champs/Ekko.png">
+                <img class="ui image" src="assets/champs/Azir.png">
+                <img class="ui image" src="assets/champs/Sivir.png">
+                <img class="ui image" src="assets/champs/Nautilus.png">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ui raised segment" id="w5-d1-511">
+          <div class="ui green ribbon large label">Week 5, Day 1, Match 2: TL vs CLG <br>(TL Win Correctly Predicted)</div>
+          <p></p>
+          <div class="ui two column middle aligned compact grid" style="position:relative">
+            <div class="left aligned winning column">
+              <h4 class="ui header">
+                <a href="http://na.lolesports.com/na-lcs/2015/summer/teams/team-liquid">Team Liquid</a>
+                <div class="sub header">Quas · IWDominate · FeniX · Piglet · Xpecial</div>
+              </h4>
+              <div class="ui mini images">
+                <img class="ui image" src="assets/champs/Sion.png">
+                <img class="ui image" src="assets/champs/Ekko.png">
+                <img class="ui image" src="assets/champs/Azir.png">
+                <img class="ui image" src="assets/champs/Sivir.png">
+                <img class="ui image" src="assets/champs/Annie.png">
+              </div>
+            </div>
+            <div class="ui vertical divider">vs</div>
+            <div class="right aligned column">
+              <h4 class="ui header">
+                <a href="http://na.lolesports.com/na-lcs/2015/summer/teams/counter-logic-gaming">Counter Logic Gaming</a>
+                <div class="sub header" style="font-size:0.8rem;">ZionSpartan · Xmithie · Pobelter · Doublelift · Aphromoo</div>
+              </h4>
+              <div class="ui mini images">
+                <img class="ui image" src="assets/champs/Gnar.png">
+                <img class="ui image" src="assets/champs/Evelynn.png">
+                <img class="ui image" src="assets/champs/TwistedFate.png">
+                <img class="ui image" src="assets/champs/Ashe.png">
+                <img class="ui image" src="assets/champs/Bard.png">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ui raised segment" id="w5-d2-514">
+          <div class="ui red ribbon large label">Week 5, Day 2, Match 2: TIP vs C9 <br>(C9 Win Wrongly Predicted)</div>
+          <p></p>
+          <div class="ui two column middle aligned compact grid" style="position:relative">
+            <div class="left aligned winning column">
+              <h4 class="ui header">
+                <a href="http://na.lolesports.com/na-lcs/2015/summer/teams/team-impulse">Team Impulse</a>
+                <div class="sub header">Impact · Rush · Gate · Apollo · Adrian</div>
+              </h4>
+              <div class="ui mini images">
+                <img class="ui image" src="assets/champs/Maokai.png">
+                <img class="ui image" src="assets/champs/LeeSin.png">
+                <img class="ui image" src="assets/champs/Orianna.png">
+                <img class="ui image" src="assets/champs/Sivir.png">
+                <img class="ui image" src="assets/champs/Alistar.png">
+              </div>
+            </div>
+            <div class="ui vertical divider">vs</div>
+            <div class="right aligned column">
+              <h4 class="ui header">
+                <a href="http://na.lolesports.com/na-lcs/2015/summer/teams/cloud9">Cloud9</a>
+                <div class="sub header" style="font-size:0.9rem">Balls · Meteos · Incarnati0n · Sneaky · LemonNation</div>
+              </h4>
+              <div class="ui mini images">
+                <img class="ui image" src="assets/champs/Rumble.png">
+                <img class="ui image" src="assets/champs/Nocturne.png">
+                <img class="ui image" src="assets/champs/Viktor.png">
+                <img class="ui image" src="assets/champs/Jinx.png">
+                <img class="ui image" src="assets/champs/Annie.png">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="clear:both;height:20px;width:100%"></div>
+      <h3 class="ui horizontal divider header">Selections from 5.14</h3>
+      <div class="ui container">
+        <div class="ui raised segment" id="third-place-514">
+          <div class="ui red ribbon large label">Third Place Match 4: TL vs TIP <br>(TL Win Wrongly Predicted)</div>
+          <p></p>
+          <div class="ui two column middle aligned compact grid" style="position:relative">
+            <div class="left aligned column">
+              <h4 class="ui header">
+                <a href="http://na.lolesports.com/na-lcs/2015/summer/teams/team-liquid">Team Liquid</a>
+                <div class="sub header">Quas · IWDominate · FeniX · Piglet · Xpecial</div>
+              </h4>
+              <div class="ui mini images">
+                <img class="ui image" src="assets/champs/Sion.png">
+                <img class="ui image" src="assets/champs/Gragas.png">
+                <img class="ui image" src="assets/champs/Orianna.png">
+                <img class="ui image" src="assets/champs/Vayne.png">
+                <img class="ui image" src="assets/champs/Alistar.png">
+              </div>
+            </div>
+            <div class="ui vertical divider">vs</div>
+            <div class="right aligned winning column">
+              <h4 class="ui header">
+                <a href="http://na.lolesports.com/na-lcs/2015/summer/teams/team-impulse">Team Impulse</a>
+                <div class="sub header">Impact · Rush · Gate · Apollo · Adrian</div>
+              </h4>
+              <div class="ui mini images">
+                <img class="ui image" src="assets/champs/Malphite.png">
+                <img class="ui image" src="assets/champs/Elise.png">
+                <img class="ui image" src="assets/champs/Lulu.png">
+                <img class="ui image" src="assets/champs/KogMaw.png">
+                <img class="ui image" src="assets/champs/Janna.png">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ui raised segment" id="quarterfinals-514">
+          <div class="ui green ribbon large label">Quarterfinals Match 3: TIP vs DIG <br>(TIP Win Correctly Predicted)</div>
+          <p></p>
+          <div class="ui two column middle aligned compact grid" style="position:relative">
+            <div class="left aligned winning column">
+              <h4 class="ui header">
+                <a href="http://na.lolesports.com/na-lcs/2015/summer/teams/team-impulse">Team Impulse</a>
+                <div class="sub header">Impact · Rush · Gate · Apollo · Adrian</div>
+              </h4>
+              <div class="ui mini images">
+                <img class="ui image" src="assets/champs/Shen.png">
+                <img class="ui image" src="assets/champs/Elise.png">
+                <img class="ui image" src="assets/champs/Azir.png">
+                <img class="ui image" src="assets/champs/Tristana.png">
+                <img class="ui image" src="assets/champs/Alistar.png">
+              </div>
+            </div>
+            <div class="ui vertical divider">vs</div>
+            <div class="right aligned column">
+              <h4 class="ui header">
+                <a href="http://na.lolesports.com/na-lcs/2015/summer/teams/team-dignitas">Team Dignitas</a>
+                <div class="sub header">Gamsu · Helios · Shiphtur · CoreJJ · KiWiKiD</div>
+              </h4>
+              <div class="ui mini images">
+                <img class="ui image" src="assets/champs/Gangplank.png">
+                <img class="ui image" src="assets/champs/RekSai.png">
+                <img class="ui image" src="assets/champs/KogMaw.png">
+                <img class="ui image" src="assets/champs/Corki.png">
+                <img class="ui image" src="assets/champs/Thresh.png">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ui raised segment" id="semifinals-514">
+          <div class="ui green ribbon large label">Semifinal Match 4: TSM vs TL <br>(TSM Win Correctly Predicted)</div>
+          <p></p>
+          <div class="ui two column middle aligned compact grid" style="position:relative">
+            <div class="left aligned winning column">
+              <h4 class="ui header">
+                <a href="http://na.lolesports.com/na-lcs/2015/summer/teams/team-solomid">Team SoloMid</a>
+                <div class="sub header" style="font-size:0.9rem;">Dyrus · Santorin · Bjergsen · WildTurtle · Lustboy</div>
+              </h4>
+              <div class="ui mini images">
+                <img class="ui image" src="assets/champs/Gnar.png">
+                <img class="ui image" src="assets/champs/Ekko.png">
+                <img class="ui image" src="assets/champs/Lulu.png">
+                <img class="ui image" src="assets/champs/Jinx.png">
+                <img class="ui image" src="assets/champs/Thresh.png">
+              </div>
+            </div>
+            <div class="ui vertical divider">vs</div>
+            <div class="right aligned column">
+              <h4 class="ui header">
+                <a href="http://na.lolesports.com/na-lcs/2015/summer/teams/team-liquid">Team Liquid</a>
+                <div class="sub header">Quas · IWDominate · FeniX · Piglet · Xpecial</div>
+              </h4>
+              <div class="ui mini images">
+                <img class="ui image" src="assets/champs/Nautilus.png">
+                <img class="ui image" src="assets/champs/Gragas.png">
+                <img class="ui image" src="assets/champs/Viktor.png">
+                <img class="ui image" src="assets/champs/Twitch.png">
+                <img class="ui image" src="assets/champs/Braum.png">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ui raised segment" id="final-514">
+          <div class="ui green ribbon large label">Final Match 3: CLG vs TSM <br>(CLG Win Correctly Predicted)</div>
+          <p></p>
+          <div class="ui two column middle aligned compact grid" style="position:relative">
+            <div class="left aligned winning column">
+              <h4 class="ui header">
+                <a href="http://na.lolesports.com/na-lcs/2015/summer/teams/counter-logic-gaming">Counter Logic Gaming</a>
+                <div class="sub header" style="font-size:0.8rem;">ZionSpartan · Xmithie · Pobelter · Doublelift · Aphromoo</div>
+              </h4>
+              <div class="ui mini images">
+                <img class="ui image" src="assets/champs/Gnar.png">
+                <img class="ui image" src="assets/champs/Ekko.png">
+                <img class="ui image" src="assets/champs/Viktor.png">
+                <img class="ui image" src="assets/champs/Ashe.png">
+                <img class="ui image" src="assets/champs/Braum.png">
+              </div>
+            </div>
+            <div class="ui vertical divider">vs</div>
+            <div class="right aligned column">
+              <h4 class="ui header">
+                <a href="http://na.lolesports.com/na-lcs/2015/summer/teams/team-solomid">Team SoloMid</a>
+                <div class="sub header" style="font-size:0.9rem;">Dyrus · Santorin · Bjergsen · WildTurtle · Lustboy</div>
+              </h4>
+              <div class="ui mini images">
+                <img class="ui image" src="assets/champs/Nautilus.png">
+                <img class="ui image" src="assets/champs/Gragas.png">
+                <img class="ui image" src="assets/champs/Yasuo.png">
+                <img class="ui image" src="assets/champs/KogMaw.png">
+                <img class="ui image" src="assets/champs/Janna.png">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="footer">
@@ -61,8 +333,5 @@
   <script src="bower_components/d3/d3.js"></script>
   <script src="bower_components/semantic-ui/dist/semantic.min.js"></script>
   <script src="bower_components/moment/min/moment.min.js"></script>
-  <script src="js/globals-items.js"></script>
-  <script src="js/item-visualization.js"></script>
-  <script src="js/main-items.js"></script>
 </body>
 </html>
