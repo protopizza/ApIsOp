@@ -2,7 +2,7 @@
 ###### Entry for The Riot Games API Challenge 2.0
 Live: http://protopizza.github.io/ApIsOp/
 
-by Kevin C. Liu (protopizza), So Choi (sos0)
+by Kevin Liu (protopizza), So Choi (sos0)
 
 
 As two avid League of Legends players, finding out that AP itemization was being reworked was a bit of a surprise. Would our favorite AP mage champions still be strong? How would these changes affect the champion spectrum? With these questions in mind, we set out to analyze and display the data handed to us with a single hope in mind: that AP is OP.
@@ -13,5 +13,4 @@ Our methodologies and interesting findings for all sections mentioned above can 
 
 Additional Info:
 *   Front-end libraries/frameworks: d3.js, jQuery, Semantic-UI, and moment.js
-*   Database: SQL
-*   Machine Learning: scikit-learn
+*   Python + libraries used: requests, scikit-learn, numpy, scipy
