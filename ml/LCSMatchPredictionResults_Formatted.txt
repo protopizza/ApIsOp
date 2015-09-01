@@ -1,0 +1,138 @@
+Legend:
+
+teamA = blue side
+teamB = purple side
+
+0 = teamA win
+1 = teamB win
+
+Y = prediction correct
+N = prediction wrong
+
+Results:
+
+Match[511-week_4_day_1_match_1_dig_vs_tip.json]:
+Results[Prediction: 0, Expected: 0, Y, Confidence: -0.723541272335]
+
+Match[511-week_4_day_1_match_2_tdk_vs_clg.json]:
+Results[Prediction: 0, Expected: 1, N, Confidence: -0.587261148677]
+
+Match[511-week_4_day_1_match_3_tl_vs_tsm.json]:
+Results[Prediction: 0, Expected: 1, N, Confidence: -1.54195631387]
+
+Match[511-week_4_day_1_match_4_gv_vs_t8.json]:
+Results[Prediction: 1, Expected: 0, N, Confidence: 0.204036476564]
+
+Match[511-week_4_day_1_match_5_nme_vs_c9.json]:
+Results[Prediction: 0, Expected: 0, Y, Confidence: -0.997061415279]
+
+Match[511-week_4_day_2_match_1_t8_vs_tdk.json]:
+Results[Prediction: 0, Expected: 0, Y, Confidence: -0.90886947054]
+
+Match[511-week_4_day_2_match_2_gv_vs_tsm.json]:
+Results[Prediction: 0, Expected: 1, N, Confidence: -0.995875022335]
+
+Match[511-week_4_day_2_match_3_clg_vs_c9.json]:
+Results[Prediction: 1, Expected: 0, N, Confidence: 0.488849819676]
+
+Match[511-week_4_day_2_match_4_nme_vs_tip.json]:
+Results[Prediction: 1, Expected: 1, Y, Confidence: 0.0478887633514]
+
+Match[511-week_4_day_2_match_5_tl_vs_dig.json]:
+Results[Prediction: 0, Expected: 1, N, Confidence: -0.898286321682]
+
+Match[511-week_5_day_1_match_1_tip_vs_gv.json]:
+Results[Prediction: 1, Expected: 1, Y, Confidence: 0.819463293566]
+
+Match[511-week_5_day_1_match_2_tl_vs_clg.json]:
+Results[Prediction: 0, Expected: 0, Y, Confidence: -1.01707595859]
+
+Match[511-week_5_day_1_match_3_tsm_vs_t8.json]:
+Results[Prediction: 1, Expected: 0, N, Confidence: 0.119918720134]
+
+Match[511-week_5_day_1_match_4_c9_vs_tdk.json]:
+Results[Prediction: 0, Expected: 0, Y, Confidence: -1.04543302134]
+
+Match[511-week_5_day_1_match_5_dig_vs_nme.json]:
+Results[Prediction: 1, Expected: 0, N, Confidence: 0.540889982476]
+
+Match[511-week_5_day_2_match_1_gv_vs_tl.json]:
+Results[Prediction: 0, Expected: 0, Y, Confidence: -1.55808636181]
+
+Match[511-week_5_day_2_match_2_tip_vs_c9.json]:
+Results[Prediction: 1, Expected: 0, N, Confidence: 0.516003671343]
+
+Match[511-week_5_day_2_match_3_tsm_vs_clg.json]:
+Results[Prediction: 1, Expected: 0, N, Confidence: 0.622537737891]
+
+Match[511-week_5_day_2_match_4_tdk_vs_dig.json]:
+Results[Prediction: 0, Expected: 0, Y, Confidence: -1.46442654289]
+
+Match[511-week_5_day_2_match_5_t8_vs_nme.json]:
+Results[Prediction: 1, Expected: 0, N, Confidence: 0.0866229968641]
+
+Match[514-finals_match_1_clg_vs_tsm.json]:
+Results[Prediction: 0, Expected: 0, Y, Confidence: -0.956963592253]
+
+Match[514-finals_match_2_clg_vs_tsm.json]:
+Results[Prediction: 1, Expected: 1, Y, Confidence: 0.220510044002]
+
+Match[514-finals_match_3_clg_vs_tsm.json]:
+Results[Prediction: 0, Expected: 0, Y, Confidence: -0.0227225248248]
+
+Match[514-quarterfinal_1_match_1_tip_vs_dig.json]:
+Results[Prediction: 0, Expected: 0, Y, Confidence: -0.789253767442]
+
+Match[514-quarterfinal_1_match_2_tip_vs_dig.json]:
+Results[Prediction: 1, Expected: 1, Y, Confidence: 1.20995401826]
+
+Match[514-quarterfinal_1_match_3_tip_vs_dig.json]:
+Results[Prediction: 0, Expected: 0, Y, Confidence: -0.254611898226]
+
+Match[514-quarterfinal_2_match_1_gv_vs_tsm.json]:
+Results[Prediction: 1, Expected: 1, Y, Confidence: 0.105894958193]
+
+Match[514-quarterfinal_2_match_2_gv_vs_tsm.json]:
+Results[Prediction: 0, Expected: 0, Y, Confidence: -0.89365970193]
+
+Match[514-quarterfinal_2_match_3_gv_vs_tsm.json]:
+Results[Prediction: 0, Expected: 0, Y, Confidence: -0.157114918805]
+
+Match[514-quarterfinal_2_match_4_gv_vs_tsm.json]:
+Results[Prediction: 0, Expected: 1, N, Confidence: -0.178068964184]
+
+Match[514-semifinal_1_match_1_clg_vs_tip.json]:
+Results[Prediction: 0, Expected: 0, Y, Confidence: -0.0317950359866]
+
+Match[514-semifinal_1_match_2_clg_vs_tip.json]:
+Results[Prediction: 0, Expected: 1, N, Confidence: -0.581158645364]
+
+Match[514-semifinal_1_match_3_clg_vs_tip.json]:
+Results[Prediction: 0, Expected: 0, Y, Confidence: -0.0924460522294]
+
+Match[514-semifinal_2_match_1_tl_vs_tsm.json]:
+Results[Prediction: 0, Expected: 1, N, Confidence: -0.205100812425]
+
+Match[514-semifinal_2_match_2_tl_vs_tsm.json]:
+Results[Prediction: 1, Expected: 0, N, Confidence: 0.439278707104]
+
+Match[514-semifinal_2_match_3_tl_vs_tsm.json]:
+Results[Prediction: 0, Expected: 0, Y, Confidence: -0.0556060892789]
+
+Match[514-semifinal_2_match_4_tl_vs_tsm.json]:
+Results[Prediction: 0, Expected: 0, Y, Confidence: -0.499607501835]
+
+Match[514-third_place_match_1_tl_vs_tip.json]:
+Results[Prediction: 0, Expected: 0, Y, Confidence: -1.00965611264]
+
+Match[514-third_place_match_2_tl_vs_tip.json]:
+Results[Prediction: 0, Expected: 0, Y, Confidence: -0.227054387262]
+
+Match[514-third_place_match_3_tl_vs_tip.json]:
+Results[Prediction: 0, Expected: 0, Y, Confidence: -0.128962499759]
+
+Match[514-third_place_match_4_tl_vs_tip.json]:
+Results[Prediction: 0, Expected: 1, N, Confidence: -0.839597036622]
+
+
+Note: The Confidence represents the signed distance from the prediction sample to the hyperplane. (Thus a negative value indicates a 0 prediction and a positive value indicates a 1 prediction. The further away from 0, the higher the confidence.)
