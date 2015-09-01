@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>AP is OP</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" type="text/css" href="styles/main.css">
   <link rel="stylesheet" type="text/css" href="styles/visualization.css">
@@ -42,15 +42,18 @@
       Our <a href="http://github.com/protopizza/ApIsOp/tree/master/ml"><b>ApIsOp/ml</b></a> directory contains all of the work for this experiment. Inside, <a href="http://github.com/protopizza/ApIsOp/blob/master/ml/MatchPredictor.py"><b>MatchPredictor.py</b></a> is our main program which utilizes <a href="http://github.com/protopizza/ApIsOp/blob/master/ml/DataLoader.py"><b>DataLoader.py</b></a> to read and format match data from the data set and <a href="http://github.com/protopizza/ApIsOp/blob/master/ml/MachineLearningModel.py"><b>MachineLearningModel.py</b></a> to actually train and test the machine. <a href="http://github.com/protopizza/ApIsOp/tree/master/ml/lcs_match_data"><b>ApIsOp/ml/lcs_match_data</b></a> contains all of the data we finally fed into our machine to predict the LCS matches, with the final results viewable down below.
       </p>
       <p>
-      Upon loading our data set back into our machine to try to predict, we achieved approximately a <b>56%</b> accuracy (<a href="https://raw.githubusercontent.com/protopizza/ApIsOp/master/ml/linear-test.txt"><b>test results here</b></a>). Out of the <b>41</b> NA LCS matches, we correctly predicted <b>25</b>, about <b>61%</b>. All of these matches were marked in the machine as the highest tier possible (<b>Diamond+</b>). Considering on how many differing factors can go into a single match other than simply champions chosen, these results surpassed our expectations.
+      Upon loading our data set back into our machine to try to predict, we achieved approximately a <b>56%</b> accuracy (<a href="http://raw.githubusercontent.com/protopizza/ApIsOp/master/ml/linear-test.txt"><b>test results here</b></a>). Out of the <b>41</b> NA LCS matches, we correctly predicted <b>25</b>, about <b>61%</b>. All of these matches were marked in the machine as the highest tier possible (<b>Diamond+</b>). Considering on how many differing factors can go into a single match other than simply champions chosen, these results surpassed our expectations.
       </p>
     </div>
     <div class="ui padded segment">
       <h3 class="ui horizontal divider header">Matchups and Results</h3>
       <p>In terms of the machine, if it predicts a team will win, it believes that this team has the superior team comp with the relevant patch data.</p>
-      <p>Many times our match predictor correctly predicted 3-0 stomps in finals (<b>CLG</b> vs <b>TSM</b>, <b>TIP</b> vs <b>DIG</b>). However, it incorrectly predicted on a few matches that became turning points in series, showing that a team's ability to synergize and play from behind is a huge factor in which team will win the game. This data mostly represents the value of particular team comp matches within <b>5.11</b> and <b>5.14</b> data and doesn't regard the individual abilities of players to overcome their mistakes or disadvantages and win.</p>
-      <p>Overall prediction rate was <b>61%</b>. We had a very high correct prediction rate for <b>5.14</b> (playoff matches) at <b>75%</b>, but only about <b>45%</b> for <b>5.11</b>. However our sample size is not that great.</p>
-      <p>Our full results (in raw format) for select LCS matches that used patches <b>5.11</b> and <b>5.14</b> can be seen <a href="https://github.com/protopizza/ApIsOp/blob/master/ml/LCSMatchPredictionResults.txt">here</a>.</p>
+      <p>Many times our match predictor correctly predicted 3-0 stomps in finals (<b>CLG</b> vs <b>TSM</b>, <b>TIP</b> vs <b>DIG</b>). However, it incorrectly predicted on a few matches that became turning points in series, showing that a team's ability to focus and play from behind is a huge factor in which team will win the game. This data purely represents the value of particular team comp matches within <b>5.11</b> and <b>5.14</b> data and doesn't regard ANY external factors, such as the individual abilities of players to overcome their mistakes or disadvantages and win.</p>
+      <p>Overall prediction rate was <b>61%</b>. We had a very high correct prediction rate for <b>5.14</b> (playoff matches) at <b>75%</b>, but only about <b>45%</b> for <b>5.11</b>. However our sample size is not that great.
+      </p>
+      <p>
+      Our full results (in a text file format) for all LCS matches that used patches <b>5.11</b> and <b>5.14</b> can be seen <a href="http://github.com/protopizza/ApIsOp/blob/master/ml/LCSMatchPredictionResults_Formatted.txt"><b>here</b></a>.
+      </p>
       <h3 class="ui horizontal divider header">Selections from 5.11</h3>
       <div class="ui container">
         <div class="ui raised segment" id="w4-d1-511">
